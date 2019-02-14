@@ -13,12 +13,7 @@ public class StudySpot {
      * Default constructor for StudySpot object
      */
     public StudySpot() {
-        noiseLevel = 0.0;
-        bathroomsNearby = 0.0;
-        foodNearby = 0.0;
-        outlets = 0.0;
-        seatingSpace = 0.0;
-        name = "";
+        this("");
     }
 
     /**
@@ -32,6 +27,19 @@ public class StudySpot {
         outlets = 0.0;
         seatingSpace = 0.0;
         this.name = name;
+    }
+    
+    /**
+     * Copy constructor for StudySpot object
+     * @param studySpotToCopy: StudySpot object to be copied
+     */
+    public StudySpot(StudySpot studySpotToCopy) {
+        this.noiseLevel = studySpotToCopy.noiseLevel;
+        this.bathroomsNearby = studySpotToCopy.bathroomsNearby;
+        this.foodNearby = studySpotToCopy.foodNearby;
+        this.outlets = studySpotToCopy.outlets;
+        this.seatingSpace = studySpotToCopy.seatingSpace;
+        this.name = studySpotToCopy.name;
     }
 
     /**
@@ -140,6 +148,13 @@ public class StudySpot {
         System.out.println(s.getBathroomsNearby());
         System.out.println(s.getOutlets());
         System.out.println(s.getSeatingSpace());
+        
+        StudySpot s2 = new StudySpot(s);
+        System.out.println(s2.getNoiseLevel());
+        System.out.println(s2.getFoodNearby());
+        System.out.println(s2.getBathroomsNearby());
+        System.out.println(s2.getOutlets());
+        System.out.println(s2.getSeatingSpace());
 
         s = new StudySpot("My study spot");
         System.out.println(s.getName());
