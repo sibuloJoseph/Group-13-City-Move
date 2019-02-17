@@ -21,11 +21,11 @@ public class StudySpot {
      * @param name: String containing the name of the study spot
      */
     public StudySpot(String name) {
-        noiseLevel = 0.0;
-        bathroomsNearby = 0.0;
-        foodNearby = 0.0;
-        outlets = 0.0;
-        seatingSpace = 0.0;
+        noiseLevel = 1.0;
+        bathroomsNearby = 1.0;
+        foodNearby = 1.0;
+        outlets = 1.0;
+        seatingSpace = 1.0;
         this.name = name;
     }
     
