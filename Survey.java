@@ -4,7 +4,7 @@ import java.util.Scanner;
  * This class gets the input of the user of their most preferred criteria for study spots at the University of Calgary.
  * This is done by asking the user a survey that contains 5 questions.
  *
- * Last modified: February 16th, 2019
+ * Last modified: February 17th, 2019
  */
 
 public class Survey {
@@ -14,11 +14,11 @@ public class Survey {
      * Default Constructor for Survey object
      */ 
     public Survey () {
-        this.noiseLevel = noiseLevel;
-        this.bathroomsNearby = bathroomsNearby;
-        this.foodNearby = foodNearby;
-        this.seatingSpace = seatingSpace;
-        this.outlets = outlets;
+        this.noiseLevel = 1.0;
+        this.bathroomsNearby = 1.0;
+        this.foodNearby = 1.0;
+        this.seatingSpace = 1.0;
+        this.outlets = 1.0;
     }
 
     /**
@@ -128,13 +128,13 @@ public class Survey {
     /**
      * Asks the user questions where the user gets to rank their preferences on 5 criteria to determine their ideal study spot
      * If the user inputs a double outside of the 1-10 scale then the question reprompts
-     * @param criteria: a string representing the criteria to be asked in the question of the survey 
+     * @param question: a string representing the question to be asked in the survey  
      * @return criteriaInput: a double representing the value of the user's preference of the given criteria in a given 1-10 scale 
      */
-    public double askSurveyQuestions (String criteria) {
+    public double askSurveyQuestions (String question) {
         boolean isTrue = false;
         Scanner keyboard = new Scanner (System.in);
-        System.out.println("On a scale of 1-10, what's the amount of " + criteria + " that you prefer? (1 = doesn't matter to me, 10 = required for me to study.)");
+        System.out.println("On a scale of 1-10, " + question);
         double criteriaInput = keyboard.nextDouble();
         while (isTrue == false) {
             if (criteriaInput >= 1.0 && criteriaInput <= 10.0) {
@@ -142,7 +142,7 @@ public class Survey {
                 return criteriaInput;
             }
             else {
-                System.out.println("On a scale of 1-10, what's the amount of " + criteria + " that you prefer? (1 = doesn't matter to me, 10 = required for me to study.)");
+                System.out.println("On a scale of 1-10, " + question);
                 criteriaInput = keyboard.nextDouble();
                 isTrue = false;
             }
@@ -153,14 +153,13 @@ public class Survey {
     /**
      * Tests for the Survey class
      */
-
     public static void main (String [] args) {
         Survey aPerson = new Survey ();
-        aPerson.setNoiseLevel(aPerson.askSurveyQuestions("noise level"));
-        aPerson.setBathroomsNearby(aPerson.askSurveyQuestions("bathrooms nearby"));
-        aPerson.setFoodNearby(aPerson.askSurveyQuestions("food nearby"));
-        aPerson.setSeatingSpace(aPerson.askSurveyQuestions("seating space"));
-        aPerson.setOutlets(aPerson.askSurveyQuestions("outlets"));
+        aPerson.setNoiseLevel(aPerson.askSurveyQuestions("what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)"));
+        aPerson.setBathroomsNearby(aPerson.askSurveyQuestions("how important is having bathrooms nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
+        aPerson.setFoodNearby(aPerson.askSurveyQuestions("how important is having food places nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
+        aPerson.setSeatingSpace(aPerson.askSurveyQuestions("how much seating space is ideal for your study spot? (1: limited, 10: plentiful)"));
+        aPerson.setOutlets(aPerson.askSurveyQuestions("how important is the availability of power outlets at your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
        
         System.out.println(aPerson.getNoiseLevel());
         System.out.println(aPerson.getBathroomsNearby());
