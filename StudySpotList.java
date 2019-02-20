@@ -58,5 +58,7 @@ public class StudySpotList{
     public static void main(String[] args){
         
     }
+    
+}
 
 
