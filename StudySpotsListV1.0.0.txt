@@ -1,36 +1,44 @@
+//to remove later
+//FORMAT
+//Noise: X
+//Bathrooms: X
+//Food: X
+//Seating: X
+//Outlets: X
+//
 Taylor Family Digital Library (TFDL) (Floors 4-6)
-  Noise: 0,1,2
-  Bathrooms: 8
-  Food: 5
-  Seating: 6,7
-  Outlets: 8
+  1
+  8
+  5
+  10
+  8
 MacEwan Hall (Mac Hall)
-  Noise: 10
-  Bathrooms: 10
-  Food: 10
-  Seating: 10
-  Outlets: 1,2
+  10
+  10
+  10
+  10
+  1
 Energy Enviroment Experiential Learning Building (EEEL)
-  Noise: 8
-  Bathrooms: 9
-  Food: 1
-  Seating: 6,7
-  Outlets: 3,4
+  8
+  9
+  1
+  6
+  3
 Engineering Block E (ENGG)
-  Noise: 8,9
-  Bathrooms: 4
-  Food: 2
-  Seating: 8,9
-  Outlets: 8
+  8
+  4
+  2
+  9
+  8
 Science Theatres (ST)
-  Noise: 9
-  Bathrooms: 7
-  Food: 4
-  Seating: 2
-  Outlets: 2,3
+  9
+  7
+  4
+  2
+  3
 Administration Atrium (ADA)
-  Noise: 6
-  Bathrooms: 1
-  Food: 1 
-  Seating: 3
-  Outlets: 3
+  6
+  1
+  1 
+  3
+  3
