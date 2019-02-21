@@ -5,6 +5,7 @@ import java.util.Scanner;
  * This class outputs result of the best study spots for the user based on their answers and preferences.
  * 
  * Last modified: February 20, 2019 @ 5:04 PM
+
  */
 
 
@@ -51,6 +52,10 @@ public class StudySpotList{
             studySpotList.add(studySpots.nextLine());
         }
 
+     /**
+     * Returns the list of StudySpots.
+     */
+    public ArrayList<StudySpot> getStudySpotList(){
         return studySpotList;
     }
 
@@ -58,7 +63,7 @@ public class StudySpotList{
      * Returns the best and  most ideal study spots based on the user's input.
      */
     public ArrayList<StudySpot> getBestStudySpots(){ 
-        return studySpotList;
+        return studySpots;
     }
 
     public static void main(String[] args){
