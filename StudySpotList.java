@@ -1,15 +1,18 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * This class outputs result of the best study spots for the user based on their answers and preferences.
  * 
- * Last modified: February 20, 2019
+ * Last modified: February 20, 2019 @ 5:04 PM
+
  */
 
 
 public class StudySpotList{
     private IdealStudySpot userIdeal;
     private ArrayList<StudySpot> studySpotList = new ArrayList<StudySpot>();
+    private Scanner studySpots = new Scanner(new File("StudySpotsListV1.0.0.txt")).useDelimiter("\n");
 
     /**
      * Default constructor for the StudySpotList object
@@ -42,6 +45,14 @@ public class StudySpotList{
     }
 
     /**
+     * Returns the list of StudySpots after getting the study spots from the StudySpotsList text file.
+     */
+    public ArrayList<StudySpot> getStudySpotList(){
+        while (studySpots.hasNext()){
+            studySpotList.add(studySpots.nextLine());
+        }
+
+     /**
      * Returns the list of StudySpots.
      */
     public ArrayList<StudySpot> getStudySpotList(){
@@ -52,7 +63,7 @@ public class StudySpotList{
      * Returns the best and  most ideal study spots based on the user's input.
      */
     public ArrayList<StudySpot> getBestStudySpots(){ 
-        return studySpotList;
+        return studySpots;
     }
 
     public static void main(String[] args){
