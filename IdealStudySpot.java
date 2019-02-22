@@ -1,11 +1,11 @@
 /**
  * This extends the StudySpot class to represent user input and compare it to StudySpot objects.
  *
- * Last modified: February 18, 2019
+ * Last modified: February 22, 2019
  *
  */
 
-public class IdealStudySpot extends StudySpot {
+public class IdealStudySpot extends Survey {
 
     /**
      * Default constructor for IdealStudySpot object
@@ -18,8 +18,9 @@ public class IdealStudySpot extends StudySpot {
      * Copy constructor for IdealStudySpot object
      * @param idealStudySpotToCopy: the IdealStudySpot object to be copied
      */
-    public IdealStudySpot(IdealStudySpot idealStudySpotToCopy) {
+    public IdealStudySpot(Survey idealStudySpotToCopy) {
         super(idealStudySpotToCopy);
+        System.out.print(idealStudySpotToCopy); //This part is only a test, it will be removed later.//
     }
 
     /**
