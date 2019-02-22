@@ -5,7 +5,7 @@
  *
  */
 
-public class IdealStudySpot extends Survey {
+public class IdealStudySpot extends StudySpot {
 
     /**
      * Default constructor for IdealStudySpot object
@@ -18,9 +18,21 @@ public class IdealStudySpot extends Survey {
      * Copy constructor for IdealStudySpot object
      * @param idealStudySpotToCopy: the IdealStudySpot object to be copied
      */
-    public IdealStudySpot(Survey idealStudySpotToCopy) {
+    public IdealStudySpot(IdealStudySpot idealStudySpotToCopy) {
         super(idealStudySpotToCopy);
-        System.out.print(idealStudySpotToCopy); //This part is only a test, it will be removed later.//
+    }
+    
+    /**
+     * Constructor for IdealStudySpot object which takes a Survey object as a parameter
+     * @param surveyToRepresent: the Survey object to convert to an IdealStudySpot
+     */
+    public IdealStudySpot(Survey surveyToRepresent) {
+        super();
+        this.setNoiseLevel(surveyToRepresent.getNoiseLevel());
+        this.setFoodNearby(surveyToRepresent.getFoodNearby());
+        this.setBathroomsNearby(surveyToRepresent.getBathroomsNearby());
+        this.setOutlets(surveyToRepresent.getOutlets());
+        this.setSeatingSpace(surveyToRepresent.getSeatingSpace());
     }
 
     /**
