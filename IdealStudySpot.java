@@ -1,7 +1,7 @@
 /**
  * This extends the StudySpot class to represent user input and compare it to StudySpot objects.
  *
- * Last modified: February 18, 2019
+ * Last modified: February 22, 2019
  *
  */
 
@@ -20,6 +20,19 @@ public class IdealStudySpot extends StudySpot {
      */
     public IdealStudySpot(IdealStudySpot idealStudySpotToCopy) {
         super(idealStudySpotToCopy);
+    }
+    
+    /**
+     * Constructor for IdealStudySpot object which takes a Survey object as a parameter
+     * @param surveyToRepresent: the Survey object to convert to an IdealStudySpot
+     */
+    public IdealStudySpot(Survey surveyToRepresent) {
+        super();
+        this.setNoiseLevel(surveyToRepresent.getNoiseLevel());
+        this.setFoodNearby(surveyToRepresent.getFoodNearby());
+        this.setBathroomsNearby(surveyToRepresent.getBathroomsNearby());
+        this.setOutlets(surveyToRepresent.getOutlets());
+        this.setSeatingSpace(surveyToRepresent.getSeatingSpace());
     }
 
     /**
