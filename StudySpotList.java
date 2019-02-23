@@ -6,18 +6,14 @@ import java.io.FileNotFoundException;
 /**
  * This class outputs result of the best study spots for the user based on their answers and preferences.
  * 
- * Last modified: February 22, 2019 @ 2:18 PM
+ * Last modified: February 20, 2019 @ 5:04 PM
 
  */
-
-
 public class StudySpotList{
     private IdealStudySpot userIdeal;
     private ArrayList<StudySpot> studySpotList = new ArrayList<StudySpot>();
     private Scanner studySpotsFromTxt;
      
-    
-
 
     /**
      * Default constructor for the StudySpotList object
@@ -31,11 +27,10 @@ public class StudySpotList{
             }
         } 
         catch (Exception e) {
-            //TO DO: handle exception
+            //TODO: handle exception
             System.exit(1);
         }
     }
-
 
     /**
      * Copy Constructor for StudySpot object
@@ -46,7 +41,6 @@ public class StudySpotList{
         this.studySpotList = studySpotlistToCopy.studySpotList;
     }
 
-
     /**
      * Sets the userIdeal object to the given IdealStudySpot parameter.   
      * @param userIdeal variable from the IdealStudySpot class.
@@ -55,14 +49,12 @@ public class StudySpotList{
         this.userIdeal = userIdeal;
     }
 
-
     /**
      * Returns the ideal StudySpot based on the user's input.
      */
     public IdealStudySpot getUserIdeal(){
         return userIdeal;
     }
-
 
     /**
      * Returns the list of StudySpots after getting the study spots from the StudySpotsList text file.
@@ -72,27 +64,23 @@ public class StudySpotList{
 
     }
 
-
     /**
      * Returns the best and  most ideal study spots based on the user's input.
      */
-    public ArrayList<StudySpot> getBestStudySpots(){ 
-        return studySpotList;
+    public ArrayList<StudySpot> getBestStudySpots(){
+        ArrayList<StudySpot> comparisonValues = new ArrayList<StudySpot>();
+        comparisonValues.add(userIdeal);
+        return comparisonValues;
     }
-
 
     /**
     *Test the StudySpotList class
     */
     public static void main(String[] args) throws FileNotFoundException{
-         
         StudySpotList list1 = new StudySpotList();
-        
-        System.out.println(list1.getUserIdeal());
-        System.out.println(list1.getStudySpotList());
-       
-        
-    }
-    
-}
 
+        System.out.println(list1.getUserIdeal());
+        System.out.println(list1.getStudySpotList()); 
+        System.out.println(list1.getBestStudySpots()); 
+    }
+}
