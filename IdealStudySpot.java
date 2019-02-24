@@ -42,7 +42,21 @@ public class IdealStudySpot extends StudySpot {
      * @return the double similarity value
      */
     public double compareTo(StudySpot studySpotToCompare) {
-        return 0.0;
+        double originalNoiseLevel = this.getNoiseLevel;
+        double originalBathroomsNearby = this.getBathroomsNearby;
+        double originalFoodNearby = this.getFoodNearby;
+        double originalOutlets = this.getOutlets;
+        double originalSeatingSpace = this.getSeatingSpace;
+
+        double noiseCompareValue = (java.lang.Math.abs( originalNoiseLevel - studySpotToCompare.getNoiseLevel  ))/ originalNoiseLevel;
+        double bathroomCompareValue = (java.lang.Math.abs( originalBathroomsNearby - studySpotToCompare.getBathroomsNearby  ))/ originalBathroomsNearby;
+        double foodCompareValue = (java.lang.Math.abs( originalFoodNearby - studySpotToCompare.getFoodNearby  ))/ originalFoodNearby;
+        double outletsCompareValue = (java.lang.Math.abs( originalOutlets - studySpotToCompare.getOutlets  ))/ originalOutlets;
+        double seatingCompareValue = (java.lang.Math.abs( originalSeatingSpace - studySpotToCompare.getSeatingSpace  ))/ originalSeatingSpace;
+        
+        
+        
+        return noiseCompareValue + bathroomCompareValue + foodCompareValue + outletsCompareValue + seatingCompareValue;
     }
 
     /**
