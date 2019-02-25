@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
  * This class outputs result of the best study spots for the user based on their answers and preferences.
  * 
  * Last modified: February 20, 2019 @ 2:26 PM
-
  */
 public class StudySpotList{
     private IdealStudySpot userIdeal;
@@ -22,7 +21,6 @@ public class StudySpotList{
             Scanner studySpotsFromTxt = new Scanner(new File("StudySpotsListV1.0.0.txt"));
             StudySpot ss =new StudySpot();
             userIdeal = new IdealStudySpot();
-
             while (studySpotsFromTxt.hasNext()){
                 //studySpotList.add(new StudySpot(studySpotsFromTxt.nextLine()));
                 ss = new StudySpot();
@@ -32,7 +30,7 @@ public class StudySpotList{
                 ss.setFoodNearby(Double.parseDouble(studySpotsFromTxt.nextLine()));
                 ss.setSeatingSpace(Double.parseDouble(studySpotsFromTxt.nextLine()));
                 ss.setOutlets(Double.parseDouble(studySpotsFromTxt.nextLine()));
-
+                
                 studySpotList.add(ss);
             }
         }
