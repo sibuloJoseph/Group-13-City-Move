@@ -37,7 +37,7 @@ public class IdealStudySpot extends StudySpot {
 
     /**
      * Compares the given StudySpot to the IdealStudySpot and returns a double similarity value which
-     * is higher if the study spots are more similar
+     * is lower if the study spots are more similar
      * @param studySpotToCompare: the StudySpot object to compare the ideal spot to
      * @return the double similarity value
      */
