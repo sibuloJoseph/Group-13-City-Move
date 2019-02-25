@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 /**
  * This class outputs result of the best study spots for the user based on their answers and preferences.
  * 
- * Last modified: February 23, 2019 @ 3:10 PM
+ * Last modified: February 24, 2019 @ 7:50 PM
 
  */
 public class StudySpotList{
