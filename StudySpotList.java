@@ -16,7 +16,7 @@ public class StudySpotList{
     /**
      * Default constructor for the StudySpotList object
      */
-    public StudySpotList() throws FileNotFoundException{
+    public StudySpotList(){
         try {
             Scanner studySpotsFromTxt = new Scanner(new File("StudySpotsListV1.0.0.txt"));
             StudySpot ss =new StudySpot();
