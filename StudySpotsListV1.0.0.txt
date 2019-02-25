@@ -1,36 +1,36 @@
 Taylor Family Digital Library (TFDL) (Floors 4-6)
-1
-8
-5
-10
-8
+  1
+  8
+  5
+  10
+  8
 MacEwan Hall (Mac Hall)
-10
-10
-10
-10
-1
+  10
+  10
+  10
+  10
+  1
 Energy Enviroment Experiential Learning Building (EEEL)
-8
-9
-1
-6
-3
+  8
+  9
+  1
+  6
+  3
 Engineering Block E (ENGG)
-8
-4
-2
-9
-8
+  8
+  4
+  2
+  9
+  8
 Science Theatres (ST)
-9
-7
-4
-2
-3
+  9
+  7
+  4
+  2
+  3
 Administration Atrium (ADA)
-6
-1
-1 
-3
-3
+  6
+  1
+  1
+  3
+  3
