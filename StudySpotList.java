@@ -69,7 +69,7 @@ public class StudySpotList{
      */
     public ArrayList<StudySpot> getBestStudySpots(){
         ArrayList<StudySpot> comparisonValues = new ArrayList<StudySpot>();
-        comparisonValues.add(userIdeal);
+        comparisonValues.add(userIdeal.compareTo(new StudySpot()));
         return comparisonValues;
     }
 
