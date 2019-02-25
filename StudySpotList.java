@@ -6,13 +6,12 @@ import java.io.FileNotFoundException;
 /**
  * This class outputs result of the best study spots for the user based on their answers and preferences.
  * 
- * Last modified: February 24, 2019 @ 7:50 PM
+ * Last modified: February 25, 2019 @ 5:04 PM
 
  */
 public class StudySpotList{
     private IdealStudySpot userIdeal;
     private ArrayList<StudySpot> studySpotList = new ArrayList<StudySpot>();
-    private Scanner studySpotsFromTxt;
      
 
     /**
@@ -20,7 +19,7 @@ public class StudySpotList{
      */
     public StudySpotList() throws FileNotFoundException{
         try {
-            studySpotsFromTxt = new Scanner(new File("StudySpotsListV1.0.0.txt")).useDelimiter("\n");
+            Scanner studySpotsFromTxt = new Scanner(new File("StudySpotsListV1.0.0.txt")).useDelimiter("\n");
             while (studySpotsFromTxt.hasNext()){
                 int numOfSpots = studySpotList.size();
                 studySpotList.add(new StudySpot(studySpotsFromTxt.nextLine()));
@@ -30,6 +29,10 @@ public class StudySpotList{
             //TODO: handle exception
             System.exit(1);
         }
+        
+        
+
+
     }
 
     /**
@@ -68,9 +71,14 @@ public class StudySpotList{
      * Returns the best and  most ideal study spots based on the user's input.
      */
     public ArrayList<StudySpot> getBestStudySpots(){
-        ArrayList<StudySpot> comparisonValues = new ArrayList<StudySpot>();
-        comparisonValues.add(userIdeal.compareTo(new StudySpot()));
-        return comparisonValues;
+        ArrayList<Double> comparisonValues = new ArrayList<Double>();
+        for(int x=0; x<studySpotList.size(); x++){
+            comparisonValues.add(userIdeal.compareTo(new StudySpot(studySpotList.get(x))));
+        }
+
+                 
+        
+        return studySpotList;
     }
 
     /**
