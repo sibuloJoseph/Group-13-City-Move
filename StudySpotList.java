@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 /**
  * This class outputs result of the best study spots for the user based on their answers and preferences.
  * 
- * Last modified: February 25, 2019 @ 5:04 PM
+ * Last modified: February 20, 2019 @ 2:26 PM
 
  */
 public class StudySpotList{
@@ -19,19 +19,30 @@ public class StudySpotList{
      */
     public StudySpotList() throws FileNotFoundException{
         try {
-            Scanner studySpotsFromTxt = new Scanner(new File("StudySpotsListV1.0.0.txt")).useDelimiter("\n");
+            Scanner studySpotsFromTxt = new Scanner(new File("StudySpotsListV1.0.0.txt"));
+            StudySpot ss =new StudySpot();
+            userIdeal = new IdealStudySpot();
+
             while (studySpotsFromTxt.hasNext()){
-                int numOfSpots = studySpotList.size();
-                studySpotList.add(new StudySpot(studySpotsFromTxt.nextLine()));
+                //studySpotList.add(new StudySpot(studySpotsFromTxt.nextLine()));
+                ss = new StudySpot();
+                ss.setName(studySpotsFromTxt.nextLine());
+                ss.setNoiseLevel(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                ss.setBathroomsNearby(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                ss.setFoodNearby(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                ss.setSeatingSpace(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                ss.setOutlets(Double.parseDouble(studySpotsFromTxt.nextLine()));
+
+                studySpotList.add(ss);
             }
-        } 
+        }
         catch (Exception e) {
             //TODO: handle exception
-            System.exit(1);
-        }
-        
-        
+            System.out.println("No File"); 
+            System.exit(0);
+           
 
+        }
 
     }
 
@@ -75,9 +86,21 @@ public class StudySpotList{
         for(int x=0; x<studySpotList.size(); x++){
             comparisonValues.add(userIdeal.compareTo(new StudySpot(studySpotList.get(x))));
         }
-
-                 
         
+        double temp;
+        StudySpot tempss;
+        for(int i = 1; i < studySpotList.size(); i++) {
+            for(int j = i - 1; j >= 0; j--) {
+                if(comparisonValues.get(j) > comparisonValues.get(j+1)) {
+                    temp = comparisonValues.get(j);
+                    comparisonValues.set(j, comparisonValues.get(j+1));
+                    comparisonValues.set(j+1, temp);
+                    tempss = studySpotList.get(j);
+                    studySpotList.set(j, studySpotList.get(j+1));
+                    studySpotList.set(j+1, tempss);
+                }
+            }
+        }
         return studySpotList;
     }
 
