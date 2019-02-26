@@ -6,7 +6,8 @@ import java.io.FileNotFoundException;
 /**
  * This class outputs result of the best study spots for the user based on their answers and preferences.
  * 
- * Last modified: February 20, 2019 @ 2:26 PM
+ * Last modified: February 20, 2019 @ 5:04 PM
+
  */
 public class StudySpotList{
     private IdealStudySpot userIdeal;
@@ -21,8 +22,9 @@ public class StudySpotList{
             Scanner studySpotsFromTxt = new Scanner(new File("StudySpotsListV1.0.0.txt"));
             StudySpot ss =new StudySpot();
             userIdeal = new IdealStudySpot();
+
             while (studySpotsFromTxt.hasNext()){
-                //studySpotList.add(new StudySpot(studySpotsFromTxt.nextLine()));
+
                 ss = new StudySpot();
                 ss.setName(studySpotsFromTxt.nextLine());
                 ss.setNoiseLevel(Double.parseDouble(studySpotsFromTxt.nextLine()));
@@ -30,7 +32,7 @@ public class StudySpotList{
                 ss.setFoodNearby(Double.parseDouble(studySpotsFromTxt.nextLine()));
                 ss.setSeatingSpace(Double.parseDouble(studySpotsFromTxt.nextLine()));
                 ss.setOutlets(Double.parseDouble(studySpotsFromTxt.nextLine()));
-                
+
                 studySpotList.add(ss);
             }
         }
@@ -80,11 +82,14 @@ public class StudySpotList{
      * Returns the best and  most ideal study spots based on the user's input.
      */
     public ArrayList<StudySpot> getBestStudySpots(){
+        //Create an ArrayList for the comparison values from the compareTo() method in the IdealStudySpot Class
         ArrayList<Double> comparisonValues = new ArrayList<Double>();
         for(int x=0; x<studySpotList.size(); x++){
             comparisonValues.add(userIdeal.compareTo(new StudySpot(studySpotList.get(x))));
         }
         
+        //Sort the comparisonValues array and match it with the studySpotList array 
+        //in order to sort the list of study spots from the best to the worst.
         double temp;
         StudySpot tempss;
         for(int i = 1; i < studySpotList.size(); i++) {
