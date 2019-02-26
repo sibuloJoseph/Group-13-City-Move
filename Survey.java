@@ -1,10 +1,11 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
- * This class gets the input of the user of their most preferred criteria for study spots at the University of Calgary.
- * This is done by asking the user a survey that contains 5 questions.
+ * This class gets the input of the user of their most preferred criteria for study spots at the University of Calgary
+ * based on a survey of 5 questions.
  *
- * Last modified: February 17th, 2019
+ * Last modified: February 25th, 2019
  */
 
 public class Survey {
@@ -161,11 +162,13 @@ public class Survey {
         aPerson.setSeatingSpace(aPerson.askSurveyQuestions("how much seating space is ideal for your study spot? (1: limited, 10: plentiful)"));
         aPerson.setOutlets(aPerson.askSurveyQuestions("how important is the availability of power outlets at your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
        
-        System.out.println(aPerson.getNoiseLevel());
-        System.out.println(aPerson.getBathroomsNearby());
-        System.out.println(aPerson.getFoodNearby());
-        System.out.println(aPerson.getSeatingSpace());
-        System.out.println(aPerson.getOutlets());
+        IdealStudySpot idealStudySpot = new IdealStudySpot (aPerson);
+        StudySpotList ssl = new StudySpotList ();
+        ssl.setUserIdeal(idealStudySpot);
+        ArrayList<StudySpot> bestSpotList = ssl.getBestStudySpots();
+        System.out.println(bestSpotList.get(0).getName());
+        System.out.println(bestSpotList.get(1).getName());
+        System.out.println(bestSpotList.get(2).getName());
     }
     
 }
