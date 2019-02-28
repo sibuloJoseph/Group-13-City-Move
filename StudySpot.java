@@ -5,7 +5,9 @@
  *
  */
 
-public class StudySpot {
+import java.io.Serializable;
+
+public class StudySpot implements Serializable {
     private double noiseLevel, bathroomsNearby, foodNearby, outlets, seatingSpace;
     private String name;
 
