@@ -1,7 +1,7 @@
 /**
  * This implements the StudySpot class to describe study spots at the University of Calgary.
  *
- * Last modified: February 13, 2019
+ * Last modified: February 28, 2019
  *
  */
 
