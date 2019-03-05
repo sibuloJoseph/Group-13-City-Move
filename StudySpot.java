@@ -1,11 +1,13 @@
 /**
  * This implements the StudySpot class to describe study spots at the University of Calgary.
  *
- * Last modified: February 13, 2019
+ * Last modified: February 28, 2019
  *
  */
 
-public class StudySpot {
+import java.io.Serializable;
+
+public class StudySpot implements Serializable {
     private double noiseLevel, bathroomsNearby, foodNearby, outlets, seatingSpace;
     private String name;
 

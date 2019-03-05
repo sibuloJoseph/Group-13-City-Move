@@ -1,11 +1,13 @@
 /**
  * This extends the StudySpot class to represent user input and compare it to StudySpot objects.
  *
- * Last modified: February 25, 2019
+ * Last modified: February 28, 2019
  *
  */
 
-public class IdealStudySpot extends StudySpot {
+import java.io.Serializable;
+
+public class IdealStudySpot extends StudySpot implements Serializable {
 
     /**
      * Default constructor for IdealStudySpot object
