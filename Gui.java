@@ -80,7 +80,7 @@ public class Gui extends Application {
                 String password = txtPassword.getText();
                   
                 if(userAccountList.credentialsValid(username, password)){
-                    enterToAccount.setOnAction(e -> primaryStage.setScene(sceneForMainMenu));
+                    primaryStage.setScene(sceneForMainMenu);
                     primaryStage.setTitle("Main Menu");
                     output.setText("You have to press enter again. \n //Needs to be fixed");
                 }
