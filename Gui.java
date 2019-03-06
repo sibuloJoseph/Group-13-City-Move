@@ -82,7 +82,6 @@ public class Gui extends Application {
                 if(userAccountList.credentialsValid(username, password)){
                     primaryStage.setScene(sceneForMainMenu);
                     primaryStage.setTitle("Main Menu");
-                    output.setText("You have to press enter again. \n //Needs to be fixed");
                 }
                 else {
                     output.setText("Invalid Username or Password.");
