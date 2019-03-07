@@ -34,3 +34,39 @@ Administration Atrium (ADA)
   1
   3
   3
+Mackimmie Library (MLB)
+  1
+  3
+  1
+  7
+  7
+Math Sciences (MS)
+  3
+  4
+  1
+  6
+  7
+Scurfield Hall (SH)
+  8
+  7
+  4
+  5
+  6
+Taylor Institute for Teaching and Learning (TITL)
+  4
+  6
+  1
+  5
+  3
+Information and Communication Technology Building (ICT)
+  9
+  5
+  4
+  4
+  2
+Kinesiology Block (KNB)
+  9
+  8
+  5
+  3
+  2
