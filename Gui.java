@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
@@ -20,6 +21,8 @@ import javafx.scene.paint.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.util.ArrayList;
+
+import com.sun.glass.events.KeyEvent;
 
 /**
  * This class contains the GUI of the app 
@@ -197,6 +200,31 @@ public class Gui extends Application {
             }
         });
 
+        // Event Handler to Login with 'Enter' Key
+
+        centerBox.setOnKeyPressed(event ->{
+            String username = txtUsername.getText();
+            String password = txtPassword.getText();
+
+            if (event.getCode() == KeyCode.ENTER){
+                if (username.isEmpty() || password.isEmpty()) {
+                        output.setText("Please Enter Username and/or Password.");
+                    }
+                else{
+                    if (userAccountList.credentialsValid(username, password)) {
+                        primaryStage.setScene(sceneForMainMenu);
+                        primaryStage.setTitle("Main Menu - City Move");
+                    }
+                    else if (!userAccountList.hasAccount(username)){
+                        output.setText("Incorrect Username or \nAccount Does Not Exist!");
+                    }
+                    else {
+                        output.setText("Incorrect Password.");
+                    }
+                }
+            }
+        });
+
         //Event Handler to Signup
         signupToAccount.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent event) {
@@ -234,6 +262,13 @@ public class Gui extends Application {
                 primaryStage.setTitle("Survey - City Move");
             }
         });
+        
+        //Event Handler to get to the Survey Menu with 'Enter' Key
+        mainMenuGUI.setOnKeyPressed(event ->{
+            primaryStage.setScene(sceneForSurveyMenu);
+            primaryStage.setTitle("Survey - City Move");
+        });
+
         
         //Event Handler to submit survey responses
         finishSurveyButton.setOnAction(new EventHandler<ActionEvent> () {
@@ -336,6 +371,111 @@ public class Gui extends Application {
             }
         });
 
+        //Event Handler for submitting survey using 'Enter' key
+        surveyQuestionsMenu.setOnKeyPressed(event ->{
+        
+            Boolean valueIsValid1 = false;
+            Boolean valueIsValid2 = false;
+            Boolean valueIsValid3 = false;
+            Boolean valueIsValid4 = false;
+            Boolean valueIsValid5 = false;
+           
+            Double question1Value = Double.parseDouble(question1Text.getText()); 
+            Double question2Value = Double.parseDouble(question2Text.getText());
+            Double question3Value = Double.parseDouble(question3Text.getText());
+            Double question4Value = Double.parseDouble(question4Text.getText());
+            Double question5Value = Double.parseDouble(question5Text.getText());
+
+            
+            if (event.getCode() == KeyCode.ENTER){
+                if (question1Value >= 1.0 && question1Value <= 10.0) {
+                    outputForInvalidQ1Value.setText("");
+                    valueIsValid1 = true;
+                }
+                else {
+                    outputForInvalidQ1Value.setText("Invalid Value. Please enter a value from 1-10.");
+                    valueIsValid1 = false;
+                    }
+                
+
+                if (question2Value >= 1.0 && question2Value <= 10.0) {
+                    outputForInvalidQ2Value.setText("");
+                    valueIsValid2 = true;
+                }
+                else {
+                    outputForInvalidQ2Value.setText("Invalid Value. Please enter a value from 1-10.");
+                    valueIsValid2 = false;
+                    }
+
+                if (question3Value >= 1.0 && question3Value <= 10.0) {
+                    outputForInvalidQ3Value.setText("");
+                    valueIsValid3 = true;
+                }
+                else {
+                    outputForInvalidQ3Value.setText("Invalid Value. Please enter a value from 1-10.");
+                    valueIsValid3 = false;
+                    }
+                
+                if (question4Value >= 1.0 && question4Value <= 10.0) {
+                    outputForInvalidQ4Value.setText("");
+                    valueIsValid4 = true;
+                }
+                else {
+                    outputForInvalidQ4Value.setText("Invalid Value. Please enter a value from 1-10.");
+                    valueIsValid4 = false;
+                    }
+
+                if (question5Value >= 1.0 && question5Value <= 10.0) {
+                    outputForInvalidQ5Value.setText("");
+                    valueIsValid5 = true;
+                }
+                else {
+                    outputForInvalidQ5Value.setText("Invalid Value. Please enter a value from 1-10.");
+                    valueIsValid5 = false;
+                    }
+
+                if (valueIsValid1 && valueIsValid2 && valueIsValid3 && valueIsValid4 && valueIsValid5 == true) {
+                    Survey aPerson = new Survey();
+                    aPerson.setNoiseLevel(question1Value);
+                    aPerson.setBathroomsNearby(question2Value);
+                    aPerson.setFoodNearby(question3Value);
+                    aPerson.setSeatingSpace(question4Value);
+                    aPerson.setOutlets(question5Value);
+
+                    IdealStudySpot idealStudySpot = new IdealStudySpot (aPerson);
+                    StudySpotList ssl = new StudySpotList ();
+                    ssl.setUserIdeal(idealStudySpot);
+                    ArrayList<StudySpot> bestSpotList = ssl.getBestStudySpots();
+                    
+                    primaryStage.setScene(sceneForResultsMenu);
+                    primaryStage.setTitle("Survey Results - City Move");
+                    
+                    first.setText(bestSpotList.get(0).getName());
+                    second.setText(bestSpotList.get(1).getName());
+                    third.setText(bestSpotList.get(2).getName());
+
+                }
+
+                /** try {
+                    question1Text = "";
+                    question2Text = "";
+                    question3Text = "";
+                    question4Text = "";
+                    question5Text = "";
+                }
+
+                catch (Exception e) {
+                    System.out.println("Cannot input strings");
+                }
+                */
+                    
+                //question1Value.setNoiseLevel();     
+            }
+        }
+    );
+
+
+
         //Event Handler to go back to the Main Menu screen from the Survey screen
         goBackToMainMenuButtonFromSurvey.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
@@ -343,6 +483,15 @@ public class Gui extends Application {
                 primaryStage.setTitle("Main Menu - City Move");
             }
         });
+
+        //Event Handler to go back to the Main Menu Screen from the Survey Screen with 'Enter' key
+        resultsMenu.setOnKeyPressed(event ->{
+            if (event.getCode() == KeyCode.ENTER){
+                primaryStage.setScene(sceneForMainMenu);
+                primaryStage.setTitle("Main Menu - City Move");
+            }
+        });
+
         
         //Event Handler to go back to the Main Menu Screen from the Results Menu screen.
         goBackToMainMenuButtonFromResults.setOnAction (new EventHandler<ActionEvent> () {
