@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Label;
@@ -20,6 +21,8 @@ import javafx.scene.paint.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.util.ArrayList;
+
+import com.sun.glass.events.KeyEvent;
 
 /**
  * This class contains the GUI of the app 
@@ -193,6 +196,31 @@ public class Gui extends Application {
                 }
                 else {
                     output.setText("Incorrect Password.");
+                }
+            }
+        });
+
+        // Event Handler to Login with 'Enter' Key
+
+        centerBox.setOnKeyPressed(event ->{
+            String username = txtUsername.getText();
+            String password = txtPassword.getText();
+
+            if (event.getCode() == KeyCode.ENTER){
+                if (username.isEmpty() || password.isEmpty()) {
+                        output.setText("Please Enter Username and/or Password.");
+                    }
+                else{
+                    if (userAccountList.credentialsValid(username, password)) {
+                        primaryStage.setScene(sceneForMainMenu);
+                        primaryStage.setTitle("Main Menu - City Move");
+                    }
+                    else if (!userAccountList.hasAccount(username)){
+                        output.setText("Incorrect Username or \nAccount Does Not Exist!");
+                    }
+                    else {
+                        output.setText("Incorrect Password.");
+                    }
                 }
             }
         });
