@@ -167,6 +167,16 @@ public class Gui extends Application {
         second.setFont(Font.font("Verdana", 25));
         third.setFont(Font.font("Verdana", 25));
 	 
+	//Sets Past Study Spot Labels
+        IdealStudySpot idealStudySpot = new IdealStudySpot ();
+        StudySpotList studySpotList = new StudySpotList ();
+        studySpotList.setUserIdeal(idealStudySpot);
+        ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
+
+        first.setText(bestSpotList.get(0).getName());
+        second.setText(bestSpotList.get(1).getName());
+        third.setText(bestSpotList.get(2).getName());
+	 
 	  
 	first.setTextFill(Color.PALEGOLDENROD);
         second.setTextFill(Color.PALEGOLDENROD);
@@ -250,6 +260,7 @@ public class Gui extends Application {
                 }
             }
         });
+	  
 
         //Event Handler to Signout from the Main Menu and back to the Login screen.
         signout.setOnAction(new EventHandler<ActionEvent>(){
@@ -272,6 +283,14 @@ public class Gui extends Application {
         mainMenuGUI.setOnKeyPressed(event ->{
             primaryStage.setScene(sceneForSurveyMenu);
             primaryStage.setTitle("Survey - City Move");
+        });
+	  
+	//Event Handler to get to Past Study Spots
+        pastButton.setOnAction(new EventHandler<ActionEvent> () {
+            public void handle (ActionEvent event) {
+                primaryStage.setScene(sceneForResultsMenu);
+                primaryStage.setTitle("Survey - City Move");
+            }
         });
 
         
@@ -552,24 +571,22 @@ public class Gui extends Application {
                 }
 
                 if (valueIsValid1 && valueIsValid2 && valueIsValid3 && valueIsValid4 && valueIsValid5 == true) {
-                    IdealStudySpot idealStudySpot = new IdealStudySpot ();
-                    
+                      
                     idealStudySpot.setNoiseLevel(question1Value);
                     idealStudySpot.setBathroomsNearby(question2Value);
                     idealStudySpot.setFoodNearby(question3Value);
                     idealStudySpot.setSeatingSpace(question4Value);
                     idealStudySpot.setOutlets(question5Value);
 
-                    StudySpotList studySpotList = new StudySpotList ();
                     studySpotList.setUserIdeal(idealStudySpot);
-                    ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
+                    ArrayList<StudySpot> newBestSpotList = studySpotList.getBestStudySpots();
                     
                     primaryStage.setScene(sceneForResultsMenu);
                     primaryStage.setTitle("Survey Results - City Move");
                     
-                    first.setText(bestSpotList.get(0).getName());
-                    second.setText(bestSpotList.get(1).getName());
-                    third.setText(bestSpotList.get(2).getName());
+                    first.setText(newBestSpotList.get(0).getName());
+                    second.setText(newBestSpotList.get(1).getName());
+                    third.setText(newBestSpotList.get(2).getName());
                 }
             }
         });
