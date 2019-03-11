@@ -250,6 +250,7 @@ public class Gui extends Application {
                 }
             }
         });
+	  
 
         //Event Handler to Signout from the Main Menu and back to the Login screen.
         signout.setOnAction(new EventHandler<ActionEvent>(){
@@ -272,6 +273,14 @@ public class Gui extends Application {
         mainMenuGUI.setOnKeyPressed(event ->{
             primaryStage.setScene(sceneForSurveyMenu);
             primaryStage.setTitle("Survey - City Move");
+        });
+	  
+	//Event Handler to get to Past Study Spots
+        pastButton.setOnAction(new EventHandler<ActionEvent> () {
+            public void handle (ActionEvent event) {
+                primaryStage.setScene(sceneForResultsMenu);
+                primaryStage.setTitle("Survey - City Move");
+            }
         });
 
         
