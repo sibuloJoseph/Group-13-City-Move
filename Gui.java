@@ -172,9 +172,9 @@ public class Gui extends Application {
 
         resultsMenu.setSpacing(50);
         resultsMenu.getChildren().addAll(displayForFirstSpot,displayForSecondSpot,displayForThirdSpot,goBackToMainMenuButtonFromResults);
-        resultsMenu.setStyle("-fx-background-color: #FA8072;");
+        resultsMenu.setStyle("-fx-background-color: #980E0E;");
 
-        Scene sceneForResultsMenu = new Scene (resultsMenu);
+        Scene sceneForResultsMenu = new Scene (resultsMenu, 700, 300);
 
         // Event Handlers
     	enterToAccount.setOnAction(new EventHandler<ActionEvent>() {
