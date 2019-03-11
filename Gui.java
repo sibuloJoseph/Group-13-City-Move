@@ -402,17 +402,17 @@ public class Gui extends Application {
                 }
 
                 if (valueIsValid1 && valueIsValid2 && valueIsValid3 && valueIsValid4 && valueIsValid5 == true) {
-                    Survey aPerson = new Survey();
-                    aPerson.setNoiseLevel(question1Value);
-                    aPerson.setBathroomsNearby(question2Value);
-                    aPerson.setFoodNearby(question3Value);
-                    aPerson.setSeatingSpace(question4Value);
-                    aPerson.setOutlets(question5Value);
+                    IdealStudySpot idealStudySpot = new IdealStudySpot ();
+                    
+                    idealStudySpot.setNoiseLevel(question1Value);
+                    idealStudySpot.setBathroomsNearby(question2Value);
+                    idealStudySpot.setFoodNearby(question3Value);
+                    idealStudySpot.setSeatingSpace(question4Value);
+                    idealStudySpot.setOutlets(question5Value);
 
-                    IdealStudySpot idealStudySpot = new IdealStudySpot (aPerson);
-                    StudySpotList ssl = new StudySpotList ();
-                    ssl.setUserIdeal(idealStudySpot);
-                    ArrayList<StudySpot> bestSpotList = ssl.getBestStudySpots();
+                    StudySpotList studySpotList = new StudySpotList ();
+                    studySpotList.setUserIdeal(idealStudySpot);
+                    ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
                     
                     primaryStage.setScene(sceneForResultsMenu);
                     primaryStage.setTitle("Survey Results - City Move");
@@ -552,17 +552,17 @@ public class Gui extends Application {
                 }
 
                 if (valueIsValid1 && valueIsValid2 && valueIsValid3 && valueIsValid4 && valueIsValid5 == true) {
-                    Survey aPerson = new Survey();
-                    aPerson.setNoiseLevel(question1Value);
-                    aPerson.setBathroomsNearby(question2Value);
-                    aPerson.setFoodNearby(question3Value);
-                    aPerson.setSeatingSpace(question4Value);
-                    aPerson.setOutlets(question5Value);
+                    IdealStudySpot idealStudySpot = new IdealStudySpot ();
+                    
+                    idealStudySpot.setNoiseLevel(question1Value);
+                    idealStudySpot.setBathroomsNearby(question2Value);
+                    idealStudySpot.setFoodNearby(question3Value);
+                    idealStudySpot.setSeatingSpace(question4Value);
+                    idealStudySpot.setOutlets(question5Value);
 
-                    IdealStudySpot idealStudySpot = new IdealStudySpot (aPerson);
-                    StudySpotList ssl = new StudySpotList ();
-                    ssl.setUserIdeal(idealStudySpot);
-                    ArrayList<StudySpot> bestSpotList = ssl.getBestStudySpots();
+                    StudySpotList studySpotList = new StudySpotList ();
+                    studySpotList.setUserIdeal(idealStudySpot);
+                    ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
                     
                     primaryStage.setScene(sceneForResultsMenu);
                     primaryStage.setTitle("Survey Results - City Move");
