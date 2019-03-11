@@ -2,7 +2,7 @@ Info:
 - All files for demo 2 are found in the master branch of this repository (City-Move).
 - All .java files need to be compiled, followed by running the Gui Class.
 - To do so: change the directory of the command prompt to be in the same location as where all the files are located, followed by compiling the code by typing in ---> javac *.java (Compilation will be successful if no error messages pop up after compiling)
-- To run the Gui class, type in ---> java Gui.
+- To run the Gui class, type in ---> java Gui
 - When running the Gui class for the first time, enter a username and password you will use for each time you rerun the program.
 - In order to do this, ---> Enter your username and password in the textfields, and click "Signup"
 - If account creation is succesful, it will prompt you to click "Login" and will direct you to the main menu.
