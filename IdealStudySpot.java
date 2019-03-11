@@ -43,8 +43,6 @@ public class IdealStudySpot extends StudySpot implements Serializable {
         double outletsCompareValue = (java.lang.Math.abs(originalOutlets - studySpotToCompare.getOutlets())) / originalOutlets;
         double seatingCompareValue = (java.lang.Math.abs(originalSeatingSpace - studySpotToCompare.getSeatingSpace())) / originalSeatingSpace;
         
-        
-        
         return noiseCompareValue + bathroomCompareValue + foodCompareValue + outletsCompareValue + seatingCompareValue;
     }
 
