@@ -68,7 +68,8 @@ public class Gui extends Application {
         Scene sceneForLogin = new Scene(centerBox, 300,500);
         primaryStage.setTitle("Study Spots App");
         primaryStage.setScene(sceneForLogin);
-        primaryStage.show();  
+        primaryStage.show(); 
+
         
         //Main Menu Interface
         final ImageView mapImage = new ImageView();   
@@ -86,6 +87,7 @@ public class Gui extends Application {
         mainMenuGUI.setStyle("-fx-background-color: #980E0E;");
 
         Scene sceneForMainMenu = new Scene(mainMenuGUI);
+        
         
         // Survey Interface
         VBox surveyQuestionsMenu = new VBox (); 
@@ -133,12 +135,12 @@ public class Gui extends Application {
 
         surveyQuestionsMenu.setSpacing(15);
         surveyQuestionsMenu.getChildren().addAll(question1,question1Text,outputForInvalidQ1Value,question2,question2Text,outputForInvalidQ2Value,question3,question3Text,outputForInvalidQ3Value,question4,question4Text,outputForInvalidQ4Value,question5,question5Text,outputForInvalidQ5Value,submitOrGoBack);
-
         surveyQuestionsMenu.setStyle("-fx-background-color: #F5F5DC;");
 
         Scene sceneForSurveyMenu = new Scene (surveyQuestionsMenu);
 
-        // Results Menu from Survey
+
+        //Results Menu from Survey
         VBox resultsMenu = new VBox();
         HBox displayForFirstSpot = new HBox(5);
         HBox displayForSecondSpot = new HBox(5);
@@ -176,7 +178,7 @@ public class Gui extends Application {
 
         Scene sceneForResultsMenu = new Scene (resultsMenu, 700, 300);
 
-        // Event Handlers
+        // Event Handler to Login
     	enterToAccount.setOnAction(new EventHandler<ActionEvent>() {
         	public void handle (ActionEvent event) {
             	String username = txtUsername.getText();
@@ -195,6 +197,7 @@ public class Gui extends Application {
             }
         });
 
+        //Event Handler to Signup
         signupToAccount.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent event) {
             	String username = txtUsername.getText();
@@ -215,6 +218,7 @@ public class Gui extends Application {
             }
         });
 
+        //Event Handler to Signout from the Main Menu and back to the Login screen.
         signout.setOnAction(new EventHandler<ActionEvent>(){
             public void handle (ActionEvent event){
                 primaryStage.setScene(sceneForLogin); 
@@ -223,7 +227,7 @@ public class Gui extends Application {
             }
         });
 
-        // For Survey Menu
+        //Event Handler to get to the Survey Menu
         surveyButton.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
                 primaryStage.setScene(sceneForSurveyMenu);
@@ -231,6 +235,7 @@ public class Gui extends Application {
             }
         });
         
+        //Event Handler to submit survey responses
         finishSurveyButton.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
                 Boolean valueIsValid1 = false;
@@ -331,6 +336,7 @@ public class Gui extends Application {
             }
         });
 
+        //Event Handler to go back to the Main Menu screen from the Survey screen
         goBackToMainMenuButtonFromSurvey.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
                 primaryStage.setScene(sceneForMainMenu);
@@ -338,7 +344,7 @@ public class Gui extends Application {
             }
         });
         
-        // For Results Menu
+        //Event Handler to go back to the Main Menu Screen from the Results Menu screen.
         goBackToMainMenuButtonFromResults.setOnAction (new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
                 primaryStage.setScene(sceneForMainMenu);
