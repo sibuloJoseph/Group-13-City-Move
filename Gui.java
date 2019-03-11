@@ -166,6 +166,11 @@ public class Gui extends Application {
         first.setFont(Font.font("Verdana", 15));
         second.setFont(Font.font("Verdana", 15));
         third.setFont(Font.font("Verdana", 15));
+	 
+	  
+	first.setTextFill(Color.PALEGOLDENROD);
+        second.setTextFill(Color.PALEGOLDENROD);
+        third.setTextFill(Color.PALEGOLDENROD);
 
         firstStudySpot.setFont(Font.font("Verdana", 15));
         secondStudySpot.setFont(Font.font("Verdana", 15));
@@ -179,7 +184,7 @@ public class Gui extends Application {
         resultsMenu.getChildren().addAll(displayForFirstSpot,displayForSecondSpot,displayForThirdSpot,goBackToMainMenuButtonFromResults);
         resultsMenu.setStyle("-fx-background-color: #980E0E;");
 
-        Scene sceneForResultsMenu = new Scene (resultsMenu, 700, 300);
+        Scene sceneForResultsMenu = new Scene (resultsMenu, 1200, 300);
 
         // Event Handler to Login
     	enterToAccount.setOnAction(new EventHandler<ActionEvent>() {
