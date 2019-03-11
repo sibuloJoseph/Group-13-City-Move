@@ -163,18 +163,18 @@ public class Gui extends Application {
         displayForSecondSpot.getChildren().addAll(secondStudySpot,second);
         displayForThirdSpot.getChildren().addAll(thirdStudySpot,third);
 
-        first.setFont(Font.font("Verdana", 15));
-        second.setFont(Font.font("Verdana", 15));
-        third.setFont(Font.font("Verdana", 15));
+        first.setFont(Font.font("Verdana", 25));
+        second.setFont(Font.font("Verdana", 25));
+        third.setFont(Font.font("Verdana", 25));
 	 
 	  
 	first.setTextFill(Color.PALEGOLDENROD);
         second.setTextFill(Color.PALEGOLDENROD);
         third.setTextFill(Color.PALEGOLDENROD);
 
-        firstStudySpot.setFont(Font.font("Verdana", 15));
-        secondStudySpot.setFont(Font.font("Verdana", 15));
-        thirdStudySpot.setFont(Font.font("Verdana", 15));
+        firstStudySpot.setFont(Font.font("Verdana", 25));
+        secondStudySpot.setFont(Font.font("Verdana", 25));
+        thirdStudySpot.setFont(Font.font("Verdana", 25));
 
         firstStudySpot.setTextFill(Color.WHITE);
         secondStudySpot.setTextFill(Color.WHITE);
