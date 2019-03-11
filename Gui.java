@@ -278,59 +278,123 @@ public class Gui extends Application {
                 Boolean valueIsValid3 = false;
                 Boolean valueIsValid4 = false;
                 Boolean valueIsValid5 = false;
-               
-                Double question1Value = Double.parseDouble(question1Text.getText()); 
-                Double question2Value = Double.parseDouble(question2Text.getText());
-                Double question3Value = Double.parseDouble(question3Text.getText());
-                Double question4Value = Double.parseDouble(question4Text.getText());
-                Double question5Value = Double.parseDouble(question5Text.getText());
 
-                
-                if (question1Value >= 1.0 && question1Value <= 10.0) {
-                    outputForInvalidQ1Value.setText("");
-                    valueIsValid1 = true;
-                }
-                else {
-                    outputForInvalidQ1Value.setText("Invalid Value. Please enter a value from 1-10.");
+                Double question1Value = new Double(1.0);
+                Double question2Value = new Double(1.0);
+                Double question3Value = new Double(1.0);
+                Double question4Value = new Double(1.0);
+                Double question5Value = new Double(1.0);
+
+                //Question 1
+                try {
+                    question1Value = Double.parseDouble(question1Text.getText()); 
+                    if (question1Value >= 1.0 && question1Value <= 10.0) {
+                        outputForInvalidQ1Value.setText("");
+                        valueIsValid1 = true;
+                    }
+                    else {
+                        outputForInvalidQ1Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid1 = false;
+                        }
+                    
+                } catch (NumberFormatException e){
+                    //TODO: handle exception
+                    outputForInvalidQ1Value.setText("Cannot Input Strings!");
                     valueIsValid1 = false;
+                    if(question1Text.getText().isEmpty()){
+                        outputForInvalidQ1Value.setText("Please Enter a Valid Number.");
+                        valueIsValid1 = false;
                     }
-                
 
-                if (question2Value >= 1.0 && question2Value <= 10.0) {
-                    outputForInvalidQ2Value.setText("");
-                    valueIsValid2 = true;
                 }
-                else {
-                    outputForInvalidQ2Value.setText("Invalid Value. Please enter a value from 1-10.");
+
+                //Question 2
+                try {
+                    question2Value = Double.parseDouble(question2Text.getText());
+                    if (question2Value >= 1.0 && question2Value <= 10.0) {
+                        outputForInvalidQ2Value.setText("");
+                        valueIsValid2 = true;
+                    }
+                    else {
+                        outputForInvalidQ2Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid2 = false;
+                        }
+                } catch (NumberFormatException e) {
+                    //TODO: handle exception
+                    outputForInvalidQ2Value.setText("Cannot Input Strings!");
                     valueIsValid2 = false;
+                    if(question2Text.getText().isEmpty()){
+                        outputForInvalidQ2Value.setText("Please Enter a Valid Number.");
+                        valueIsValid2 = false;
                     }
 
-                if (question3Value >= 1.0 && question3Value <= 10.0) {
-                    outputForInvalidQ3Value.setText("");
-                    valueIsValid3 = true;
                 }
-                else {
-                    outputForInvalidQ3Value.setText("Invalid Value. Please enter a value from 1-10.");
+
+                //Question 3
+                try {
+                    question3Value = Double.parseDouble(question3Text.getText());
+                    if (question3Value >= 1.0 && question3Value <= 10.0) {
+                        outputForInvalidQ3Value.setText("");
+                        valueIsValid3 = true;
+                    }
+                    else {
+                        outputForInvalidQ3Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid3 = false;
+                        }
+                } catch (NumberFormatException e) {
+                    //TODO: handle exception
+                    outputForInvalidQ3Value.setText("Cannot Input Strings!");
                     valueIsValid3 = false;
-                    }
-                
-                if (question4Value >= 1.0 && question4Value <= 10.0) {
-                    outputForInvalidQ4Value.setText("");
-                    valueIsValid4 = true;
-                }
-                else {
-                    outputForInvalidQ4Value.setText("Invalid Value. Please enter a value from 1-10.");
-                    valueIsValid4 = false;
+                    if(question3Text.getText().isEmpty()){
+                        outputForInvalidQ3Value.setText("Please Enter a Valid Number.");
+                        valueIsValid3 = false;
                     }
 
-                if (question5Value >= 1.0 && question5Value <= 10.0) {
-                    outputForInvalidQ5Value.setText("");
-                    valueIsValid5 = true;
                 }
-                else {
-                    outputForInvalidQ5Value.setText("Invalid Value. Please enter a value from 1-10.");
-                    valueIsValid5 = false;
+
+                //Question 4
+                try {
+                    question4Value = Double.parseDouble(question4Text.getText());
+                    if (question4Value >= 1.0 && question4Value <= 10.0) {
+                        outputForInvalidQ4Value.setText("");
+                        valueIsValid4 = true;
                     }
+                    else {
+                        outputForInvalidQ4Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid4 = false;
+                        }
+                } catch (NumberFormatException e) {
+                    //TODO: handle exception
+                    outputForInvalidQ4Value.setText("Cannot Input Strings!");
+                    valueIsValid4 = false;
+                    if(question4Text.getText().isEmpty()){
+                        outputForInvalidQ4Value.setText("Please Enter a Valid Number.");
+                        valueIsValid4 = false;
+                    }
+
+                }
+
+                //Question 5
+                try {
+                    question5Value = Double.parseDouble(question5Text.getText());
+                    if (question5Value >= 1.0 && question5Value <= 10.0) {
+                        outputForInvalidQ5Value.setText("");
+                        valueIsValid5 = true;
+                    }
+                    else {
+                        outputForInvalidQ5Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid5 = false;
+                        }
+                } catch (NumberFormatException e) {
+                    //TODO: handle exception
+                    outputForInvalidQ5Value.setText("Cannot Input Strings!");
+                    valueIsValid5 = false;
+                    if(question5Text.getText().isEmpty()){
+                        outputForInvalidQ5Value.setText("Please Enter a Valid Number.");
+                        valueIsValid5 = false;
+                    }
+
+                }
 
                 if (valueIsValid1 && valueIsValid2 && valueIsValid3 && valueIsValid4 && valueIsValid5 == true) {
                     Survey aPerson = new Survey();
@@ -351,23 +415,7 @@ public class Gui extends Application {
                     first.setText(bestSpotList.get(0).getName());
                     second.setText(bestSpotList.get(1).getName());
                     third.setText(bestSpotList.get(2).getName());
-
                 }
-
-                /** try {
-                    question1Text = "";
-                    question2Text = "";
-                    question3Text = "";
-                    question4Text = "";
-                    question5Text = "";
-                }
-   
-                catch (Exception e) {
-                    System.out.println("Cannot input strings");
-                }
-                */
-                    
-                //question1Value.setNoiseLevel();     
             }
         });
 
@@ -380,59 +428,123 @@ public class Gui extends Application {
             Boolean valueIsValid4 = false;
             Boolean valueIsValid5 = false;
            
-            Double question1Value = Double.parseDouble(question1Text.getText()); 
-            Double question2Value = Double.parseDouble(question2Text.getText());
-            Double question3Value = Double.parseDouble(question3Text.getText());
-            Double question4Value = Double.parseDouble(question4Text.getText());
-            Double question5Value = Double.parseDouble(question5Text.getText());
-
+            Double question1Value = new Double(1.0);
+            Double question2Value = new Double(1.0);
+            Double question3Value = new Double(1.0);
+            Double question4Value = new Double(1.0);
+            Double question5Value = new Double(1.0);
             
             if (event.getCode() == KeyCode.ENTER){
-                if (question1Value >= 1.0 && question1Value <= 10.0) {
-                    outputForInvalidQ1Value.setText("");
-                    valueIsValid1 = true;
-                }
-                else {
-                    outputForInvalidQ1Value.setText("Invalid Value. Please enter a value from 1-10.");
+                //Question 1
+                try {
+                    question1Value = Double.parseDouble(question1Text.getText()); 
+                    if (question1Value >= 1.0 && question1Value <= 10.0) {
+                        outputForInvalidQ1Value.setText("");
+                        valueIsValid1 = true;
+                    }
+                    else {
+                        outputForInvalidQ1Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid1 = false;
+                        }
+                    
+                } catch (NumberFormatException e){
+                    //TODO: handle exception
+                    outputForInvalidQ1Value.setText("Cannot Input Strings!");
                     valueIsValid1 = false;
+                    if(question1Text.getText().isEmpty()){
+                        outputForInvalidQ1Value.setText("Please Enter a Valid Number.");
+                        valueIsValid1 = false;
                     }
-                
 
-                if (question2Value >= 1.0 && question2Value <= 10.0) {
-                    outputForInvalidQ2Value.setText("");
-                    valueIsValid2 = true;
                 }
-                else {
-                    outputForInvalidQ2Value.setText("Invalid Value. Please enter a value from 1-10.");
+
+                //Question 2
+                try {
+                    question2Value = Double.parseDouble(question2Text.getText());
+                    if (question2Value >= 1.0 && question2Value <= 10.0) {
+                        outputForInvalidQ2Value.setText("");
+                        valueIsValid2 = true;
+                    }
+                    else {
+                        outputForInvalidQ2Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid2 = false;
+                        }
+                } catch (NumberFormatException e) {
+                    //TODO: handle exception
+                    outputForInvalidQ2Value.setText("Cannot Input Strings!");
                     valueIsValid2 = false;
+                    if(question2Text.getText().isEmpty()){
+                        outputForInvalidQ2Value.setText("Please Enter a Valid Number.");
+                        valueIsValid2 = false;
                     }
 
-                if (question3Value >= 1.0 && question3Value <= 10.0) {
-                    outputForInvalidQ3Value.setText("");
-                    valueIsValid3 = true;
                 }
-                else {
-                    outputForInvalidQ3Value.setText("Invalid Value. Please enter a value from 1-10.");
+
+                //Question 3
+                try {
+                    question3Value = Double.parseDouble(question3Text.getText());
+                    if (question3Value >= 1.0 && question3Value <= 10.0) {
+                        outputForInvalidQ3Value.setText("");
+                        valueIsValid3 = true;
+                    }
+                    else {
+                        outputForInvalidQ3Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid3 = false;
+                        }
+                } catch (NumberFormatException e) {
+                    //TODO: handle exception
+                    outputForInvalidQ3Value.setText("Cannot Input Strings!");
                     valueIsValid3 = false;
-                    }
-                
-                if (question4Value >= 1.0 && question4Value <= 10.0) {
-                    outputForInvalidQ4Value.setText("");
-                    valueIsValid4 = true;
-                }
-                else {
-                    outputForInvalidQ4Value.setText("Invalid Value. Please enter a value from 1-10.");
-                    valueIsValid4 = false;
+                    if(question3Text.getText().isEmpty()){
+                        outputForInvalidQ3Value.setText("Please Enter a Valid Number.");
+                        valueIsValid3 = false;
                     }
 
-                if (question5Value >= 1.0 && question5Value <= 10.0) {
-                    outputForInvalidQ5Value.setText("");
-                    valueIsValid5 = true;
                 }
-                else {
-                    outputForInvalidQ5Value.setText("Invalid Value. Please enter a value from 1-10.");
-                    valueIsValid5 = false;
+
+                //Question 4
+                try {
+                    question4Value = Double.parseDouble(question4Text.getText());
+                    if (question4Value >= 1.0 && question4Value <= 10.0) {
+                        outputForInvalidQ4Value.setText("");
+                        valueIsValid4 = true;
                     }
+                    else {
+                        outputForInvalidQ4Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid4 = false;
+                        }
+                } catch (NumberFormatException e) {
+                    //TODO: handle exception
+                    outputForInvalidQ4Value.setText("Cannot Input Strings!");
+                    valueIsValid4 = false;
+                    if(question4Text.getText().isEmpty()){
+                        outputForInvalidQ4Value.setText("Please Enter a Valid Number.");
+                        valueIsValid4 = false;
+                    }
+
+                }
+
+                //Question 5
+                try {
+                    question5Value = Double.parseDouble(question5Text.getText());
+                    if (question5Value >= 1.0 && question5Value <= 10.0) {
+                        outputForInvalidQ5Value.setText("");
+                        valueIsValid5 = true;
+                    }
+                    else {
+                        outputForInvalidQ5Value.setText("Invalid Value. Please enter a value from 1-10.");
+                        valueIsValid5 = false;
+                        }
+                } catch (NumberFormatException e) {
+                    //TODO: handle exception
+                    outputForInvalidQ5Value.setText("Cannot Input Strings!");
+                    valueIsValid5 = false;
+                    if(question5Text.getText().isEmpty()){
+                        outputForInvalidQ5Value.setText("Please Enter a Valid Number.");
+                        valueIsValid5 = false;
+                    }
+
+                }
 
                 if (valueIsValid1 && valueIsValid2 && valueIsValid3 && valueIsValid4 && valueIsValid5 == true) {
                     Survey aPerson = new Survey();
@@ -453,26 +565,9 @@ public class Gui extends Application {
                     first.setText(bestSpotList.get(0).getName());
                     second.setText(bestSpotList.get(1).getName());
                     third.setText(bestSpotList.get(2).getName());
-
                 }
-
-                /** try {
-                    question1Text = "";
-                    question2Text = "";
-                    question3Text = "";
-                    question4Text = "";
-                    question5Text = "";
-                }
-
-                catch (Exception e) {
-                    System.out.println("Cannot input strings");
-                }
-                */
-                    
-                //question1Value.setNoiseLevel();     
             }
-        }
-    );
+        });
 
 
 
