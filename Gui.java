@@ -27,7 +27,7 @@ import com.sun.glass.events.KeyEvent;
 /**
  * This class contains the GUI of the app 
  *
- * Last Modified: March 10th, 9:36pm
+ * Last Modified: March 12, 2019
  */
 
 public class Gui extends Application {
