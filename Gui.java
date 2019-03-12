@@ -323,7 +323,7 @@ public class Gui extends Application {
                     
                 } catch (NumberFormatException e){
                     //TODO: handle exception
-                    outputForInvalidQ1Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ1Value.setText("Input Must Be a Number!");
                     valueIsValid1 = false;
                     if(question1Text.getText().isEmpty()){
                         outputForInvalidQ1Value.setText("Please Enter a Valid Number.");
@@ -345,7 +345,7 @@ public class Gui extends Application {
                         }
                 } catch (NumberFormatException e) {
                     //TODO: handle exception
-                    outputForInvalidQ2Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ2Value.setText("Input Must Be a Number!");
                     valueIsValid2 = false;
                     if(question2Text.getText().isEmpty()){
                         outputForInvalidQ2Value.setText("Please Enter a Valid Number.");
@@ -367,7 +367,7 @@ public class Gui extends Application {
                         }
                 } catch (NumberFormatException e) {
                     //TODO: handle exception
-                    outputForInvalidQ3Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ3Value.setText("Input Must Be a Number!");
                     valueIsValid3 = false;
                     if(question3Text.getText().isEmpty()){
                         outputForInvalidQ3Value.setText("Please Enter a Valid Number.");
@@ -389,7 +389,7 @@ public class Gui extends Application {
                         }
                 } catch (NumberFormatException e) {
                     //TODO: handle exception
-                    outputForInvalidQ4Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ4Value.setText("Input Must Be a Number!");
                     valueIsValid4 = false;
                     if(question4Text.getText().isEmpty()){
                         outputForInvalidQ4Value.setText("Please Enter a Valid Number.");
@@ -411,7 +411,7 @@ public class Gui extends Application {
                         }
                 } catch (NumberFormatException e) {
                     //TODO: handle exception
-                    outputForInvalidQ5Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ5Value.setText("Input Must Be a Number!");
                     valueIsValid5 = false;
                     if(question5Text.getText().isEmpty()){
                         outputForInvalidQ5Value.setText("Please Enter a Valid Number.");
@@ -473,7 +473,7 @@ public class Gui extends Application {
                     
                 } catch (NumberFormatException e){
                     //TODO: handle exception
-                    outputForInvalidQ1Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ1Value.setText("Input Must Be a Number!");
                     valueIsValid1 = false;
                     if(question1Text.getText().isEmpty()){
                         outputForInvalidQ1Value.setText("Please Enter a Valid Number.");
@@ -495,7 +495,7 @@ public class Gui extends Application {
                         }
                 } catch (NumberFormatException e) {
                     //TODO: handle exception
-                    outputForInvalidQ2Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ2Value.setText("Input Must Be a Number!");
                     valueIsValid2 = false;
                     if(question2Text.getText().isEmpty()){
                         outputForInvalidQ2Value.setText("Please Enter a Valid Number.");
@@ -517,7 +517,7 @@ public class Gui extends Application {
                         }
                 } catch (NumberFormatException e) {
                     //TODO: handle exception
-                    outputForInvalidQ3Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ3Value.setText("Input Must Be a Number!");
                     valueIsValid3 = false;
                     if(question3Text.getText().isEmpty()){
                         outputForInvalidQ3Value.setText("Please Enter a Valid Number.");
@@ -539,7 +539,7 @@ public class Gui extends Application {
                         }
                 } catch (NumberFormatException e) {
                     //TODO: handle exception
-                    outputForInvalidQ4Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ4Value.setText("Input Must Be a Number!");
                     valueIsValid4 = false;
                     if(question4Text.getText().isEmpty()){
                         outputForInvalidQ4Value.setText("Please Enter a Valid Number.");
@@ -561,7 +561,7 @@ public class Gui extends Application {
                         }
                 } catch (NumberFormatException e) {
                     //TODO: handle exception
-                    outputForInvalidQ5Value.setText("Cannot Input Strings!");
+                    outputForInvalidQ5Value.setText("Input Must Be a Number!");
                     valueIsValid5 = false;
                     if(question5Text.getText().isEmpty()){
                         outputForInvalidQ5Value.setText("Please Enter a Valid Number.");
