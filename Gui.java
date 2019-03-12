@@ -32,8 +32,12 @@ import com.sun.glass.events.KeyEvent;
 
 public class Gui extends Application {
   private UserAccountList userAccountList = new UserAccountList();
+  private String username = "", password = "";
+  private IdealStudySpot userData = new IdealStudySpot();
+  private StudySpotList studySpotList = new StudySpotList();
   
-  public void start(Stage primaryStage) throws Exception{
+  public void start(Stage primaryStage) throws Exception {
+
         //User Log in interface.
      	VBox centerBox = new VBox();
     	centerBox.setAlignment(Pos.CENTER);
@@ -167,16 +171,6 @@ public class Gui extends Application {
         second.setFont(Font.font("Verdana", 25));
         third.setFont(Font.font("Verdana", 25));
 	 
-	//Sets Past Study Spot Labels
-        IdealStudySpot idealStudySpot = new IdealStudySpot ();
-        StudySpotList studySpotList = new StudySpotList ();
-        studySpotList.setUserIdeal(idealStudySpot);
-        ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
-
-        first.setText(bestSpotList.get(0).getName());
-        second.setText(bestSpotList.get(1).getName());
-        third.setText(bestSpotList.get(2).getName());
-	 
 	  
 	first.setTextFill(Color.PALEGOLDENROD);
         second.setTextFill(Color.PALEGOLDENROD);
@@ -199,18 +193,23 @@ public class Gui extends Application {
         // Event Handler to Login
     	enterToAccount.setOnAction(new EventHandler<ActionEvent>() {
         	public void handle (ActionEvent event) {
-            	String username = txtUsername.getText();
-                String password = txtPassword.getText();
-                  
-                if (userAccountList.credentialsValid(username, password)) {
-                    primaryStage.setScene(sceneForMainMenu);
-                    primaryStage.setTitle("Main Menu - City Move");
+            	username = txtUsername.getText();
+                password = txtPassword.getText();
+
+                if (username.isEmpty() || password.isEmpty()) {
+                    output.setText("Please Enter Username and/or Password.");
                 }
-                else if (!userAccountList.hasAccount(username)){
-                    output.setText("Incorrect Username or \nAccount Does Not Exist!");
-                }
-                else {
-                    output.setText("Incorrect Password.");
+                else{
+                    if (userAccountList.credentialsValid(username, password)) {
+                        primaryStage.setScene(sceneForMainMenu);
+                        primaryStage.setTitle("Main Menu - City Move");
+                    }
+                    else if (!userAccountList.hasAccount(username)){
+                        output.setText("Incorrect Username or \nAccount Does Not Exist!");
+                    }
+                    else {
+                        output.setText("Incorrect Password.");
+                    }
                 }
             }
         });
@@ -218,8 +217,8 @@ public class Gui extends Application {
         // Event Handler to Login with 'Enter' Key
 
         centerBox.setOnKeyPressed(event ->{
-            String username = txtUsername.getText();
-            String password = txtPassword.getText();
+            username = txtUsername.getText();
+            password = txtPassword.getText();
 
             if (event.getCode() == KeyCode.ENTER){
                 if (username.isEmpty() || password.isEmpty()) {
@@ -243,8 +242,8 @@ public class Gui extends Application {
         //Event Handler to Signup
         signupToAccount.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent event) {
-            	String username = txtUsername.getText();
-                String password = txtPassword.getText();
+            	username = txtUsername.getText();
+                password = txtPassword.getText();
                   
             	if (userAccountList.hasAccount(username)) {
                     output.setText("Account Already Exist!");
@@ -288,6 +287,14 @@ public class Gui extends Application {
 	//Event Handler to get to Past Study Spots
         pastButton.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
+                userData = userAccountList.getUserData(username, password);
+                studySpotList.setUserIdeal(userData);
+                ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
+
+                first.setText(bestSpotList.get(0).getName());
+                second.setText(bestSpotList.get(1).getName());
+                third.setText(bestSpotList.get(2).getName());
+
                 primaryStage.setScene(sceneForResultsMenu);
                 primaryStage.setTitle("Survey - City Move");
             }
@@ -421,24 +428,24 @@ public class Gui extends Application {
                 }
 
                 if (valueIsValid1 && valueIsValid2 && valueIsValid3 && valueIsValid4 && valueIsValid5 == true) {
-                    IdealStudySpot idealStudySpot = new IdealStudySpot ();
-                    
-                    idealStudySpot.setNoiseLevel(question1Value);
-                    idealStudySpot.setBathroomsNearby(question2Value);
-                    idealStudySpot.setFoodNearby(question3Value);
-                    idealStudySpot.setSeatingSpace(question4Value);
-                    idealStudySpot.setOutlets(question5Value);
 
-                    StudySpotList studySpotList = new StudySpotList ();
-                    studySpotList.setUserIdeal(idealStudySpot);
+                    userData.setNoiseLevel(question1Value);
+                    userData.setBathroomsNearby(question2Value);
+                    userData.setFoodNearby(question3Value);
+                    userData.setSeatingSpace(question4Value);
+                    userData.setOutlets(question5Value);
+
+                    userAccountList.setUserData(username, password, userData);
+                    studySpotList.setUserIdeal(userData);
                     ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
-                    
-                    primaryStage.setScene(sceneForResultsMenu);
-                    primaryStage.setTitle("Survey Results - City Move");
-                    
+
                     first.setText(bestSpotList.get(0).getName());
                     second.setText(bestSpotList.get(1).getName());
                     third.setText(bestSpotList.get(2).getName());
+
+                    primaryStage.setScene(sceneForResultsMenu);
+                    primaryStage.setTitle("Survey Results - City Move");
+
                 }
             }
         });
@@ -571,22 +578,24 @@ public class Gui extends Application {
                 }
 
                 if (valueIsValid1 && valueIsValid2 && valueIsValid3 && valueIsValid4 && valueIsValid5 == true) {
-                      
-                    idealStudySpot.setNoiseLevel(question1Value);
-                    idealStudySpot.setBathroomsNearby(question2Value);
-                    idealStudySpot.setFoodNearby(question3Value);
-                    idealStudySpot.setSeatingSpace(question4Value);
-                    idealStudySpot.setOutlets(question5Value);
 
-                    studySpotList.setUserIdeal(idealStudySpot);
-                    ArrayList<StudySpot> newBestSpotList = studySpotList.getBestStudySpots();
-                    
+                    userData.setNoiseLevel(question1Value);
+                    userData.setBathroomsNearby(question2Value);
+                    userData.setFoodNearby(question3Value);
+                    userData.setSeatingSpace(question4Value);
+                    userData.setOutlets(question5Value);
+
+                    userAccountList.setUserData(username, password, userData);
+                    studySpotList.setUserIdeal(userData);
+                    ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
+
+                    first.setText(bestSpotList.get(0).getName());
+                    second.setText(bestSpotList.get(1).getName());
+                    third.setText(bestSpotList.get(2).getName());
+
                     primaryStage.setScene(sceneForResultsMenu);
                     primaryStage.setTitle("Survey Results - City Move");
-                    
-                    first.setText(newBestSpotList.get(0).getName());
-                    second.setText(newBestSpotList.get(1).getName());
-                    third.setText(newBestSpotList.get(2).getName());
+
                 }
             }
         });
