@@ -1,14 +1,27 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 /**
  * This class gets the input of the user of their most preferred criteria for study spots at the University of Calgary
  * based on a survey of 5 questions.
  *
- * Last modified: March 11th, 2019
+ * Last modified: March 12, 2019
  */
 
 public class Survey {
+
+    /**
+     * Displays the best study spots based on the given list to the console
+     * @param studySpotList: the StudySpotList object to base the results on
+     */
+    public void displayResults(StudySpotList studySpotList) {
+        ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
+        System.out.println("Here are the top three study spots recommended for you:");
+        System.out.println(bestSpotList.get(0).getName());
+        System.out.println(bestSpotList.get(1).getName());
+        System.out.println(bestSpotList.get(2).getName());
+    }
 
     /**
      * Asks the user questions where the user gets to rank their preferences on 5 criteria to determine their ideal study spot
@@ -17,42 +30,123 @@ public class Survey {
      * @return criteriaInput: a double representing the value of the user's preference of the given criteria in a given 1-10 scale 
      */
     public double askSurveyQuestions (String question) {
-        boolean isTrue = false;
+        boolean isValid = false;
         Scanner keyboard = new Scanner (System.in);
-        System.out.println("On a scale of 1-10, " + question);
-        double criteriaInput = keyboard.nextDouble();
-        while (isTrue == false) {
+        double criteriaInput = 0.0;
+
+        // Prompts the user for a value until a valid one is entered
+        while (!isValid) {
             if (criteriaInput >= 1.0 && criteriaInput <= 10.0) {
-                isTrue = true; 
-                return criteriaInput;
+                isValid = true;
             }
             else {
                 System.out.println("On a scale of 1-10, " + question);
-                criteriaInput = keyboard.nextDouble();
-                isTrue = false;
+                try {
+                    criteriaInput = keyboard.nextDouble();
+                }
+                catch(InputMismatchException e) {
+                    keyboard.nextLine();
+                    System.out.println("Please enter a number as indicated.");
+                }
             }
         }
-        return 0.0;
+
+        return criteriaInput;
     }
 
     /**
-     * Tests for the Survey class
+     * Main method for text based program
      */
     public static void main (String [] args) {
-        Survey aSurvey = new Survey ();
-        IdealStudySpot idealStudySpot1 = new IdealStudySpot ();
-        idealStudySpot1.setNoiseLevel(aSurvey.askSurveyQuestions("what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)"));
-        idealStudySpot1.setBathroomsNearby(aSurvey.askSurveyQuestions("how important is having bathrooms nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
-        idealStudySpot1.setFoodNearby(aSurvey.askSurveyQuestions("how important is having food places nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
-        idealStudySpot1.setSeatingSpace(aSurvey.askSurveyQuestions("how much seating space is ideal for your study spot? (1: limited, 10: plentiful)"));
-        idealStudySpot1.setOutlets(aSurvey.askSurveyQuestions("how important is the availability of power outlets at your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
-       
-        StudySpotList ssl = new StudySpotList ();
-        ssl.setUserIdeal(idealStudySpot1);
-        ArrayList<StudySpot> bestSpotList = ssl.getBestStudySpots();
-        System.out.println(bestSpotList.get(0).getName());
-        System.out.println(bestSpotList.get(1).getName());
-        System.out.println(bestSpotList.get(2).getName());
+
+        UserAccountList userAccountList = new UserAccountList();
+        StudySpotList ssl = new StudySpotList();
+        Survey aSurvey = new Survey();
+        IdealStudySpot userData = new IdealStudySpot();
+        String username = "", password = "";
+        Scanner keyboard = new Scanner(System.in);
+
+        // Asks the user to indicate whether they want to sign up or log in
+        System.out.println("Please enter S to sign up or L to log in.");
+        String action = keyboard.next();
+        while(!action.equalsIgnoreCase("S") && !action.equalsIgnoreCase("L")) {
+            System.out.println("Please enter a valid command.");
+            action = keyboard.next();
+        }
+
+        // Prompts the user for a valid username
+        System.out.println("Please enter a username.");
+
+        if(action.equalsIgnoreCase("S")) {
+            username = keyboard.next();
+            while(userAccountList.hasAccount(username)) {
+                System.out.println("An account with that username already exists, please try another.");
+                username = keyboard.next();
+            }
+        }
+        else if(action.equalsIgnoreCase("L")) {
+            username = keyboard.next();
+            while(!userAccountList.hasAccount(username)) {
+                System.out.println("That username does not exist, please try again.");
+                username = keyboard.next();
+            }
+        }
+
+        // Prompts the user for a valid password
+        System.out.println("Please enter a password.");
+
+        if(action.equalsIgnoreCase("S")) {
+            password = keyboard.next();
+            userAccountList.addAccount(username, password);
+        }
+        else if(action.equalsIgnoreCase("L")) {
+            password = keyboard.next();
+            while(!userAccountList.credentialsValid(username, password)) {
+                System.out.println("Invalid password. Please try again.");
+                password = keyboard.next();
+            }
+        }
+
+        // Main menu loop for the program
+        while(true) {
+            System.out.println("Please enter S to take the study spot survey, P to see your previous results, or Q to quit.");
+            action = keyboard.next();
+            while(!action.equalsIgnoreCase("S") && !action.equalsIgnoreCase("P") && !action.equalsIgnoreCase("Q")) {
+                System.out.println("Please enter a valid command.");
+                action = keyboard.next();
+            }
+
+            // Presents the user with the survey questions and gives them their results
+            if(action.equalsIgnoreCase("S")) {
+
+                userData.setNoiseLevel(aSurvey.askSurveyQuestions("what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)"));
+                userData.setBathroomsNearby(aSurvey.askSurveyQuestions("how important is having bathrooms nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
+                userData.setFoodNearby(aSurvey.askSurveyQuestions("how important is having food places nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
+                userData.setSeatingSpace(aSurvey.askSurveyQuestions("how much seating space is ideal for your study spot? (1: limited, 10: plentiful)"));
+                userData.setOutlets(aSurvey.askSurveyQuestions("how important is the availability of power outlets at your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
+
+                userAccountList.setUserData(username, password, userData);
+                ssl.setUserIdeal(userData);
+                aSurvey.displayResults(ssl);
+
+            }
+
+            // Displays the most recent results
+            else if(action.equalsIgnoreCase("P")) {
+
+                userData = userAccountList.getUserData(username, password);
+                ssl.setUserIdeal(userData);
+                aSurvey.displayResults(ssl);
+
+            }
+
+            // Ends the program
+            else if(action.equalsIgnoreCase("Q")) {
+                break;
+            }
+        }
+
+        System.out.println("Thank you for using our study spot recommendation app.");
     }
     
 }
