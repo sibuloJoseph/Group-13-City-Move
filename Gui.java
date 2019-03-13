@@ -264,15 +264,21 @@ public class Gui extends Application {
         //Event Handler to Signout from the Main Menu and back to the Login screen.
         signout.setOnAction(new EventHandler<ActionEvent>(){
             public void handle (ActionEvent event){
-                primaryStage.setScene(sceneForLogin); 
-                primaryStage.setTitle("Study Spots App - City Move");
                 txtPassword.setText("");
+                output.setText("");
+                primaryStage.setScene(sceneForLogin);
+                primaryStage.setTitle("Study Spots App - City Move");
             }
         });
 
         //Event Handler to get to the Survey Menu
         surveyButton.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
+                question1Text.setText("");
+                question2Text.setText("");
+                question3Text.setText("");
+                question4Text.setText("");
+                question5Text.setText("");
                 primaryStage.setScene(sceneForSurveyMenu);
                 primaryStage.setTitle("Survey - City Move");
             }
@@ -280,6 +286,11 @@ public class Gui extends Application {
         
         //Event Handler to get to the Survey Menu with 'Enter' Key
         mainMenuGUI.setOnKeyPressed(event ->{
+            question1Text.setText("");
+            question2Text.setText("");
+            question3Text.setText("");
+            question4Text.setText("");
+            question5Text.setText("");
             primaryStage.setScene(sceneForSurveyMenu);
             primaryStage.setTitle("Survey - City Move");
         });
