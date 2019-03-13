@@ -264,10 +264,12 @@ public class Gui extends Application {
         //Event Handler to Signout from the Main Menu and back to the Login screen.
         signout.setOnAction(new EventHandler<ActionEvent>(){
             public void handle (ActionEvent event){
+		primaryStage.hide();
                 txtPassword.setText("");
                 output.setText("");
                 primaryStage.setScene(sceneForLogin);
                 primaryStage.setTitle("Study Spots App - City Move");
+		primaryStage.show();
             }
         });
 
