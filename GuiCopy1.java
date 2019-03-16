@@ -32,23 +32,24 @@ import com.sun.glass.events.KeyEvent;
 
 public class GuiCopy1 extends Application {
 private UserAccountList userAccountList = new UserAccountList();
-private String username = "", password = "";
 private IdealStudySpot userData = new IdealStudySpot();
 private StudySpotList studySpotList = new StudySpotList();
-Stage primaryStage;
+private String username, password;
+private Stage primaryStage;
 
-Label output = new Label ("");
-Label logInUsername = new Label ("Username:");
-Label logInPassword = new Label ("Password:");
-TextField txtUsername = new TextField();
-PasswordField txtPassword = new PasswordField();
+//Variables of the Login Interface
+private Label output = new Label ("");
+private Label logInUsername = new Label ("Username:");
+private Label logInPassword = new Label ("Password:");
+private TextField txtUsername = new TextField();
+private PasswordField txtPassword = new PasswordField();
+private Button enterToAccount = new Button("Login");
+private Button signupToAccount = new Button("Signup");
 
-Button enterToAccount = new Button("Login");
-Button signupToAccount = new Button("Signup");
-
-Button surveyButton = new Button("Do Survey");
-Button pastButton = new Button("See Previous Study Spots");
-Button signout = new Button("Sign Out");
+//Varibles of the Main Menu Interface
+private Button surveyButton = new Button("Do Survey");
+private Button pastButton = new Button("See Previous Study Spots");
+private Button signout = new Button("Sign Out");
 
 //Interface
 private VBox loginInterface = new VBox();
@@ -59,17 +60,23 @@ private VBox surveyQuestionsMenu = new VBox ();
 Scene sceneForLogin;
 Scene sceneForMainMenu;
 
-public UserAccountList getUserAccountList(){
-    return userAccountList;
-}
+//Getter Methods
+public Stage getPrimaryStage(){return primaryStage;}
+public UserAccountList getUserAccountList(){return userAccountList;}
 
-public String getUsername(){
-    return username;
-}
+//Getter Methods For the Login Interface Variables
+public Label getOutput(){return output;}
+public Label getLoginUsername(){return logInUsername;}
+public Label getLoginPassword(){return logInPassword;}
+public TextField getTxtUsername(){return txtUsername;}
+public PasswordField getTxtPassword(){return txtPassword;}
+public Button getEnterToAccount(){return enterToAccount;}
+public Button getSignupToAccount(){return signupToAccount;}
 
-public String getPassword(){
-    return password;
-}
+//Getter Methods For the Main Menu Interface Variables
+public Button getSurveyButton(){return surveyButton;}
+public Button getPastButton(){return pastButton;}
+public Button getSignoutButton(){return signout;}
 
 
 
@@ -122,7 +129,6 @@ public void start(Stage primeStage) throws Exception {
         
         
         // Survey Interface 
-
         Label question1 = new Label ("On a scale of 1-10, what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)");
         Label question2 = new Label ("On a scale of 1-10, how important is having bathrooms nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"); 
         Label question3 = new Label ("On a scale of 1-10, how important is having food places nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)");
@@ -209,11 +215,10 @@ public void start(Stage primeStage) throws Exception {
         Scene sceneForResultsMenu = new Scene (resultsMenu, 1200, 300);
 
         // Event Handler to Login
-        HandleButtonClick buttonClick = new HandleButtonClick();
+        HandleButtonClick buttonClick = new HandleButtonClick(new GuiCopy1());
         enterToAccount.setOnAction(buttonClick);
 
         // Event Handler to Login with 'Enter' Key
-
         loginInterface.setOnKeyPressed(event ->{
             username = txtUsername.getText();
             password = txtPassword.getText();
