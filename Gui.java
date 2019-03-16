@@ -30,7 +30,7 @@ import com.sun.glass.events.KeyEvent;
  * Last Modified: March 12, 2019
  */
 
-public class GuiCopy1 extends Application {
+public class Gui extends Application {
     private UserAccountList userAccountList = new UserAccountList();
     private String username = "", password="";
     private IdealStudySpot userData = new IdealStudySpot();
