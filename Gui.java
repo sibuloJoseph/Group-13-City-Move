@@ -30,103 +30,118 @@ import com.sun.glass.events.KeyEvent;
  * Last Modified: March 12, 2019
  */
 
-public class Gui extends Application {
-  private UserAccountList userAccountList = new UserAccountList();
-  private String username = "", password = "";
-  private IdealStudySpot userData = new IdealStudySpot();
-  private StudySpotList studySpotList = new StudySpotList();
-  
-  public void start(Stage primaryStage) throws Exception {
+public class GuiCopy1 extends Application {
+    private UserAccountList userAccountList = new UserAccountList();
+    private String username = "", password="";
+    private IdealStudySpot userData = new IdealStudySpot();
+    private StudySpotList studySpotList = new StudySpotList();
 
+    //Variables of the Login Interface
+    private Label output = new Label ("");
+    private Label logInUsername = new Label ("Username:");
+    private Label logInPassword = new Label ("Password:");
+    private TextField txtUsername = new TextField();
+    private PasswordField txtPassword = new PasswordField();
+    private Button enterToAccount = new Button("Login");
+    private Button signupToAccount = new Button("Signup");
+
+    //Varibles of the Main Menu Interface
+    private Button surveyButton = new Button("Do Survey");
+    private Button pastButton = new Button("See Previous Study Spots");
+    private Button signout = new Button("Sign Out");
+
+    //Variable of the Survey Interface
+    private Label question1 = new Label ("On a scale of 1-10, what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)");
+    private Label question2 = new Label ("On a scale of 1-10, how important is having bathrooms nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"); 
+    private Label question3 = new Label ("On a scale of 1-10, how important is having food places nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)");
+    private Label question4 = new Label ("On a scale of 1-10, how much seating space is ideal for your study spot? (1: limited, 10: plentiful)");
+    private Label question5 = new Label ("On a scale of 1-10, how important is the availability of power outlets at your ideal study spot? (1: not important to me, 10: Extremely important to me.)");
+    private Label outputForInvalidQ1Value = new Label ("");
+    private Label outputForInvalidQ2Value = new Label ("");
+    private Label outputForInvalidQ3Value = new Label ("");
+    private Label outputForInvalidQ4Value = new Label ("");
+    private Label outputForInvalidQ5Value = new Label ("");
+    private TextField question1Text = new TextField ();
+    private TextField question2Text = new TextField ();
+    private TextField question3Text = new TextField ();
+    private TextField question4Text = new TextField ();
+    private TextField question5Text = new TextField ();
+    private Button finishSurveyButton = new Button ("Submit Survey");
+    private Button goBackToMainMenuButtonFromSurvey = new Button ("Go back to Main Menu");
+
+    //Variables of the Results Menu Interface
+    private HBox displayForFirstSpot = new HBox(5);
+    private HBox displayForSecondSpot = new HBox(5);
+    private HBox displayForThirdSpot = new HBox(5);
+    private Label firstStudySpot = new Label ("Your first Study Spot is: ");
+    private Label secondStudySpot = new Label ("Your second Study Spot is: ");
+    private Label thirdStudySpot = new Label ("Your third Study Spot is: ");
+    private Label first = new Label ("");
+    private Label second = new Label ("");
+    private Label third = new Label ("");
+    private Button goBackToMainMenuButtonFromResults = new Button ("Go back to Main Menu");
+
+    //Screen Interfaces
+    private VBox loginInterface = new VBox();
+    private VBox mainMenuGUI = new VBox();
+    private VBox surveyQuestionsMenu = new VBox ();
+    private VBox resultsMenu = new VBox();
+
+    //Scenes
+    Scene sceneForLogin;
+    Scene sceneForMainMenu;
+    Scene sceneForSurveyMenu;
+    Scene sceneForResultsMenu;
+  
+    public void start(Stage primaryStage) throws Exception {
         //User Log in interface.
-     	VBox centerBox = new VBox();
-    	centerBox.setAlignment(Pos.CENTER);
-    
+    	loginInterface.setAlignment(Pos.CENTER);
+        
+        //UofC Logo 
         final ImageView selectedImage = new ImageView();   
         Image image1 = new Image(Gui.class.getResourceAsStream("Logo.jpg"));
 		selectedImage.setImage(image1);
-		centerBox.getChildren().add(selectedImage);
-    
-        Label output = new Label ("");
-    	Label logInUsername = new Label ("Username:");
-  		Label logInPassword = new Label ("Password:");
-        TextField txtUsername = new TextField();
-        PasswordField txtPassword = new PasswordField();
+        loginInterface.getChildren().add(selectedImage);
+
     	txtUsername.setMaxWidth(200);
         txtPassword.setMaxWidth(200);
         
         HBox loginSignup = new HBox();
         loginSignup.setAlignment(Pos.CENTER);
-        Button enterToAccount = new Button("Login");
-        Button signupToAccount = new Button("Signup");
         loginSignup.getChildren().addAll(enterToAccount, signupToAccount);
 
-
-    	centerBox.setSpacing(20);	
+    	loginInterface.setSpacing(20);	
       	logInUsername.setFont(Font.font("Verdana", 20));
       	logInPassword.setFont(Font.font("Verdana", 20));
     	logInUsername.setTextFill(Color.WHITE);
         logInPassword.setTextFill(Color.WHITE);
         output.setTextFill(Color.WHITE);
     
-        centerBox.getChildren().addAll(logInUsername, txtUsername, logInPassword, txtPassword, loginSignup, output);
-        centerBox.setStyle("-fx-background-color: #980E0E;");
+        loginInterface.getChildren().addAll(logInUsername, txtUsername, logInPassword, txtPassword, loginSignup, output);
+        loginInterface.setStyle("-fx-background-color: #980E0E;");
 
-        Scene sceneForLogin = new Scene(centerBox, 300,500);
+        sceneForLogin = new Scene(loginInterface, 300,500);
         primaryStage.setTitle("Study Spots App");
         primaryStage.setScene(sceneForLogin);
-        primaryStage.show(); 
+        primaryStage.show();
+         
 
-        
         //Main Menu Interface
+        //UofC Map
         final ImageView mapImage = new ImageView();   
         Image image2 = new Image(Gui.class.getResourceAsStream("UofCMap.png"));
         mapImage.setImage(image2);
 
-        VBox mainMenuGUI = new VBox();
         mainMenuGUI.setAlignment(Pos.CENTER);
         mainMenuGUI.setSpacing(15);
-
-        Button surveyButton = new Button("Do Survey");
-        Button pastButton = new Button("See Previous Study Spots");
-        Button signout = new Button("Sign Out");
-        mainMenuGUI.getChildren().addAll(mapImage, surveyButton, pastButton, signout);
         mainMenuGUI.setStyle("-fx-background-color: #980E0E;");
+        mainMenuGUI.getChildren().addAll(mapImage, surveyButton, pastButton, signout);
+        sceneForMainMenu = new Scene(mainMenuGUI);
 
-        Scene sceneForMainMenu = new Scene(mainMenuGUI);
-        
-        
-        // Survey Interface
-        VBox surveyQuestionsMenu = new VBox (); 
 
-        Label question1 = new Label ("On a scale of 1-10, what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)");
-        Label question2 = new Label ("On a scale of 1-10, how important is having bathrooms nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"); 
-        Label question3 = new Label ("On a scale of 1-10, how important is having food places nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)");
-        Label question4 = new Label ("On a scale of 1-10, how much seating space is ideal for your study spot? (1: limited, 10: plentiful)");
-        Label question5 = new Label ("On a scale of 1-10, how important is the availability of power outlets at your ideal study spot? (1: not important to me, 10: Extremely important to me.)");
-
-        Label outputForInvalidQ1Value = new Label ("");
-        Label outputForInvalidQ2Value = new Label ("");
-        Label outputForInvalidQ3Value = new Label ("");
-        Label outputForInvalidQ4Value = new Label ("");
-        Label outputForInvalidQ5Value = new Label ("");
-
-        TextField question1Text = new TextField ();
-        TextField question2Text = new TextField ();
-        TextField question3Text = new TextField ();
-        TextField question4Text = new TextField ();
-        TextField question5Text = new TextField ();
-
+        //Survey Interface
         HBox submitOrGoBack = new HBox ();
-        Button finishSurveyButton = new Button ("Submit Survey");
-        Button goBackToMainMenuButtonFromSurvey = new Button ("Go back to Main Menu");
         submitOrGoBack.getChildren().addAll(finishSurveyButton,goBackToMainMenuButtonFromSurvey);
-
-        //question1.setTextFill(Color.WHITE);
-        //question2.setTextFill(Color.WHITE);
-        //question3.setTextFill(Color.WHITE);
-        //question4.setTextFill(Color.WHITE);
-        //question5.setTextFill(Color.WHITE);
 
         question1.setFont(Font.font("Verdana", 15));
         question2.setFont(Font.font("Verdana", 15));
@@ -143,26 +158,10 @@ public class Gui extends Application {
         surveyQuestionsMenu.setSpacing(15);
         surveyQuestionsMenu.getChildren().addAll(question1,question1Text,outputForInvalidQ1Value,question2,question2Text,outputForInvalidQ2Value,question3,question3Text,outputForInvalidQ3Value,question4,question4Text,outputForInvalidQ4Value,question5,question5Text,outputForInvalidQ5Value,submitOrGoBack);
         surveyQuestionsMenu.setStyle("-fx-background-color: #F5F5DC;");
-
-        Scene sceneForSurveyMenu = new Scene (surveyQuestionsMenu);
+        sceneForSurveyMenu = new Scene (surveyQuestionsMenu);
 
 
         //Results Menu from Survey
-        VBox resultsMenu = new VBox();
-        HBox displayForFirstSpot = new HBox(5);
-        HBox displayForSecondSpot = new HBox(5);
-        HBox displayForThirdSpot = new HBox(5);
-
-        Label firstStudySpot = new Label ("Your first Study Spot is: ");
-        Label secondStudySpot = new Label ("Your second Study Spot is: ");
-        Label thirdStudySpot = new Label ("Your third Study Spot is: ");
-
-        Label first = new Label ("");
-        Label second = new Label ("");
-        Label third = new Label ("");
-
-        Button goBackToMainMenuButtonFromResults = new Button ("Go back to Main Menu");
-
         displayForFirstSpot.getChildren().addAll(firstStudySpot,first);
         displayForSecondSpot.getChildren().addAll(secondStudySpot,second);
         displayForThirdSpot.getChildren().addAll(thirdStudySpot,third);
@@ -170,9 +169,8 @@ public class Gui extends Application {
         first.setFont(Font.font("Verdana", 25));
         second.setFont(Font.font("Verdana", 25));
         third.setFont(Font.font("Verdana", 25));
-	 
 	  
-	first.setTextFill(Color.PALEGOLDENROD);
+	    first.setTextFill(Color.PALEGOLDENROD);
         second.setTextFill(Color.PALEGOLDENROD);
         third.setTextFill(Color.PALEGOLDENROD);
 
@@ -187,8 +185,7 @@ public class Gui extends Application {
         resultsMenu.setSpacing(50);
         resultsMenu.getChildren().addAll(displayForFirstSpot,displayForSecondSpot,displayForThirdSpot,goBackToMainMenuButtonFromResults);
         resultsMenu.setStyle("-fx-background-color: #980E0E;");
-
-        Scene sceneForResultsMenu = new Scene (resultsMenu, 1200, 300);
+        sceneForResultsMenu = new Scene (resultsMenu, 1200, 300);
 
         // Event Handler to Login
     	enterToAccount.setOnAction(new EventHandler<ActionEvent>() {
@@ -216,7 +213,7 @@ public class Gui extends Application {
 
         // Event Handler to Login with 'Enter' Key
 
-        centerBox.setOnKeyPressed(event ->{
+        loginInterface.setOnKeyPressed(event ->{
             username = txtUsername.getText();
             password = txtPassword.getText();
 
