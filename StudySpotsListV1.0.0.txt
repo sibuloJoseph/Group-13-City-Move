@@ -14,10 +14,10 @@ MacEwan Hall (Mac Hall)
   10
   10
   1
- 315.0
- 388.0
- 255.0
- 316.0
+  315.0
+  388.0
+  255.0
+  316.0
 Energy Enviroment Experiential Learning Building (EEEL)
   8
   9
