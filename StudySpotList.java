@@ -10,38 +10,37 @@ import java.io.FileNotFoundException;
 
  */
 public class StudySpotList{
-    private IdealStudySpot userIdeal;
+    private IdealStudySpot userIdeal = new IdealStudySpot();
     private ArrayList<StudySpot> studySpotList = new ArrayList<StudySpot>();
-     
+    private Scanner studySpotsFromTxt;
+    private StudySpot studySpot =new StudySpot();
 
     /**
      * Default constructor for the StudySpotList object
      */
     public StudySpotList(){
         try {
-            Scanner studySpotsFromTxt = new Scanner(new File("StudySpotsListV1.0.0.txt"));
-            StudySpot ss =new StudySpot();
-            userIdeal = new IdealStudySpot();
-
+            studySpotsFromTxt = new Scanner(new File("StudySpotsListV1.0.0.txt"));
             while (studySpotsFromTxt.hasNext()){
 
-                ss = new StudySpot();
-                ss.setName(studySpotsFromTxt.nextLine());
-                ss.setNoiseLevel(Double.parseDouble(studySpotsFromTxt.nextLine()));
-                ss.setBathroomsNearby(Double.parseDouble(studySpotsFromTxt.nextLine()));
-                ss.setFoodNearby(Double.parseDouble(studySpotsFromTxt.nextLine()));
-                ss.setSeatingSpace(Double.parseDouble(studySpotsFromTxt.nextLine()));
-                ss.setOutlets(Double.parseDouble(studySpotsFromTxt.nextLine()));
-
-                studySpotList.add(ss);
+                studySpot = new StudySpot();
+                studySpot.setName(studySpotsFromTxt.nextLine());
+                studySpot.setNoiseLevel(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                studySpot.setBathroomsNearby(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                studySpot.setFoodNearby(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                studySpot.setSeatingSpace(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                studySpot.setOutlets(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                studySpot.setX1(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                studySpot.setX2(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                studySpot.setY1(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                studySpot.setY2(Double.parseDouble(studySpotsFromTxt.nextLine()));
+                this.getStudySpotList().add(studySpot);
             }
         }
         catch (Exception e) {
             //TODO: handle exception
             System.out.println("No File"); 
             System.exit(0);
-           
-
         }
 
     }
@@ -67,14 +66,14 @@ public class StudySpotList{
      * Returns the ideal StudySpot based on the user's input.
      */
     public IdealStudySpot getUserIdeal(){
-        return userIdeal;
+        return this.userIdeal;
     }
 
     /**
      * Returns the list of StudySpots after getting the study spots from the StudySpotsList text file.
      */
     public ArrayList<StudySpot> getStudySpotList(){
-        return studySpotList;
+        return this.studySpotList;
 
     }
 
@@ -84,29 +83,30 @@ public class StudySpotList{
     public ArrayList<StudySpot> getBestStudySpots(){
         //Create an ArrayList for the comparison values from the compareTo() method in the IdealStudySpot Class
         ArrayList<Double> comparisonValues = new ArrayList<Double>();
-        for(int x=0; x<studySpotList.size(); x++){
-            comparisonValues.add(userIdeal.compareTo(new StudySpot(studySpotList.get(x))));
+        for(int x=0; x<this.getStudySpotList().size(); x++){
+            comparisonValues.add(this.getUserIdeal().compareTo(new StudySpot(this.getStudySpotList().get(x))));
         }
         
-        //Sort the comparisonValues array and match it with the studySpotList array 
-        //in order to sort the list of study spots from the best to the worst.
+        //Sort the comparisonValues array in ascending order and match it with the studySpotList array so that 
+        //the studySpotList array will have the best study spot in the first index. 
         double temp;
         StudySpot tempss;
-        for(int i = 1; i < studySpotList.size(); i++) {
+        for(int i = 1; i < this.getStudySpotList().size(); i++) {
             for(int j = i - 1; j >= 0; j--) {
                 if(comparisonValues.get(j) > comparisonValues.get(j+1)) {
                     temp = comparisonValues.get(j);
                     comparisonValues.set(j, comparisonValues.get(j+1));
                     comparisonValues.set(j+1, temp);
-                    tempss = studySpotList.get(j);
-                    studySpotList.set(j, studySpotList.get(j+1));
-                    studySpotList.set(j+1, tempss);
+                    tempss = this.getStudySpotList().get(j);
+                    this.getStudySpotList().set(j, this.getStudySpotList().get(j+1));
+                    this.getStudySpotList().set(j+1, tempss);
                 }
             }
         }
-        return studySpotList;
+        return this.getStudySpotList();
     }
 
+    
     /**
     *Test the StudySpotList class
     */
