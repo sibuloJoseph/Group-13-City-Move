@@ -106,7 +106,20 @@ public class StudySpotList{
         return this.getStudySpotList();
     }
 
-    
+    public StudySpot getLocation(double x, double y){
+        StudySpot s = null;        
+        for(int i=0; i<studySpotList.size(); i++){
+            if(studySpotList.get(i).getX1()<x && studySpotList.get(i).getX2()>x){
+                if(studySpotList.get(i).getY1()<y && studySpotList.get(i).getY2()>y){
+                    s = new StudySpot(studySpotList.get(i));
+                    break;
+                }
+            }
+        }
+        
+        return s;
+    }
+
     /**
     *Test the StudySpotList class
     */
