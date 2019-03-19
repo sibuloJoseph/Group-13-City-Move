@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class StudySpot implements Serializable {
     private double noiseLevel, bathroomsNearby, foodNearby, outlets, seatingSpace;
-    private double x, y;
+    private double x1, x2, y1, y2;
     private String name;
 
     /**
@@ -29,8 +29,10 @@ public class StudySpot implements Serializable {
         foodNearby = 1.0;
         outlets = 1.0;
         seatingSpace = 1.0;
-        x = 1.0;
-        y = 1.0;
+        x1 = 1.0;
+        x2 = 2.0;
+        y1 = 1.0;
+        y2 = 2.0;
         this.name = name;
     }
     
@@ -45,8 +47,10 @@ public class StudySpot implements Serializable {
         this.outlets = studySpotToCopy.outlets;
         this.seatingSpace = studySpotToCopy.seatingSpace;
         this.name = studySpotToCopy.name;
-        this.x = studySpotToCopy.x;
-        this.y = studySpotToCopy.y;
+        this.x1 = studySpotToCopy.x1;
+        this.x2 = studySpotToCopy.x2;
+        this.y1 = studySpotToCopy.y1;
+        this.y2 = studySpotToCopy.y2;
     }
 
     /**
@@ -98,19 +102,35 @@ public class StudySpot implements Serializable {
     }
 
     /**
-     * Sets the x location of the study spot to the given value
-     * @param x: double representing the x location of the study spot
+     * Sets the left boundary of the x location of the study spot to the given value
+     * @param x: double representing the left boundary of the x location of the study spot
      */
-    public void setX(double x) {
-        this.x = x;
+    public void setX1(double x) {
+        this.x1 = x;
     }
 
     /**
-     * Sets the y location of the study spot to the given value
-     * @param y: double representing the y location of the study spot
+     * Sets the right boundary of the x location of the study spot to the given value
+     * @param x: double representing the right boundary of the x location of the study spot
      */
-    public void setY(double y) {
-        this.y = y;
+    public void setX2(double x) {
+        this.x2 = x2;
+    }
+
+    /**
+     * Sets the upper boundary of the y location of the study spot to the given value
+     * @param y: double representing the upper boundary of the y location of the study spot
+     */
+    public void setY1(double y) {
+        this.y1 = y;
+    }
+
+    /**
+     * Sets the lower boundary of the y location of the study spot to the given value
+     * @param y: double representing the lower boundary of the y location of the study spot
+     */
+    public void setY2(double y) {
+        this.y2 = y;
     }
 
     /**
@@ -156,17 +176,31 @@ public class StudySpot implements Serializable {
     }
 
     /**
-     * Returns a double representing the x location of the study spot
+     * Returns a double representing the left boundary of the x location of the study spot
      */
-    public double getX() {
-        return x;
+    public double getX1() {
+        return x1;
     }
 
     /**
-     * Returns a double representing the y location of the study spot
+     * Returns a double representing the right boundary of the x location of the study spot
      */
-    public double getY() {
-        return y;
+    public double getX2() {
+        return x2;
+    }
+
+    /**
+     * Returns a double representing the upper boundary of the y location of the study spot
+     */
+    public double getY1() {
+        return y1;
+    }
+
+    /**
+     * Returns a double representing the lower boundary of the y locartion of the study spot
+     */
+    public double getY2() {
+        return y2;
     }
 
     /**
