@@ -380,6 +380,7 @@ public class Gui extends Application {
         sceneForLogin = new Scene(loginInterface, 300,500);
         primaryStage.setTitle("Study Spots App");
         primaryStage.setScene(sceneForLogin);
+        primaryStage.setResizable(false);
         primaryStage.show();
          
 
