@@ -582,14 +582,6 @@ public class Gui extends Application {
         // Event Click Handler on Interactive Map in Main Menu
         mapImage.setOnMouseClicked  (e -> {
             System.out.println("["+e.getX()+", "+e.getY()+"]");
-            if ((e.getX() >= 487.0 && e.getX() <= 530.0) && (e.getY() >= 120.0 && e.getY() <= 148.0)) {
-                spotClickedOn.setText("ICT");
-                System.out.println("ICT");
-                }
-
-            else {
-                spotClickedOn.setText("");
-            }
          }); 
     }
 }
