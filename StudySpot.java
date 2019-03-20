@@ -114,7 +114,7 @@ public class StudySpot implements Serializable {
      * @param x: double representing the right boundary of the x location of the study spot
      */
     public void setX2(double x) {
-        this.x2 = x2;
+        this.x2 = x;
     }
 
     /**
