@@ -47,12 +47,17 @@ public class Gui extends Application {
     private PasswordField txtPassword = new PasswordField();
     private Button enterToAccount = new Button("Login");
     private Button signupToAccount = new Button("Signup");
+    private final ImageView selectedImage = new ImageView();   
+    private Image image1 = new Image(Gui.class.getResourceAsStream("Logo.jpg"));
 
     //Varibles of the Main Menu Interface
     private Button surveyButton = new Button("Do Survey");
     private Button pastButton = new Button("See Previous Study Spots");
     private Button signoutFromMainMenu = new Button("Sign Out");
-    private Label spotClickedOn = new Label ("");
+    private Label spotClickedOn = new Label ("\n\n\n\n\n\n\n");
+    private final ImageView logoImageInMainMenu = new ImageView();  
+    private StudySpot clickedStudySpot;
+
 
     //Variable of the Survey Interface
     private Label question1 = new Label ("On a scale of 1-10, what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)");
@@ -140,13 +145,16 @@ public class Gui extends Application {
     public void signUpCondition(){
         username = txtUsername.getText();
         password = txtPassword.getText();
-            
+       
         if (userAccountList.hasAccount(username)) {
-            output.setText("Account Already Exists!");
+            output.setText("Account Already Exist!");
         }
         else {
             if (username.isEmpty() || password.isEmpty()) {
                 output.setText("Please Enter Username and/or Password.");
+            }
+            else if(!(password.matches(".{7,}"))){
+                output.setText("Password Must be at Least 7 Characters Long!");
             }
             else {
                 userAccountList.addAccount(username, password);
@@ -187,8 +195,36 @@ public class Gui extends Application {
         third.setText(bestSpotList.get(2).getName());
         primaryStage.hide();
         primaryStage.setScene(sceneForResultsMenu);
-        primaryStage.setTitle("Survey - City Move");
+        primaryStage.setTitle("Survey Results - City Move");
         primaryStage.show();
+
+    }
+
+    /**
+     * Method that Signs out the user and takes them back to the Login Screen
+     * when the "Signout" button is pressed.
+     */
+    public void signOut(){
+        primaryStage.hide();
+        txtPassword.setText("");
+        output.setText("");
+        primaryStage.setScene(sceneForLogin);
+        primaryStage.setTitle("Login - City Move");
+        primaryStage.show();
+    }
+
+    /**
+     * Method that would take the User back to the Main Menu Screen.
+     */
+    public void toMainMenu(){
+        primaryStage.hide();
+        primaryStage.setScene(sceneForMainMenu);
+        primaryStage.setTitle("Main Menu - City Move");
+        primaryStage.show();
+        if(mainMenuGUI.getChildren().contains(spotClickedOn)){
+            mainMenuGUI.getChildren().remove(spotClickedOn);
+            mainMenuGUI.getChildren().add(logoImageInMainMenu);
+        }
     }
 
     /**
@@ -324,29 +360,6 @@ public class Gui extends Application {
             primaryStage.show();
         }
     }
-
-    /**
-     * Method that Signs out the user and takes them back to the Login Screen
-     * when the "Signout" button is pressed.
-     */
-    public void signOut(){
-        primaryStage.hide();
-        txtPassword.setText("");
-        output.setText("");
-        primaryStage.setScene(sceneForLogin);
-        primaryStage.setTitle("Study Spots App - City Move");
-        primaryStage.show();
-    }
-
-    /**
-     * Method that would take the User back to the Main Menu Screen.
-     */
-    public void toMainMenu(){
-        primaryStage.hide();
-        primaryStage.setScene(sceneForMainMenu);
-        primaryStage.setTitle("Main Menu - City Move");
-        primaryStage.show();
-    }
   
     public void start(Stage primetimeStage) throws Exception {
         primaryStage = primetimeStage;
@@ -355,10 +368,7 @@ public class Gui extends Application {
     	loginInterface.setAlignment(Pos.CENTER);
         
         //UofC Logo 
-        final ImageView selectedImage = new ImageView();   
-        Image image1 = new Image(Gui.class.getResourceAsStream("Logo.jpg"));
 		selectedImage.setImage(image1);
-        loginInterface.getChildren().add(selectedImage);
 
     	txtUsername.setMaxWidth(200);
         txtPassword.setMaxWidth(200);
@@ -374,14 +384,15 @@ public class Gui extends Application {
         logInPassword.setTextFill(Color.WHITE);
         output.setTextFill(Color.WHITE);
     
-        loginInterface.getChildren().addAll(logInUsername, txtUsername, logInPassword, txtPassword, loginSignup, output);
+        loginInterface.getChildren().addAll(selectedImage, logInUsername, txtUsername, logInPassword, txtPassword, loginSignup, output);
         loginInterface.setStyle("-fx-background-color: #980E0E;");
 
         sceneForLogin = new Scene(loginInterface, 300,500);
-        primaryStage.setTitle("Study Spots App");
+        primaryStage.setTitle("Login-City Move");
         primaryStage.setScene(sceneForLogin);
         primaryStage.setResizable(false);
         primaryStage.show();
+
          
 
         //Main Menu Interface
@@ -390,9 +401,12 @@ public class Gui extends Application {
         Image uofCMap = new Image(Gui.class.getResourceAsStream("UofCMap.png"));
         mapImage.setImage(uofCMap);
 
+        logoImageInMainMenu.setImage(image1); 
+
         mainMenuGUI.setAlignment(Pos.CENTER);
         mainMenuGUI.setSpacing(15);
         mainMenuGUI.setStyle("-fx-background-color: #980E0E;");
+
 
         spotClickedOn.setFont(Font.font("Verdana", 20));
         spotClickedOn.setTextFill(Color.WHITE);
@@ -403,7 +417,7 @@ public class Gui extends Application {
         mainMenuButtons.setAlignment(Pos.CENTER);
         mainMenuButtons.getChildren().addAll(surveyButton, pastButton, signoutFromMainMenu);
 
-        mainMenuGUI.getChildren().addAll(mainMenuButtons, mapImage, spotClickedOn);
+        mainMenuGUI.getChildren().addAll(mainMenuButtons, mapImage, logoImageInMainMenu);
         sceneForMainMenu = new Scene(mainMenuGUI);
 
 
@@ -582,11 +596,26 @@ public class Gui extends Application {
         // Event Click Handler on Interactive Map in Main Menu
         mapImage.setOnMouseClicked  (e -> {
             System.out.println("["+e.getX()+", "+e.getY()+"]");
-            StudySpot clickedStudySpot = studySpotList.getLocation(e.getX(), e.getY());
-            if(clickedStudySpot != null){
-                spotClickedOn.setText(clickedStudySpot.getName());
-            }
+            clickedStudySpot = studySpotList.getLocation(e.getX(), e.getY());
+            //mainMenuGUI.getChildren().remove(spotClickedOn);
             
+            if(clickedStudySpot != null){
+                mainMenuGUI.getChildren().remove(spotClickedOn);
+                spotClickedOn.setText(clickedStudySpot.getName()
+                +" \n\nLevel of Noise(1-10): "+clickedStudySpot.getNoiseLevel()
+                +" \nBathrooms Nearby(1-10): "+clickedStudySpot.getBathroomsNearby()
+                +" \nFood Nearby(1-10): "+clickedStudySpot.getFoodNearby()
+                +" \nSeating Space(1-10): "+clickedStudySpot.getSeatingSpace()
+                +" \nOutlets Nearby(1-10): "+clickedStudySpot.getOutlets());
+
+                mainMenuGUI.getChildren().remove(logoImageInMainMenu);
+                mainMenuGUI.getChildren().add(spotClickedOn);
+            }
+        
+            else if(clickedStudySpot == null && mainMenuGUI.getChildren().contains(spotClickedOn)){
+                mainMenuGUI.getChildren().remove(spotClickedOn);
+                mainMenuGUI.getChildren().add(logoImageInMainMenu);
+            }
          }); 
     }
 }
