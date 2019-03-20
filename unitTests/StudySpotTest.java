@@ -4,7 +4,7 @@ import org.junit.Test;
 /**
  * This is the unit test for the StudySpot class.
  *
- * Last Modified: March 13, 2019
+ * Last Modified: March 20, 2019
  */
 
 public class StudySpotTest {
@@ -19,6 +19,10 @@ public class StudySpotTest {
         assertEquals("Numerical instance values should be initialized to 1.0", 1.0, s.getBathroomsNearby(), 0.0000001);
         assertEquals("Numerical instance values should be initialized to 1.0", 1.0, s.getOutlets(), 0.0000001);
         assertEquals("Numerical instance values should be initialized to 1.0", 1.0, s.getSeatingSpace(), 0.0000001);
+        assertEquals("x1 value should be initalized to 1.0", 1.0, s.getX1(), 0.0000001);
+        assertEquals("x2 value should be initialized to 2.0", 2.0, s.getX2(), 0.0000001);
+        assertEquals("y1 value should be initalized to 1.0", 1.0, s.getY1(), 0.0000001);
+        assertEquals("y2 value should be initialized to 2.0", 2.0, s.getY2(), 0.0000001);
         assertEquals("Name should be initialized to an empty string", "", s.getName());
     }
 
@@ -31,6 +35,10 @@ public class StudySpotTest {
         assertEquals("Numerical instance values should be initialized to 1.0", 1.0, s.getBathroomsNearby(), 0.0000001);
         assertEquals("Numerical instance values should be initialized to 1.0", 1.0, s.getOutlets(), 0.0000001);
         assertEquals("Numerical instance values should be initialized to 1.0", 1.0, s.getSeatingSpace(), 0.0000001);
+        assertEquals("x1 value should be initalized to 1.0", 1.0, s.getX1(), 0.0000001);
+        assertEquals("x2 value should be initialized to 2.0", 2.0, s.getX2(), 0.0000001);
+        assertEquals("y1 value should be initalized to 1.0", 1.0, s.getY1(), 0.0000001);
+        assertEquals("y2 value should be initialized to 2.0", 2.0, s.getY2(), 0.0000001);
         assertEquals("Name should be initialized to \"Name\"", "Name", s.getName());
     }
 
@@ -43,6 +51,10 @@ public class StudySpotTest {
         s1.setBathroomsNearby(4.0);
         s1.setOutlets(5.0);
         s1.setSeatingSpace(6.0);
+        s1.setX1(200);
+        s1.setX2(300);
+        s1.setY1(200);
+        s1.setY2(300);
 
         StudySpot s2 = new StudySpot(s1);
 
@@ -51,6 +63,10 @@ public class StudySpotTest {
         assertEquals("Instance variables should have the same values", s1.getBathroomsNearby(), s2.getBathroomsNearby(), 0.0000001);
         assertEquals("Instance variables should have the same values", s1.getOutlets(), s2.getOutlets(), 0.0000001);
         assertEquals("Instance variables should have the same values", s1.getSeatingSpace(), s2.getSeatingSpace(), 0.0000001);
+        assertEquals("Instance variables should have the same value", s1.getX1(), s2.getX1(), 0.0000001);
+        assertEquals("Instance variables should have the same value", s1.getX2(), s2.getX2(), 0.0000001);
+        assertEquals("Instance variables should have the same value", s1.getY1(), s2.getY1(), 0.0000001);
+        assertEquals("Instance variables should have the same value", s1.getY2(), s2.getY2(), 0.0000001);
         assertEquals("Instance variables should have the same values", s1.getName(), s2.getName());
     }
 
@@ -247,6 +263,94 @@ public class StudySpotTest {
         StudySpot s = new StudySpot();
         s.setName(null);
         assertEquals("Name should remain as an empty string", "", s.getName());
+    }
+
+    // Test setX1 method
+    @Test
+    public void test_setX1_negative() {
+        StudySpot s = new StudySpot();
+        s.setX1(-1.0);
+        assertEquals("x1 should remain at 1.0", 1.0, s.getX1(), 0.0000001);
+    }
+
+    @Test
+    public void test_setX1_zero() {
+        StudySpot s = new StudySpot();
+        s.setX1(0.0);
+        assertEquals("x1 should be changed to 0.0", 0.0, s.getX1(), 0.0000001);
+    }
+
+    @Test
+    public void test_setX1_positive() {
+        StudySpot s = new StudySpot();
+        s.setX1(300.0);
+        assertEquals("x1 should be changed to 300.0", 300.0, s.getX1(), 0.0000001);
+    }
+
+    // Test setX2 method
+    @Test
+    public void test_setX2_negative() {
+        StudySpot s = new StudySpot();
+        s.setX2(-1.0);
+        assertEquals("x2 should remain at 1.0", 1.0, s.getX2(), 0.0000001);
+    }
+
+    @Test
+    public void test_setX2_zero() {
+        StudySpot s = new StudySpot();
+        s.setX2(0.0);
+        assertEquals("x2 should be changed to 0.0", 0.0, s.getX2(), 0.0000001);
+    }
+
+    @Test
+    public void test_setX2_positive() {
+        StudySpot s = new StudySpot();
+        s.setX2(300.0);
+        assertEquals("x2 should be changed to 300.0", 300.0, s.getX2(), 0.0000001);
+    }
+
+    // Test setY1 method
+    @Test
+    public void test_setY1_negative() {
+        StudySpot s = new StudySpot();
+        s.setY1(-1.0);
+        assertEquals("y1 should remain at 1.0", 1.0, s.getY1(), 0.0000001);
+    }
+
+    @Test
+    public void test_setY1_zero() {
+        StudySpot s = new StudySpot();
+        s.setY1(0.0);
+        assertEquals("y1 should be changed to 0.0", 0.0, s.getY1(), 0.0000001);
+    }
+
+    @Test
+    public void test_setY1_positive() {
+        StudySpot s = new StudySpot();
+        s.setY1(300.0);
+        assertEquals("y1 should be changed to 300.0", 300.0, s.getY1(), 0.0000001);
+    }
+
+    // Test setY2 method
+    @Test
+    public void test_setY2_negative() {
+        StudySpot s = new StudySpot();
+        s.setY2(-1.0);
+        assertEquals("y2 should remain at 1.0", 1.0, s.getY2(), 0.0000001);
+    }
+
+    @Test
+    public void test_setY2_zero() {
+        StudySpot s = new StudySpot();
+        s.setY2(0.0);
+        assertEquals("y2 should be changed to 0.0", 0.0, s.getY2(), 0.0000001);
+    }
+
+    @Test
+    public void test_setY2_positive() {
+        StudySpot s = new StudySpot();
+        s.setY2(300.0);
+        assertEquals("y2 should be changed to 300.0", 300.0, s.getY2(), 0.0000001);
     }
 
 }
