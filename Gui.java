@@ -142,7 +142,7 @@ public class Gui extends Application {
         password = txtPassword.getText();
             
         if (userAccountList.hasAccount(username)) {
-            output.setText("Account Already Exist!");
+            output.setText("Account Already Exists!");
         }
         else {
             if (username.isEmpty() || password.isEmpty()) {
