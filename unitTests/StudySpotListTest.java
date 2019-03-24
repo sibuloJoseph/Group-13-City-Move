@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * This is the unit test for the StudySpotList class.
  *
- * Last Modified: March 13, 2019
+ * Last Modified: March 20, 2019
  */
 
 public class StudySpotListTest {
@@ -134,5 +134,29 @@ public class StudySpotListTest {
         studySpots.get(0).setName("Changed");
 
         assertFalse("Best spot list should not have been changed", "Changed".equals(s.getBestStudySpots().get(0).getName()));
+    }
+
+    // Test getLocation method
+    @Test
+    public void test_getLocation_KNB() {
+        StudySpotList s = new StudySpotList();
+
+        String name = "Kinesiology Block (KNB)";
+        assertEquals("Study spot at location should be KNB", name, s.getLocation(150.0, 340.0).getName());
+    }
+
+    @Test
+    public void test_getLocation_null() {
+        StudySpotList s = new StudySpotList();
+
+        assertEquals("There should be no study spot at the location", null, s.getLocation(1.0, 1.0));
+    }
+
+    @Test
+    public void test_getLocation_privacyleaks() {
+        StudySpotList s = new StudySpotList();
+
+        s.getLocation(150.0, 340.0).setName("Changed");
+        assertFalse("Name should not be changed", "Changed".equals(s.getLocation(150.0, 340.0).getName()));
     }
 }
