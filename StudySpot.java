@@ -1,7 +1,7 @@
 /**
  * This implements the StudySpot class to describe study spots at the University of Calgary.
  *
- * Last modified: March 19, 2019
+ * Last modified: March 23, 2019
  *
  */
 
@@ -58,7 +58,12 @@ public class StudySpot implements Serializable {
      * @param noiseLevel: double representing the noise level of the study spot
      */
     public void setNoiseLevel(double noiseLevel) {
-        this.noiseLevel = noiseLevel;
+        if (noiseLevel >= 1.0 && noiseLevel <= 10.0) {
+            this.noiseLevel = noiseLevel;
+        }
+        else {
+            this.noiseLevel = 1.0;
+        }
     }
 
     /**
@@ -66,7 +71,12 @@ public class StudySpot implements Serializable {
      * @param bathroomsNearby: double representing whether or not there are bathrooms near the study spot
      */
     public void setBathroomsNearby(double bathroomsNearby) {
-        this.bathroomsNearby = bathroomsNearby;
+        if (bathroomsNearby >= 1.0 && bathroomsNearby <= 10.0) {
+            this.bathroomsNearby = bathroomsNearby;
+        }
+        else {
+            this.bathroomsNearby = 1.0;
+        }
     }
 
     /**
@@ -74,7 +84,12 @@ public class StudySpot implements Serializable {
      * @param foodNearby: double representing the amount of food places near the study spot
      */
     public void setFoodNearby(double foodNearby) {
-        this.foodNearby = foodNearby;
+        if (foodNearby >= 1.0 && foodNearby <= 10.0) {
+            this.foodNearby = foodNearby;
+        }
+        else {
+            this.foodNearby = 1.0;
+        }
     }
 
     /**
@@ -82,7 +97,12 @@ public class StudySpot implements Serializable {
      * @param outlets: double representing whether power outlets are available
      */
     public void setOutlets(double outlets) {
-        this.outlets = outlets;
+        if (outlets >= 1.0 && outlets <= 10.0) {
+            this.outlets = outlets;
+        }
+        else {
+            this.outlets = 1.0;
+        }
     }
 
     /**
@@ -90,7 +110,12 @@ public class StudySpot implements Serializable {
      * @param seatingSpace: double indicating the amount of available seats
      */
     public void setSeatingSpace(double seatingSpace) {
-        this.seatingSpace = seatingSpace;
+        if (seatingSpace >= 1.0 && seatingSpace <= 10.0) {
+            this.seatingSpace = seatingSpace;
+        }
+        else {
+            this.seatingSpace = 1.0;
+        }
     }
 
     /**
@@ -98,7 +123,12 @@ public class StudySpot implements Serializable {
      * @param name: String containing the name of the study spot
      */
     public void setName(String name) {
-        this.name = name;
+        if (name == null) {
+            this.name = "";
+        }
+        else {
+            this.name = name;
+        }
     }
 
     /**
@@ -106,7 +136,12 @@ public class StudySpot implements Serializable {
      * @param x: double representing the left boundary of the x location of the study spot
      */
     public void setX1(double x) {
-        this.x1 = x;
+        if (x >= 0.0 && x <= 764.5) {
+            this.x1 = x;
+        }
+        else {
+            this.x1 = 1.0;
+        }
     }
 
     /**
@@ -114,7 +149,12 @@ public class StudySpot implements Serializable {
      * @param x: double representing the right boundary of the x location of the study spot
      */
     public void setX2(double x) {
-        this.x2 = x;
+        if (x >= 0.0 && x <= 764.5) {
+            this.x2 = x;
+        }
+        else {
+            this.x2 = 2.0;
+        }
     }
 
     /**
@@ -122,7 +162,12 @@ public class StudySpot implements Serializable {
      * @param y: double representing the upper boundary of the y location of the study spot
      */
     public void setY1(double y) {
-        this.y1 = y;
+        if (y >= 0.0 && y <= 586.5) {
+            this.y1 = y;
+        }
+        else {
+            this.y1 = 1.0;
+        }
     }
 
     /**
@@ -130,7 +175,12 @@ public class StudySpot implements Serializable {
      * @param y: double representing the lower boundary of the y location of the study spot
      */
     public void setY2(double y) {
-        this.y2 = y;
+        if (y >= 0.0 && y <= 586.5) {
+            this.y2 = y;
+        }
+        else {
+            this.y2 = 2.0;
+        }
     }
 
     /**
