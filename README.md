@@ -26,6 +26,6 @@ Info:
 - To compile the files use the command: javac -cp .:junit-4.12.jar:hamcrest-core-1.3.jar *.java 
 (Note use semicolons insteads of colons if using windows machine) 
 - To run the appropiate test file use the command java -cp .;junit-4.12.jar;hamcrest-core-1.3.jar org.junit.runner.JUnitCore <Testfile> ex: StudySpotTest 
-  
+--------------------------------
 - All map assets used in this demo is property of Google Maps.
 - The University of Calgary Logo is property of the University the of Calgary.
