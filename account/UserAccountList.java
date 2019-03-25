@@ -2,9 +2,11 @@
  * This implements the UserAccountList class to store user data and automatically save it for
  * future use by the study spot recommendation program.
  *
- * Last modified: February 28, 2019
+ * Last modified: March 25, 2019
  *
  */
+
+package account;
 
 import java.util.HashMap;
 import java.io.ObjectInputStream;
