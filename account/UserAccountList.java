@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
+import logic.IdealStudySpot;
 
 public class UserAccountList {
     private HashMap<String, String> credentialsMap;
