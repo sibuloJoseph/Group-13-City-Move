@@ -69,45 +69,56 @@ public class Survey {
         IdealStudySpot userData = new IdealStudySpot();
         String username = "", password = "";
         Scanner keyboard = new Scanner(System.in);
+        String action = "";
 
-        // Asks the user to indicate whether they want to sign up or log in
-        System.out.println("Please enter S to sign up or L to log in.");
-        String action = keyboard.next();
-        while(!action.equalsIgnoreCase("S") && !action.equalsIgnoreCase("L")) {
-            System.out.println("Please enter a valid command.");
-            action = keyboard.next();
-        }
+        boolean validLogin = false;
 
-        // Prompts the user for a valid username
-        System.out.println("Please enter a username.");
+        while(!validLogin) {
 
-        if(action.equalsIgnoreCase("S")) {
+            // Asks the user for a username and password
+            System.out.println("Please enter a username.");
             username = keyboard.next();
-            while(userAccountList.hasAccount(username)) {
-                System.out.println("An account with that username already exists, please try another.");
-                username = keyboard.next();
-            }
-        }
-        else if(action.equalsIgnoreCase("L")) {
-            username = keyboard.next();
-            while(!userAccountList.hasAccount(username)) {
-                System.out.println("That username does not exist, please try again.");
-                username = keyboard.next();
-            }
-        }
-
-        // Prompts the user for a valid password
-        System.out.println("Please enter a password.");
-
-        if(action.equalsIgnoreCase("S")) {
+            System.out.println("Please enter a password.");
             password = keyboard.next();
-            userAccountList.addAccount(username, password);
-        }
-        else if(action.equalsIgnoreCase("L")) {
-            password = keyboard.next();
-            while(!userAccountList.credentialsValid(username, password)) {
-                System.out.println("Invalid password. Please try again.");
+            while(!(password.matches(".{7,}"))) {
+                System.out.println("Password must be at least 7 characters long.");
+                System.out.println("Please try again.");
                 password = keyboard.next();
+            }
+
+            // Asks the user to indicate whether they want to sign up or log in
+            System.out.println("Please enter S to sign up or L to log in.");
+            action = keyboard.next();
+            while (!action.equalsIgnoreCase("S") && !action.equalsIgnoreCase("L")) {
+                System.out.println("Please enter a valid command.");
+                action = keyboard.next();
+            }
+
+            // Checks to see if an account can be created with the credentials and does so if possible
+            if (action.equalsIgnoreCase("S")) {
+                if (userAccountList.hasAccount(username)) {
+                    System.out.println("An account with that username already exists.");
+                    System.out.println("Please try again.");
+                }
+                else {
+                    userAccountList.addAccount(username, password);
+                    validLogin = true;
+                }
+            }
+            // Checks to see if there is an account with the credentials and logs the user in if there is
+            else if (action.equalsIgnoreCase("L")) {
+                if (!userAccountList.credentialsValid(username, password)) {
+                    if (!userAccountList.hasAccount(username)) {
+                        System.out.println("There is no account with that username.");
+                    }
+                    else {
+                        System.out.println("Invalid Password");
+                    }
+                    System.out.println("Please try again.");
+                }
+                else {
+                    validLogin = true;
+                }
             }
         }
 
