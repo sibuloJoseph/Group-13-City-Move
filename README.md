@@ -1,7 +1,7 @@
 Info:
 - All files for demo 3 are found in the Demo-3 branch of this repository (City-Move).
-
-- **To run the text-based version:
+---------------------------------
+- **To run the text-based version:**
 - All .java files need to be compiled, followed by running the Survey Class.
 - To do so: compile the code by typing in ---> javac *.java
 - To run the Survey class, type in ---> java Survey
@@ -11,7 +11,7 @@ Info:
 - If you have already ran the survey class once and have created a username and password, type in 'L' (to log-in).
 - To run the survey, type in 'S'.
 ---------------------------------
-- **To run the GUI based version: 
+- **To run the GUI based version:**
 - All .java files need to be compiled, followed by running the Gui Class.
 - To do so: change the directory of the command prompt to be in the same location as where all the files are located, followed by compiling the code by typing in ---> javac *.java (Compilation will be successful if no error messages pop up after compiling)
 - To run the Gui class, type in ---> java Gui
@@ -21,7 +21,7 @@ Info:
 - If you have already ran the Gui class once and have created a username and password, enter your username and password and click "Login" (or hit the enter key), which will direct you to the main menu.
 - To run the survey in the Gui, click on "Do Survey" in the main menu.
 --------------------------------
-- **To run the JUNIT tests:
+- **To run the JUNIT tests:**
 - The following files contain JUNIT test files: StudySpotTest.java and StudySpotListTest.java. These are located in the folder called "unitTests"
 - To compile the files use the command: javac -cp .:junit-4.12.jar:hamcrest-core-1.3.jar *.java 
 (Note use semicolons insteads of colons if using windows machine) 
