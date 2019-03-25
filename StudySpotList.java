@@ -77,7 +77,7 @@ public class StudySpotList{
      */
     public ArrayList<StudySpot> getStudySpotList(){
         StudySpotList s = new StudySpotList();
-        return new ArrayList<StudySpot>(s.studySpotList);
+        return s.studySpotList;
     }
 
     /**
@@ -87,7 +87,7 @@ public class StudySpotList{
         double temp;
         StudySpot tempss;
         StudySpotList s = new StudySpotList();
-        
+
         //Create an ArrayList for the comparison values from the compareTo() method in the IdealStudySpot Class
         ArrayList<Double> comparisonValues = new ArrayList<Double>();
         for(int x=0; x<s.studySpotList.size(); x++){
@@ -108,7 +108,7 @@ public class StudySpotList{
                 }
             }
         }
-        return new ArrayList<StudySpot>(s.studySpotList);
+        return s.studySpotList;
     }
 
     public StudySpot getLocation(double x, double y){
