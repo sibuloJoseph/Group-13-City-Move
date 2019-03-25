@@ -6,6 +6,7 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,6 +43,7 @@ public class Gui extends Application {
     private IdealStudySpot userData = new IdealStudySpot();
     private StudySpotList studySpotList = new StudySpotList();
     private Stage primaryStage;
+    
 
     //Variables of the Login Interface
     private Label output = new Label ("");
@@ -61,6 +63,10 @@ public class Gui extends Application {
     private Label spotClickedOn = new Label ("\n\n\n\n\n\n\n");
     private final ImageView logoImageInMainMenu = new ImageView();  
     private StudySpot clickedStudySpot;
+    private Button b = new Button();
+    private StackPane stackPaneForMap = new StackPane();
+    private Pane pane = new Pane();
+
 
 
     //Variable of the Survey Interface
@@ -404,6 +410,8 @@ public class Gui extends Application {
         final ImageView mapImage = new ImageView();   
         Image uofCMap = new Image(Gui.class.getResourceAsStream("UofCMap.png"));
         mapImage.setImage(uofCMap);
+        stackPaneForMap.getChildren().addAll(mapImage);
+
 
         logoImageInMainMenu.setImage(image1); 
 
@@ -421,7 +429,7 @@ public class Gui extends Application {
         mainMenuButtons.setAlignment(Pos.CENTER);
         mainMenuButtons.getChildren().addAll(surveyButton, pastButton, signoutFromMainMenu);
 
-        mainMenuGUI.getChildren().addAll(mainMenuButtons, mapImage, logoImageInMainMenu);
+        mainMenuGUI.getChildren().addAll(mainMenuButtons, stackPaneForMap, logoImageInMainMenu);
         sceneForMainMenu = new Scene(mainMenuGUI);
 
 
@@ -614,6 +622,7 @@ public class Gui extends Application {
 
                 mainMenuGUI.getChildren().remove(logoImageInMainMenu);
                 mainMenuGUI.getChildren().add(spotClickedOn);
+                
             }
         
             else if(clickedStudySpot == null && mainMenuGUI.getChildren().contains(spotClickedOn)){
