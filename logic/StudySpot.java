@@ -1,9 +1,11 @@
 /**
  * This implements the StudySpot class to describe study spots at the University of Calgary.
  *
- * Last modified: March 23, 2019
+ * Last modified: March 25, 2019
  *
  */
+
+package logic;
 
 import java.io.Serializable;
 
