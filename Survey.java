@@ -1,12 +1,16 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import logic.StudySpot;
+import logic.IdealStudySpot;
+import logic.StudySpotList;
+import account.UserAccountList;
 
 /**
  * This class gets the input of the user of their most preferred criteria for study spots at the University of Calgary
  * based on a survey of 5 questions.
  *
- * Last modified: March 12, 2019
+ * Last modified: March 25, 2019
  */
 
 public class Survey {
