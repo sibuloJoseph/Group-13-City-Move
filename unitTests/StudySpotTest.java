@@ -1,10 +1,11 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
+import logic.StudySpot;
 
 /**
  * This is the unit test for the StudySpot class.
  *
- * Last Modified: March 23, 2019
+ * Last Modified: March 25, 2019
  */
 
 public class StudySpotTest {
