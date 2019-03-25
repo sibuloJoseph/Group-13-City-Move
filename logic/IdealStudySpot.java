@@ -1,9 +1,11 @@
 /**
  * This extends the StudySpot class to represent user input and compare it to StudySpot objects.
  *
- * Last modified: February 28, 2019
+ * Last modified: March 25, 2019
  *
  */
+
+package logic;
 
 import java.io.Serializable;
 
