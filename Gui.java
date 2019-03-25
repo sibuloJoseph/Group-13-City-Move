@@ -23,13 +23,17 @@ import javafx.event.EventHandler;
 import java.util.ArrayList;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
+import logic.StudySpot;
+import logic.IdealStudySpot;
+import logic.StudySpotList;
+import account.UserAccountList;
 
 import com.sun.glass.events.KeyEvent;
 
 /**
  * This class contains the GUI of the app 
  *
- * Last Modified: March 17th, 2019
+ * Last Modified: March 25, 2019
  */
 
 public class Gui extends Application {

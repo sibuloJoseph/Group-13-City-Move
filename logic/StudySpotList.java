@@ -1,3 +1,5 @@
+package logic;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
@@ -6,7 +8,7 @@ import java.io.FileNotFoundException;
 /**
  * This class outputs result of the best study spots for the user based on their answers and preferences.
  * 
- * Last modified: February 20, 2019 @ 5:04 PM
+ * Last modified: FMarch 25, 2019
 
  */
 public class StudySpotList{
