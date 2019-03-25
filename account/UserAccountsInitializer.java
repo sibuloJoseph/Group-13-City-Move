@@ -4,9 +4,11 @@
  * This class should be run after any updates to StudySpot or IdealStudySpot before the main program is run, and
  * will erase any stored user data. It should not be used in the main program.
  *
- * Last modified: February 28, 2019
+ * Last modified: FMarch 25, 2019
  *
  */
+
+package account;
 
 import java.util.Scanner;
 import java.util.HashMap;
