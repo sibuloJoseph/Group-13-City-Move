@@ -1,11 +1,14 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.ArrayList;
+import logic.StudySpotList;
+import logic.StudySpot;
+import logic.IdealStudySpot;
 
 /**
  * This is the unit test for the StudySpotList class.
  *
- * Last Modified: March 20, 2019
+ * Last Modified: March 25, 2019
  */
 
 public class StudySpotListTest {
