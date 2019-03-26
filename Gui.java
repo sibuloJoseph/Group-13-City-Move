@@ -493,11 +493,11 @@ public class Gui extends Application {
         });
 
         // Event Handler to Login with 'Enter' Key
-        loginInterface.setOnKeyPressed(event ->{
+        /*loginInterface.setOnKeyPressed(event ->{
             if (event.getCode() == KeyCode.ENTER){
                 loginCondition();
             }
-        });
+        });*/
 
         //Event Handler to Signup
         signupToAccount.setOnAction(new EventHandler<ActionEvent>() {
@@ -536,7 +536,7 @@ public class Gui extends Application {
         });
         
         //Event Handler to get to the Survey Screen with 'Enter' Key, sign out with the "BackSpace" Key, and check previous survey results with the "P" Key
-        mainMenuGUI.setOnKeyPressed(event ->{
+        /*mainMenuGUI.setOnKeyPressed(event ->{
             if (event.getCode() == KeyCode.ENTER){
                 getToSurveyMenu();
             }
@@ -546,7 +546,7 @@ public class Gui extends Application {
             else if(event.getCode() == KeyCode.P){
                 checkPreviousStudySpots();
             }
-        });
+        });*/
 	  
 	    //Event Handler to get to Previous Study Spots
         pastButton.setOnAction(new EventHandler<ActionEvent> () {
@@ -566,7 +566,7 @@ public class Gui extends Application {
         });
 
         //Event Handler for submitting survey using 'Enter' key, to go back to the main menu with the "BackSpace" key, and to sign out with the "S" key
-        surveyQuestionsMenu.setOnKeyPressed(event ->{
+        /*surveyQuestionsMenu.setOnKeyPressed(event ->{
             if (event.getCode() == KeyCode.ENTER){
                 doSurvey();
                 outputSurveyResults();
@@ -577,7 +577,7 @@ public class Gui extends Application {
             else if(event.getCode() == KeyCode.S){
                 signOut();
             }
-        });
+        });*/
 
 
 
@@ -589,14 +589,14 @@ public class Gui extends Application {
         });
 
         //Event Handler to go back to the Main Menu Screen from the Survey Results Screen with 'Enter' key or to sign out with the "S" key.
-        resultsMenu.setOnKeyPressed(event ->{
+        /*resultsMenu.setOnKeyPressed(event ->{
             if (event.getCode() == KeyCode.ENTER){
                 toMainMenu();
             } 
             else if(event.getCode() == KeyCode.BACK_SPACE){
                 signOut();
             }
-        });
+        });*/
 
         
         //Event Handler to go back to the Main Menu Screen from the Results Menu screen.
