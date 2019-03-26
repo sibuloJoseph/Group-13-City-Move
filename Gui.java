@@ -161,7 +161,7 @@ public class Gui extends Application {
                 output.setText("Please Enter Username and/or Password.");
             }
             else if(!(password.matches(".{7,}"))){
-                output.setText("Password Must be at Least 7 Characters Long!");
+                output.setText("Password Must be at Least \n7 Characters Long!");
             }
             else {
                 userAccountList.addAccount(username, password);
