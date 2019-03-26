@@ -608,7 +608,7 @@ public class Gui extends Application {
 
         // Event Click Handler on Interactive Map in Main Menu
         mapImage.setOnMouseClicked  (e -> {
-            System.out.println("["+e.getX()+", "+e.getY()+"]");
+            //System.out.println("["+e.getX()+", "+e.getY()+"]");
             clickedStudySpot = studySpotList.getLocation(e.getX(), e.getY());
 
             if(clickedStudySpot != null){
