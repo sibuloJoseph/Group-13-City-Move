@@ -77,21 +77,21 @@ public class Survey {
 
             // Asks the user for a username and password
             System.out.println("Please enter a username.");
-            username = keyboard.next();
+            username = keyboard.nextLine();
             System.out.println("Please enter a password.");
-            password = keyboard.next();
+            password = keyboard.nextLine();
             while(!(password.matches(".{7,}"))) {
                 System.out.println("Password must be at least 7 characters long.");
                 System.out.println("Please try again.");
-                password = keyboard.next();
+                password = keyboard.nextLine();
             }
 
             // Asks the user to indicate whether they want to sign up or log in
             System.out.println("Please enter S to sign up or L to log in.");
-            action = keyboard.next();
+            action = keyboard.nextLine();
             while (!action.equalsIgnoreCase("S") && !action.equalsIgnoreCase("L")) {
                 System.out.println("Please enter a valid command.");
-                action = keyboard.next();
+                action = keyboard.nextLine();
             }
 
             // Checks to see if an account can be created with the credentials and does so if possible
@@ -125,10 +125,10 @@ public class Survey {
         // Main menu loop for the program
         while(true) {
             System.out.println("Please enter S to take the study spot survey, P to see your previous results, or Q to quit.");
-            action = keyboard.next();
+            action = keyboard.nextLine();
             while(!action.equalsIgnoreCase("S") && !action.equalsIgnoreCase("P") && !action.equalsIgnoreCase("Q")) {
                 System.out.println("Please enter a valid command.");
-                action = keyboard.next();
+                action = keyboard.nextLine();
             }
 
             // Presents the user with the survey questions and gives them their results
