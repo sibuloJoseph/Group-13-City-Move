@@ -1,13 +1,9 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -63,9 +59,10 @@ public class Gui extends Application {
     private Label spotClickedOn = new Label ("\n\n\n\n\n\n\n");
     private final ImageView logoImageInMainMenu = new ImageView();  
     private StudySpot clickedStudySpot;
-    private Button b = new Button();
-    private StackPane stackPaneForMap = new StackPane();
-    private Pane pane = new Pane();
+    private Label indicatorArrow = new Label();
+    private Pane studySpotIndicator = new Pane();
+    private final ImageView invisibleMap = new ImageView(); 
+    private final ImageView mapImage = new ImageView();  
 
 
 
@@ -234,6 +231,9 @@ public class Gui extends Application {
         if(mainMenuGUI.getChildren().contains(spotClickedOn)){
             mainMenuGUI.getChildren().remove(spotClickedOn);
             mainMenuGUI.getChildren().add(logoImageInMainMenu);
+            if(studySpotIndicator.getChildren().contains(indicatorArrow)){
+                studySpotIndicator.getChildren().remove(indicatorArrow);
+            }
         }
     }
 
@@ -370,7 +370,11 @@ public class Gui extends Application {
             primaryStage.show();
         }
     }
-  
+    
+    /**
+     * Main method for the Gui
+     * @param primetimeStage: our Primary Stage where we show our Gui interface.
+     */
     public void start(Stage primetimeStage) throws Exception {
         primaryStage = primetimeStage;
 
@@ -407,18 +411,15 @@ public class Gui extends Application {
 
         //Main Menu Interface
         //UofC Map
-        final ImageView mapImage = new ImageView();   
         Image uofCMap = new Image(Gui.class.getResourceAsStream("UofCMap.png"));
         mapImage.setImage(uofCMap);
-        stackPaneForMap.getChildren().addAll(mapImage);
 
-
+        studySpotIndicator.getChildren().add(mapImage);
         logoImageInMainMenu.setImage(image1); 
 
         mainMenuGUI.setAlignment(Pos.CENTER);
         mainMenuGUI.setSpacing(15);
         mainMenuGUI.setStyle("-fx-background-color: #980E0E;");
-
 
         spotClickedOn.setFont(Font.font("Verdana", 20));
         spotClickedOn.setTextFill(Color.WHITE);
@@ -429,7 +430,7 @@ public class Gui extends Application {
         mainMenuButtons.setAlignment(Pos.CENTER);
         mainMenuButtons.getChildren().addAll(surveyButton, pastButton, signoutFromMainMenu);
 
-        mainMenuGUI.getChildren().addAll(mainMenuButtons, stackPaneForMap, logoImageInMainMenu);
+        mainMenuGUI.getChildren().addAll(mainMenuButtons, studySpotIndicator, logoImageInMainMenu);
         sceneForMainMenu = new Scene(mainMenuGUI);
 
 
@@ -492,11 +493,11 @@ public class Gui extends Application {
         });
 
         // Event Handler to Login with 'Enter' Key
-        loginInterface.setOnKeyPressed(event ->{
+        /*loginInterface.setOnKeyPressed(event ->{
             if (event.getCode() == KeyCode.ENTER){
                 loginCondition();
             }
-        });
+        });*/
 
         //Event Handler to Signup
         signupToAccount.setOnAction(new EventHandler<ActionEvent>() {
@@ -535,7 +536,7 @@ public class Gui extends Application {
         });
         
         //Event Handler to get to the Survey Screen with 'Enter' Key, sign out with the "BackSpace" Key, and check previous survey results with the "P" Key
-        mainMenuGUI.setOnKeyPressed(event ->{
+        /*mainMenuGUI.setOnKeyPressed(event ->{
             if (event.getCode() == KeyCode.ENTER){
                 getToSurveyMenu();
             }
@@ -545,7 +546,7 @@ public class Gui extends Application {
             else if(event.getCode() == KeyCode.P){
                 checkPreviousStudySpots();
             }
-        });
+        });*/
 	  
 	    //Event Handler to get to Previous Study Spots
         pastButton.setOnAction(new EventHandler<ActionEvent> () {
@@ -565,7 +566,7 @@ public class Gui extends Application {
         });
 
         //Event Handler for submitting survey using 'Enter' key, to go back to the main menu with the "BackSpace" key, and to sign out with the "S" key
-        surveyQuestionsMenu.setOnKeyPressed(event ->{
+        /*surveyQuestionsMenu.setOnKeyPressed(event ->{
             if (event.getCode() == KeyCode.ENTER){
                 doSurvey();
                 outputSurveyResults();
@@ -576,7 +577,7 @@ public class Gui extends Application {
             else if(event.getCode() == KeyCode.S){
                 signOut();
             }
-        });
+        });*/
 
 
 
@@ -588,14 +589,14 @@ public class Gui extends Application {
         });
 
         //Event Handler to go back to the Main Menu Screen from the Survey Results Screen with 'Enter' key or to sign out with the "S" key.
-        resultsMenu.setOnKeyPressed(event ->{
+        /*resultsMenu.setOnKeyPressed(event ->{
             if (event.getCode() == KeyCode.ENTER){
                 toMainMenu();
             } 
             else if(event.getCode() == KeyCode.BACK_SPACE){
                 signOut();
             }
-        });
+        });*/
 
         
         //Event Handler to go back to the Main Menu Screen from the Results Menu screen.
@@ -609,10 +610,16 @@ public class Gui extends Application {
         mapImage.setOnMouseClicked  (e -> {
             System.out.println("["+e.getX()+", "+e.getY()+"]");
             clickedStudySpot = studySpotList.getLocation(e.getX(), e.getY());
-            //mainMenuGUI.getChildren().remove(spotClickedOn);
-            
+
             if(clickedStudySpot != null){
+                Image arrow = new Image(Gui.class.getResourceAsStream("YellowArrow.png"));
+                indicatorArrow.setGraphic(new ImageView(arrow));
+                indicatorArrow.setLayoutX(e.getX());
+                indicatorArrow.setLayoutY(e.getY());
+
                 mainMenuGUI.getChildren().remove(spotClickedOn);
+                studySpotIndicator.getChildren().remove(indicatorArrow);
+
                 spotClickedOn.setText(clickedStudySpot.getName()
                 +" \n\nLevel of Noise(1-10): "+clickedStudySpot.getNoiseLevel()
                 +" \nBathrooms Nearby(1-10): "+clickedStudySpot.getBathroomsNearby()
@@ -622,12 +629,16 @@ public class Gui extends Application {
 
                 mainMenuGUI.getChildren().remove(logoImageInMainMenu);
                 mainMenuGUI.getChildren().add(spotClickedOn);
+                studySpotIndicator.getChildren().add(indicatorArrow);
                 
             }
         
             else if(clickedStudySpot == null && mainMenuGUI.getChildren().contains(spotClickedOn)){
                 mainMenuGUI.getChildren().remove(spotClickedOn);
                 mainMenuGUI.getChildren().add(logoImageInMainMenu);
+                if(studySpotIndicator.getChildren().contains(indicatorArrow)){
+                    studySpotIndicator.getChildren().remove(indicatorArrow);
+                }
             }
          }); 
     }
