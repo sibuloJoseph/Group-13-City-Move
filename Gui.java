@@ -24,13 +24,14 @@ import logic.StudySpot;
 import logic.IdealStudySpot;
 import logic.StudySpotList;
 import account.UserAccountList;
+import javafx.scene.control.ChoiceBox;
 
 import com.sun.glass.events.KeyEvent;
 
 /**
  * This class contains the GUI of the app 
  *
- * Last Modified: March 25, 2019
+ * Last Modified: March 28, 2019
  */
 
 public class Gui extends Application {
@@ -40,7 +41,6 @@ public class Gui extends Application {
     private StudySpotList studySpotList = new StudySpotList();
     private Stage primaryStage;
     
-
     //Variables of the Login Interface
     private Label output = new Label ("");
     private Label logInUsername = new Label ("Username:");
@@ -62,9 +62,8 @@ public class Gui extends Application {
     private Label indicatorArrow = new Label();
     private Pane studySpotIndicator = new Pane();
     private final ImageView invisibleMap = new ImageView(); 
-    private final ImageView mapImage = new ImageView();  
-
-
+    private final ImageView mapImage = new ImageView();
+    private Button scheduleButton = new Button("My Schedule");
 
     //Variable of the Survey Interface
     private Label question1 = new Label ("On a scale of 1-10, what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)");
@@ -109,18 +108,23 @@ public class Gui extends Application {
     private Button goBackToMainMenuButtonFromResults = new Button ("Go back to Main Menu");
     private Button signoutFromResults = new Button("Sign Out");
 
+    //Variables of the Schedule Interface **NEW**
+    private Label scheduleDescription = new Label("Enter the locations of your classes at the appropiate time \nby choosing them from the Drop-down feature below");
+
 
     //Screen Interfaces
     private VBox loginInterface = new VBox();
     private VBox mainMenuGUI = new VBox();
     private VBox surveyQuestionsMenu = new VBox ();
     private VBox resultsMenu = new VBox();
+    private VBox scheduleMenu = new VBox();
 
     //Scenes
     private Scene sceneForLogin;
     private Scene sceneForMainMenu;
     private Scene sceneForSurveyMenu;
     private Scene sceneForResultsMenu;
+    private Scene sceneForScheduleMenu;
 
     /**
      * Method that checks the conditions when logging in.
@@ -160,7 +164,7 @@ public class Gui extends Application {
             if (username.isEmpty() || password.isEmpty()) {
                 output.setText("Please Enter Username and/or Password.");
             }
-            else if(!(password.matches(".{7,}"))){
+            else if(!(password.matches(".{4,}"))){ // Changed password to 4
                 output.setText("Password Must be at Least \n7 Characters Long!");
             }
             else {
@@ -370,6 +374,16 @@ public class Gui extends Application {
             primaryStage.show();
         }
     }
+
+    /**
+     * Method that takes the user into the My Schedule Menu
+     */
+    public void getToScheduleMenu () {
+        // Drop downs all need to be empty
+        primaryStage.setScene(sceneForScheduleMenu);
+        primaryStage.setTitle("My Schedule - City Move");
+        primaryStage.show();
+    }
     
     /**
      * Main method for the Gui
@@ -428,7 +442,7 @@ public class Gui extends Application {
         HBox mainMenuButtons = new HBox();
         mainMenuButtons.setSpacing(100);
         mainMenuButtons.setAlignment(Pos.CENTER);
-        mainMenuButtons.getChildren().addAll(surveyButton, pastButton, signoutFromMainMenu);
+        mainMenuButtons.getChildren().addAll(scheduleButton,surveyButton, pastButton, signoutFromMainMenu);
 
         mainMenuGUI.getChildren().addAll(mainMenuButtons, studySpotIndicator, logoImageInMainMenu);
         sceneForMainMenu = new Scene(mainMenuGUI);
@@ -484,6 +498,15 @@ public class Gui extends Application {
         resultsMenu.getChildren().addAll(displayForFirstSpot,displayForSecondSpot,displayForThirdSpot, surveyResultButtons);
         resultsMenu.setStyle("-fx-background-color: #980E0E;");
         sceneForResultsMenu = new Scene (resultsMenu, 1200, 300);
+
+        // My Schedule Interface
+        scheduleDescription.setFont(Font.font("Verdana", 25));
+
+        ChoiceBox<StudySpot> dropDownStudySpots = new ChoiceBox<>();
+        dropDownStudySpots.getItems().addAll(new StudySpot ("hi"));
+
+        scheduleMenu.getChildren().addAll(scheduleDescription, dropDownStudySpots);
+        sceneForScheduleMenu = new Scene (scheduleMenu, 1200, 500);
 
         // Event Handler to Login
     	enterToAccount.setOnAction(new EventHandler<ActionEvent>() {
@@ -641,5 +664,11 @@ public class Gui extends Application {
                 }
             }
          }); 
+
+        scheduleButton.setOnAction(new EventHandler<ActionEvent> () {
+            public void handle (ActionEvent event) {
+                getToScheduleMenu();
+            }
+         });
     }
 }
