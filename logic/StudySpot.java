@@ -256,6 +256,13 @@ public class StudySpot implements Serializable {
     }
 
     /**
+     * Returns a string representing the name of the study spot
+     */
+    public String toString () {
+        return name;
+    }
+    
+    /**
      * Tests the StudySpot class
      */
     public static void main(String[] args) {
