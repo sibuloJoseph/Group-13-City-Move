@@ -19,10 +19,20 @@ public class Schedule implements Serializable{
     /**
      * Default constructor for Schedule object which creates an empty Schedule
      */
-    public void Schedule() {
+    public Schedule() {
         day1Schedule = new StudySpot[15];
         for(int i = 0;i < 15;i++) {
             day1Schedule[i] = null;
+        }
+    }
+
+    /**
+     * Copy constructor for Schedule object
+     */
+    public Schedule(Schedule scheduleToCopy) {
+        this.day1Schedule = new StudySpot[15];
+        for(int i = 8;i < 21;i++) {
+            this.setClass(i, scheduleToCopy.getClass(i));
         }
     }
 
