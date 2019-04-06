@@ -106,7 +106,7 @@ public class Schedule implements Serializable{
             hour = 8;
         }
 
-        // finds the next time the user is free to study and close to a class time, looping to the next morning if
+        // finds the next time the user is free to study, looping to the next morning if
         // there are no times remaining in the current day
         for(int i = 1;i < 14;i++) {
             if(day1Schedule[hour - 7] == null) {
@@ -117,7 +117,7 @@ public class Schedule implements Serializable{
                     numOfSurroundingSpots++;
                 }
             }
-            if(numOfSurroundingSpots > 0) {
+            if(numOfSurroundingSpots > 0 || day1Schedule[hour - 7] == null) {
                 break;
             }
 
@@ -130,7 +130,7 @@ public class Schedule implements Serializable{
         ArrayList<StudySpot> bestSpotList = spotList.getBestStudySpots();
         ArrayList<Double> distances = new ArrayList<Double>();
 
-        // list is only rearranged if the user has no classes or no availability
+        // list is not rearranged if the user has no classes or no availability
         if(numOfSurroundingSpots > 0) {
             for (int i = 0; i < bestSpotList.size(); i++) {
                 distances.add(this.compareDistance(bestSpotList.get(i), hour, numOfSurroundingSpots));
