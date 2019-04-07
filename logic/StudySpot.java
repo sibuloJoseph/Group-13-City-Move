@@ -1,7 +1,7 @@
 /**
  * This implements the StudySpot class to describe study spots at the University of Calgary.
  *
- * Last modified: March 25, 2019
+ * Last modified: April 6, 2019
  *
  */
 
@@ -253,6 +253,20 @@ public class StudySpot implements Serializable {
      */
     public double getY2() {
         return y2;
+    }
+    
+    /**
+     * Returns the average of the x coordinates of the study spot
+     */
+    public double averageX() {
+        return (x1 + x2) / 2.0;
+    }
+
+    /**
+     * Returns the average of the y coordinates of the study spot
+     */
+    public double averageY() {
+        return (y1 + y2) / 2.0;
     }
 
     /**

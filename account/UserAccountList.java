@@ -2,7 +2,7 @@
  * This implements the UserAccountList class to store user data and automatically save it for
  * future use by the study spot recommendation program.
  *
- * Last modified: March 25, 2019
+ * Last modified: April 6, 2019
  *
  */
 
@@ -14,10 +14,12 @@ import java.io.FileInputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 import logic.IdealStudySpot;
+import logic.Schedule;
 
 public class UserAccountList {
     private HashMap<String, String> credentialsMap;
     private HashMap<String, IdealStudySpot> userDataMap;
+    private HashMap<String, Schedule> userScheduleMap;
 
     /**
      * Default constructor for UserAccountList object
@@ -32,6 +34,7 @@ public class UserAccountList {
             ObjectInputStream savedData = new ObjectInputStream(new FileInputStream("UserAccounts.dat"));
             credentialsMap = (HashMap<String, String>)savedData.readObject();
             userDataMap = (HashMap<String, IdealStudySpot>)savedData.readObject();
+            userScheduleMap = (HashMap<String, Schedule>)savedData.readObject();
             savedData.close();
         }
         catch(Exception e) {
@@ -50,6 +53,7 @@ public class UserAccountList {
             ObjectOutputStream fileToWrite = new ObjectOutputStream(new FileOutputStream("UserAccounts.dat"));
             fileToWrite.writeObject(credentialsMap);
             fileToWrite.writeObject(userDataMap);
+            fileToWrite.writeObject(userScheduleMap);
             fileToWrite.close();
         }
         catch(Exception e) {
@@ -138,6 +142,38 @@ public class UserAccountList {
         }
 
         return userData;
+    }
+
+    /**
+     * Sets the user schedule for the account with the given username and password to the given Schedule
+     * object or does nothing if the username and password are not valid
+     * The data file is automatically updated unless there is an error doing so.
+     * @param username: String containing the username for the account to change
+     * @param password: String containing the password for the account to change
+     * @param userSchedule: Schedule to set for the account
+     */
+    public void setUserSchedule(String username, String password, Schedule userSchedule) {
+
+        if(credentialsValid(username, password)) {
+            userScheduleMap.put(username, new Schedule(userSchedule));
+            this.saveData();
+        }
+    }
+
+    /**
+     * Returns the Schedule for the account with the given username and
+     * password or returns null if the username and password are invalid
+     * @param username: String containing the username for the account to check
+     * @param password: String containing the password for the account to check
+     */
+    public Schedule getUserSchedule(String username, String password) {
+
+        Schedule userSchedule = null;
+        if(credentialsValid(username, password)) {
+            userSchedule = new Schedule(userScheduleMap.get(username));
+        }
+
+        return userSchedule;
     }
 
     /**

@@ -4,7 +4,7 @@
  * This class should be run after any updates to StudySpot or IdealStudySpot before the main program is run, and
  * will erase any stored user data. It should not be used in the main program.
  *
- * Last modified: March 25, 2019
+ * Last modified: April 6, 2019
  *
  */
 
@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 import logic.IdealStudySpot;
+import logic.Schedule;
 
 public class UserAccountsInitializer {
 
@@ -22,6 +23,7 @@ public class UserAccountsInitializer {
 
         HashMap<String, String> credentialsMap = new HashMap<String, String>();
         HashMap<String, IdealStudySpot> userDataMap = new HashMap<String, IdealStudySpot>();
+        HashMap<String, Schedule> userScheduleMap = new HashMap<String, Schedule>();
 
         // Confirms that the user wants to initialize the file.
         Scanner keyboard = new Scanner(System.in);
@@ -44,6 +46,7 @@ public class UserAccountsInitializer {
                 ObjectOutputStream fileToInitialize = new ObjectOutputStream(new FileOutputStream("UserAccounts.dat"));
                 fileToInitialize.writeObject(credentialsMap);
                 fileToInitialize.writeObject(userDataMap);
+                fileToInitialize.writeObject(userScheduleMap);
                 fileToInitialize.close();
                 System.out.println("The file \"UserAccounts.dat\" was initialized successfully.");
             }
