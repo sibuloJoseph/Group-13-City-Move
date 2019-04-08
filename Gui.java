@@ -523,7 +523,7 @@ public class Gui extends Application {
             }
             dropDownStudySpots.setMaxWidth(231);
             dropDownStudySpots.setLayoutX(142);
-            dropDownStudySpots.setLayoutY(60+(30*i));
+            dropDownStudySpots.setLayoutY(90+(30*i));
             dropDownStudySpotsArray.add(dropDownStudySpots);
         }
         scheduleTime.getChildren().add(scheduleImageView);
