@@ -2,7 +2,7 @@
  * This implements the UserAccountList class to store user data and automatically save it for
  * future use by the study spot recommendation program.
  *
- * Last modified: April 6, 2019
+ * Last modified: April 8, 2019
  *
  */
 
@@ -108,6 +108,7 @@ public class UserAccountList {
         if(!this.hasAccount(username)) {
             credentialsMap.put(username, password);
             userDataMap.put(username, new IdealStudySpot(userData));
+            userScheduleMap.put(username, new Schedule());
             this.saveData();
         }
     }
