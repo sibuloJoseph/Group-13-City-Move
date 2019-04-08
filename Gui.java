@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
@@ -25,6 +26,7 @@ import logic.IdealStudySpot;
 import logic.StudySpotList;
 import account.UserAccountList;
 import javafx.scene.control.ChoiceBox;
+import logic.Schedule;
 
 import com.sun.glass.events.KeyEvent;
 
@@ -39,6 +41,7 @@ public class Gui extends Application {
     private String username, password;
     private IdealStudySpot userData = new IdealStudySpot();
     private StudySpotList studySpotList = new StudySpotList();
+    private Schedule inputSchedule = new Schedule();
     private Stage primaryStage;
     
     //Variables of the Login Interface
@@ -61,7 +64,6 @@ public class Gui extends Application {
     private StudySpot clickedStudySpot;
     private Label indicatorArrow = new Label();
     private Pane studySpotIndicator = new Pane();
-    private final ImageView invisibleMap = new ImageView(); 
     private final ImageView mapImage = new ImageView();
     private Button scheduleButton = new Button("My Schedule");
 
@@ -110,14 +112,21 @@ public class Gui extends Application {
 
     //Variables of the Schedule Interface **NEW**
     private Label scheduleDescription = new Label("Enter the locations of your classes at the appropiate time \nby choosing them from the Drop-down feature below");
-
-
+    private final ImageView scheduleImageView = new ImageView();
+    private Pane scheduleTime = new Pane();
+    private Button createSchedule = new Button("Make Schedule");
+    private Button doSurveyAtSchedule = new Button("Do Survey");
+    private Button toMainMenuFromSchedule = new Button("Main Menu");
+    private Button signoutFromSchedule = new Button("Signout");
+    private HBox scheduleButtons = new HBox();
+    
     //Screen Interfaces
     private VBox loginInterface = new VBox();
     private VBox mainMenuGUI = new VBox();
     private VBox surveyQuestionsMenu = new VBox ();
     private VBox resultsMenu = new VBox();
-    private VBox scheduleMenu = new VBox();
+    private VBox scheduleMenuGui = new VBox();
+     
 
     //Scenes
     private Scene sceneForLogin;
@@ -164,9 +173,9 @@ public class Gui extends Application {
             if (username.isEmpty() || password.isEmpty()) {
                 output.setText("Please Enter Username and/or Password.");
             }
-            else if(!(password.matches(".{4,}"))){ // Changed password to 4
+            /*else if(!(password.matches(".{4,}"))){ // Changed password to 4
                 output.setText("Password Must be at Least \n7 Characters Long!");
-            }
+            }*/
             else {
                 userAccountList.addAccount(username, password);
                 output.setText("Account Created \nPlease Log In.");
@@ -500,13 +509,55 @@ public class Gui extends Application {
         sceneForResultsMenu = new Scene (resultsMenu, 1200, 300);
 
         // My Schedule Interface
-        scheduleDescription.setFont(Font.font("Verdana", 25));
+        //scheduleDescription.setFont(Font.font("Verdana", 25));
 
-        ChoiceBox<StudySpot> dropDownStudySpots = new ChoiceBox<>();
-        dropDownStudySpots.getItems().addAll(new StudySpot ("hi"));
+        ArrayList<ChoiceBox<StudySpot>> dropDownStudySpotsArray = new ArrayList<ChoiceBox<StudySpot>>();
+        Image scheduleImage = new Image(Gui.class.getResourceAsStream("schedule1.1.png"));  
+        scheduleImageView.setImage(scheduleImage);
+        ChoiceBox<StudySpot> dropDownStudySpots;
+        for(int i = 0; i<13; i++){
+            dropDownStudySpots = new ChoiceBox<>();
+            dropDownStudySpots.getItems().add(null);
+            for(int j = 0; j<studySpotList.getStudySpotList().size(); j++){
+                dropDownStudySpots.getItems().addAll(studySpotList.getStudySpotList().get(j));
+            }
+            dropDownStudySpots.setMaxWidth(231);
+            dropDownStudySpots.setLayoutX(142);
+            dropDownStudySpots.setLayoutY(60+(30*i));
+            dropDownStudySpotsArray.add(dropDownStudySpots);
+        }
+        scheduleTime.getChildren().add(scheduleImageView);
 
-        scheduleMenu.getChildren().addAll(scheduleDescription, dropDownStudySpots);
-        sceneForScheduleMenu = new Scene (scheduleMenu, 1200, 500);
+       for(int i = 0; i<13; i++){
+            scheduleTime.getChildren().add(dropDownStudySpotsArray.get(i));
+
+        }
+
+        //scheduleButtons.setSpacing(100);
+        //scheduleButtons.setAlignment(Pos.CENTER);
+        scheduleButtons.getChildren().addAll(createSchedule, doSurveyAtSchedule, toMainMenuFromSchedule, signoutFromSchedule);
+
+
+        scheduleMenuGui.setStyle("-fx-background-color: #ffe699;");
+        scheduleMenuGui.setSpacing(15);
+        scheduleMenuGui.getChildren().addAll(scheduleTime, scheduleButtons);
+        sceneForScheduleMenu = new Scene (scheduleMenuGui);
+
+        //Temporary** To get the x and y values of the grid.
+        scheduleImageView.setOnMouseClicked  (s -> {
+            System.out.println("["+s.getX()+", "+s.getY()+"]");
+        }); 
+
+        //Event handler to schedule
+        createSchedule.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(ActionEvent event){
+                for(int k = 0; k<13; k++){
+                    inputSchedule.setClass(k+8, dropDownStudySpotsArray.get(k).getValue());
+                }
+                toMainMenu();
+            }
+        });
+
 
         // Event Handler to Login
     	enterToAccount.setOnAction(new EventHandler<ActionEvent>() {
