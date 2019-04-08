@@ -33,7 +33,7 @@ import com.sun.glass.events.KeyEvent;
 /**
  * This class contains the GUI of the app 
  *
- * Last Modified: March 28, 2019
+ * Last Modified: April 8th, 2019
  */
 
 public class Gui extends Application {
@@ -67,35 +67,17 @@ public class Gui extends Application {
     private final ImageView mapImage = new ImageView();
     private Button scheduleButton = new Button("My Schedule");
 
-    //Variable of the Survey Interface
-    private Label question1 = new Label ("On a scale of 1-10, what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)");
-    private Label question2 = new Label ("On a scale of 1-10, how important is having bathrooms nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"); 
-    private Label question3 = new Label ("On a scale of 1-10, how important is having food places nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)");
-    private Label question4 = new Label ("On a scale of 1-10, how much seating space is ideal for your study spot? (1: limited, 10: plentiful)");
-    private Label question5 = new Label ("On a scale of 1-10, how important is the availability of power outlets at your ideal study spot? (1: not important to me, 10: Extremely important to me.)");
-    private Label outputForInvalidQ1Value = new Label ("");
-    private Label outputForInvalidQ2Value = new Label ("");
-    private Label outputForInvalidQ3Value = new Label ("");
-    private Label outputForInvalidQ4Value = new Label ("");
-    private Label outputForInvalidQ5Value = new Label ("");
-    private TextField question1Text = new TextField ();
-    private TextField question2Text = new TextField ();
-    private TextField question3Text = new TextField ();
-    private TextField question4Text = new TextField ();
-    private TextField question5Text = new TextField ();
+    //Variables of the Survey Interface
     private Button finishSurveyButton = new Button ("Submit Survey");
     private Button goBackToMainMenuButtonFromSurvey = new Button ("Go back to Main Menu");
-    private Boolean valueIsValid1 = false;
-    private Boolean valueIsValid2 = false;
-    private Boolean valueIsValid3 = false;
-    private Boolean valueIsValid4 = false;
-    private Boolean valueIsValid5 = false;
-    private Double question1Value = new Double(1.0);
-    private Double question2Value = new Double(1.0);
-    private Double question3Value = new Double(1.0);
-    private Double question4Value = new Double(1.0);
-    private Double question5Value = new Double(1.0);
     private Button signoutFromSurvey = new Button("Sign Out");
+
+    // Array Lists for the Survey Interface
+    private ArrayList<Label> surveyQuestions = new ArrayList<Label>();
+    private ArrayList<Label> outputForInvalidQsValues = new ArrayList<Label>();
+    private ArrayList<TextField> questionsText = new ArrayList<TextField>();
+    private ArrayList<Boolean> questionsValueIsValid = new ArrayList<Boolean>();
+    private ArrayList<Double> questionsValue = new ArrayList<Double>();
 
     //Variables of the Results Menu Interface
     private HBox displayForFirstSpot = new HBox(5);
@@ -189,11 +171,9 @@ public class Gui extends Application {
      * in the Main Menu screen.
      */
     public void getToSurveyMenu(){
-        question1Text.setText("");
-        question2Text.setText("");
-        question3Text.setText("");
-        question4Text.setText("");
-        question5Text.setText("");
+        for (int i = 0; i<5; i++) {
+            questionsText.get(i).setText("");
+        }
         primaryStage.hide();
         primaryStage.setScene(sceneForSurveyMenu);
         primaryStage.setTitle("Survey - City Move");
@@ -257,101 +237,101 @@ public class Gui extends Application {
     public void doSurvey(){
         //Question 1
         try {
-            question1Value = Double.parseDouble(question1Text.getText()); 
-            if (question1Value >= 1.0 && question1Value <= 10.0) {
-                outputForInvalidQ1Value.setText("");
-                valueIsValid1 = true;
+            questionsValue.set(0,Double.parseDouble(questionsText.get(0).getText())); 
+            if (questionsValue.get(0) >= 1.0 && questionsValue.get(0) <= 10.0) {
+                outputForInvalidQsValues.get(0).setText("");
+                questionsValueIsValid.set(0,true);
             }
             else {
-                outputForInvalidQ1Value.setText("Invalid Value. Please enter a value from 1-10.");
-                valueIsValid1 = false;
+                outputForInvalidQsValues.get(0).setText("Invalid Value. Please enter a value from 1-10.");
+                questionsValueIsValid.set(0,false);
                 }
         } catch (NumberFormatException e){
-            outputForInvalidQ1Value.setText("Input Must Be a Number!");
-            valueIsValid1 = false;
-            if(question1Text.getText().isEmpty()){
-                outputForInvalidQ1Value.setText("Please Enter a Valid Number.");
-                valueIsValid1 = false;
+            outputForInvalidQsValues.get(0).setText("Input Must Be a Number!");
+            questionsValueIsValid.set(0,false);
+            if (questionsText.get(0).getText().isEmpty()){
+                outputForInvalidQsValues.get(0).setText("Please Enter a Valid Number.");
+                questionsValueIsValid.set(0,false);
             }
         }
 
         //Question 2
         try {
-            question2Value = Double.parseDouble(question2Text.getText());
-            if (question2Value >= 1.0 && question2Value <= 10.0) {
-                outputForInvalidQ2Value.setText("");
-                valueIsValid2 = true;
+            questionsValue.set(1,Double.parseDouble(questionsText.get(1).getText()));
+            if (questionsValue.get(1) >= 1.0 && questionsValue.get(1) <= 10.0) {
+                outputForInvalidQsValues.get(1).setText("");
+                questionsValueIsValid.set(1,true);
             }
             else {
-                outputForInvalidQ2Value.setText("Invalid Value. Please enter a value from 1-10.");
-                valueIsValid2 = false;
+                outputForInvalidQsValues.get(1).setText("Invalid Value. Please enter a value from 1-10.");
+                questionsValueIsValid.set(1,false);
                 }
         } catch (NumberFormatException e) {
-            outputForInvalidQ2Value.setText("Input Must Be a Number!");
-            valueIsValid2 = false;
-            if(question2Text.getText().isEmpty()){
-                outputForInvalidQ2Value.setText("Please Enter a Valid Number.");
-                valueIsValid2 = false;
+            outputForInvalidQsValues.get(1).setText("Input Must Be a Number!");
+            questionsValueIsValid.set(1,false);
+            if (questionsText.get(1).getText().isEmpty()){
+                outputForInvalidQsValues.get(1).setText("Please Enter a Valid Number.");
+                questionsValueIsValid.set(1,false);
             }
         }
 
         //Question 3
         try {
-            question3Value = Double.parseDouble(question3Text.getText());
-            if (question3Value >= 1.0 && question3Value <= 10.0) {
-                outputForInvalidQ3Value.setText("");
-                valueIsValid3 = true;
+            questionsValue.set(2,Double.parseDouble(questionsText.get(2).getText()));
+            if (questionsValue.get(2) >= 1.0 && questionsValue.get(2) <= 10.0) {
+                outputForInvalidQsValues.get(2).setText("");
+                questionsValueIsValid.set(2,true);
             }
             else {
-                outputForInvalidQ3Value.setText("Invalid Value. Please enter a value from 1-10.");
-                valueIsValid3 = false;
+                outputForInvalidQsValues.get(2).setText("Invalid Value. Please enter a value from 1-10.");
+                questionsValueIsValid.set(2,false);
                 }
         } catch (NumberFormatException e) {
-            outputForInvalidQ3Value.setText("Input Must Be a Number!");
-            valueIsValid3 = false;
-            if(question3Text.getText().isEmpty()){
-                outputForInvalidQ3Value.setText("Please Enter a Valid Number.");
-                valueIsValid3 = false;
+            outputForInvalidQsValues.get(2).setText("Input Must Be a Number!");
+            questionsValueIsValid.set(2,false);
+            if (questionsText.get(2).getText().isEmpty()){
+                outputForInvalidQsValues.get(2).setText("Please Enter a Valid Number.");
+                questionsValueIsValid.set(2,false);
             }
         }
 
         //Question 4
         try {
-            question4Value = Double.parseDouble(question4Text.getText());
-            if (question4Value >= 1.0 && question4Value <= 10.0) {
-                outputForInvalidQ4Value.setText("");
-                valueIsValid4 = true;
+            questionsValue.set(3,Double.parseDouble(questionsText.get(3).getText()));
+            if (questionsValue.get(3) >= 1.0 && questionsValue.get(3) <= 10.0) {
+                outputForInvalidQsValues.get(3).setText("");
+                questionsValueIsValid.set(3,true);
             }
             else {
-                outputForInvalidQ4Value.setText("Invalid Value. Please enter a value from 1-10.");
-                valueIsValid4 = false;
+                outputForInvalidQsValues.get(3).setText("Invalid Value. Please enter a value from 1-10.");
+                questionsValueIsValid.set(3,false);
                 }
         } catch (NumberFormatException e) {
-            outputForInvalidQ4Value.setText("Input Must Be a Number!");
-            valueIsValid4 = false;
-            if(question4Text.getText().isEmpty()){
-                outputForInvalidQ4Value.setText("Please Enter a Valid Number.");
-                valueIsValid4 = false;
+            outputForInvalidQsValues.get(3).setText("Input Must Be a Number!");
+            questionsValueIsValid.set(3,false);
+            if (questionsText.get(3).getText().isEmpty()){
+                outputForInvalidQsValues.get(3).setText("Please Enter a Valid Number.");
+                questionsValueIsValid.set(3,false);
             }
         }
 
         //Question 5
         try {
-            question5Value = Double.parseDouble(question5Text.getText());
-            if (question5Value >= 1.0 && question5Value <= 10.0) {
-                outputForInvalidQ5Value.setText("");
-                valueIsValid5 = true;
+            questionsValue.set(4,Double.parseDouble(questionsText.get(4).getText()));
+            if (questionsValue.get(4) >= 1.0 && questionsValue.get(4) <= 10.0) {
+                outputForInvalidQsValues.get(4).setText("");
+                questionsValueIsValid.set(4,true);
             }
             else {
-                outputForInvalidQ5Value.setText("Invalid Value. Please enter a value from 1-10.");
-                valueIsValid5 = false;
+                outputForInvalidQsValues.get(4).setText("Invalid Value. Please enter a value from 1-10.");
+                questionsValueIsValid.set(4,false);
                 }
         } catch (NumberFormatException e) {
-            outputForInvalidQ5Value.setText("Input Must Be a Number!");
-            valueIsValid5 = false;
-            if(question5Text.getText().isEmpty()){
-                outputForInvalidQ5Value.setText("Please Enter a Valid Number.");
-                valueIsValid5 = false;
+            outputForInvalidQsValues.get(4).setText("Input Must Be a Number!");
+            questionsValueIsValid.set(4,false);
+            if (questionsText.get(4).getText().isEmpty()){
+                outputForInvalidQsValues.get(4).setText("Please Enter a Valid Number.");
+                questionsValueIsValid.set(4,false);
             }
         }
     }
@@ -362,13 +342,13 @@ public class Gui extends Application {
      * when the "Submit Survey" button is pressed.
      */
     public void outputSurveyResults(){
-        if (valueIsValid1 && valueIsValid2 && valueIsValid3 && valueIsValid4 && valueIsValid5 == true) {
-
-            userData.setNoiseLevel(question1Value);
-            userData.setBathroomsNearby(question2Value);
-            userData.setFoodNearby(question3Value);
-            userData.setSeatingSpace(question4Value);
-            userData.setOutlets(question5Value);
+        if (questionsValueIsValid.get(0) && questionsValueIsValid.get(1) && questionsValueIsValid.get(2) && questionsValueIsValid.get(3) && questionsValueIsValid.get(4) == true ) {
+            
+            userData.setNoiseLevel(questionsValue.get(0));
+            userData.setBathroomsNearby(questionsValue.get(1));
+            userData.setFoodNearby(questionsValue.get(2));
+            userData.setSeatingSpace(questionsValue.get(3));
+            userData.setOutlets(questionsValue.get(4));
 
             userAccountList.setUserData(username, password, userData);
             studySpotList.setUserIdeal(userData);
@@ -461,23 +441,28 @@ public class Gui extends Application {
         HBox submitOrGoBack = new HBox ();
         submitOrGoBack.getChildren().addAll(finishSurveyButton,goBackToMainMenuButtonFromSurvey, signoutFromSurvey);
 
-        question1.setFont(Font.font("Verdana", 15));
-        question2.setFont(Font.font("Verdana", 15));
-        question3.setFont(Font.font("Verdana", 15));
-        question4.setFont(Font.font("Verdana", 15));
-        question5.setFont(Font.font("Verdana", 15));
+        for (int i = 0; i < 5; i++) {
+            surveyQuestions.add(new Label());
+            surveyQuestions.get(i).setFont(Font.font("Verdana", 15));
+            outputForInvalidQsValues.add(new Label());
 
-        question1Text.setMaxWidth(50);
-        question2Text.setMaxWidth(50);
-        question3Text.setMaxWidth(50);
-        question4Text.setMaxWidth(50);
-        question5Text.setMaxWidth(50);
+            questionsText.add(new TextField());
+            questionsText.get(i).setMaxWidth(50);
+
+            questionsValueIsValid.add(false);
+            questionsValue.add(1.0);
+        }
+
+        surveyQuestions.get(0).setText("On a scale of 1-10, what's the acceptable level of noise for you at your ideal study spot? (1: no noise at all, 10: I can work in a loud place.)");
+        surveyQuestions.get(1).setText("On a scale of 1-10, how important is having bathrooms nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)"); 
+        surveyQuestions.get(2).setText("On a scale of 1-10, how important is having food places nearby your ideal study spot? (1: not important to me, 10: Extremely important to me.)");
+        surveyQuestions.get(3).setText("On a scale of 1-10, how much seating space is ideal for your study spot? (1: limited, 10: plentiful)");
+        surveyQuestions.get(4).setText("On a scale of 1-10, how important is the availability of power outlets at your ideal study spot? (1: not important to me, 10: Extremely important to me.)");
 
         surveyQuestionsMenu.setSpacing(15);
-        surveyQuestionsMenu.getChildren().addAll(question1,question1Text,outputForInvalidQ1Value,question2,question2Text,outputForInvalidQ2Value,question3,question3Text,outputForInvalidQ3Value,question4,question4Text,outputForInvalidQ4Value,question5,question5Text,outputForInvalidQ5Value, submitOrGoBack);
+        surveyQuestionsMenu.getChildren().addAll(surveyQuestions.get(0),questionsText.get(0),outputForInvalidQsValues.get(0),surveyQuestions.get(1),questionsText.get(1),outputForInvalidQsValues.get(1),surveyQuestions.get(2),questionsText.get(2),outputForInvalidQsValues.get(2),surveyQuestions.get(3),questionsText.get(3),outputForInvalidQsValues.get(3),surveyQuestions.get(4),questionsText.get(4),outputForInvalidQsValues.get(4), submitOrGoBack);
         surveyQuestionsMenu.setStyle("-fx-background-color: #F5F5DC;");
         sceneForSurveyMenu = new Scene (surveyQuestionsMenu);
-
 
         //Survey Results Interface
         displayForFirstSpot.getChildren().addAll(firstStudySpot,first);
@@ -509,8 +494,7 @@ public class Gui extends Application {
         sceneForResultsMenu = new Scene (resultsMenu, 1200, 300);
 
         // My Schedule Interface
-        //scheduleDescription.setFont(Font.font("Verdana", 25));
-
+        
         ArrayList<ChoiceBox<StudySpot>> dropDownStudySpotsArray = new ArrayList<ChoiceBox<StudySpot>>();
         Image scheduleImage = new Image(Gui.class.getResourceAsStream("schedule1.1.png"));  
         scheduleImageView.setImage(scheduleImage);
@@ -528,15 +512,13 @@ public class Gui extends Application {
         }
         scheduleTime.getChildren().add(scheduleImageView);
 
-       for(int i = 0; i<13; i++){
+        for(int i = 0; i<13; i++){
             scheduleTime.getChildren().add(dropDownStudySpotsArray.get(i));
-
         }
 
         //scheduleButtons.setSpacing(100);
         //scheduleButtons.setAlignment(Pos.CENTER);
         scheduleButtons.getChildren().addAll(createSchedule, doSurveyAtSchedule, toMainMenuFromSchedule, signoutFromSchedule);
-
 
         scheduleMenuGui.setStyle("-fx-background-color: #ffe699;");
         scheduleMenuGui.setSpacing(15);
@@ -557,7 +539,6 @@ public class Gui extends Application {
                 toMainMenu();
             }
         });
-
 
         // Event Handler to Login
     	enterToAccount.setOnAction(new EventHandler<ActionEvent>() {
@@ -580,7 +561,6 @@ public class Gui extends Application {
             }
         });
 	  
-
         //Event Handler to Signout from the Main Menu and back to the Login screen.
         signoutFromMainMenu.setOnAction(new EventHandler<ActionEvent>(){
             public void handle (ActionEvent event){
@@ -629,7 +609,6 @@ public class Gui extends Application {
             }
         });
 
-        
         //Event Handler to submit survey responses
         finishSurveyButton.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
@@ -653,8 +632,6 @@ public class Gui extends Application {
             }
         });*/
 
-
-
         //Event Handler to go back to the Main Menu screen from the Survey screen
         goBackToMainMenuButtonFromSurvey.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
@@ -671,7 +648,6 @@ public class Gui extends Application {
                 signOut();
             }
         });*/
-
         
         //Event Handler to go back to the Main Menu Screen from the Results Menu screen.
         goBackToMainMenuButtonFromResults.setOnAction (new EventHandler<ActionEvent> () {
@@ -714,12 +690,12 @@ public class Gui extends Application {
                     studySpotIndicator.getChildren().remove(indicatorArrow);
                 }
             }
-         }); 
+        }); 
 
         scheduleButton.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
                 getToScheduleMenu();
             }
-         });
+        });
     }
 }
