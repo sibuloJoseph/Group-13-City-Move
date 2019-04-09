@@ -106,7 +106,7 @@ public class Gui extends Application {
     private Button signoutFromSchedule = new Button("Sign Out");
     private HBox scheduleButtons = new HBox();
     private HBox moreScheduleButtons = new HBox();
-    private ArrayList<ChoiceBox<StudySpot>> dropDownStudySpotsArray = new ArrayList<ChoiceBox<StudySpot>>();
+    private ArrayList<ArrayList<ChoiceBox<StudySpot>>> dropDownStudySpotsArray = new ArrayList<ArrayList<ChoiceBox<StudySpot>>>();
     private Image scheduleImage = new Image(Gui.class.getResourceAsStream("schedule.png"));  
     private ChoiceBox<StudySpot> dropDownStudySpots;
     private Button bestStudyspotsAtSchedule = new Button("Best Study Spots");
@@ -392,28 +392,33 @@ public class Gui extends Application {
     public void generateSchedule(){
         inputSchedule = userAccountList.getUserSchedule(username, password);
         StudySpot currentSpot;
-
-        for(int i = 0; i<13; i++){
-            dropDownStudySpotsArray.get(i).getItems().clear();
-            dropDownStudySpotsArray.get(i).getItems().add(null);
-            for(int j = 0; j<studySpotList.getStudySpotList().size(); j++){
-                dropDownStudySpotsArray.get(i).getItems().addAll(studySpotList.getStudySpotList().get(j));
+        for(int alex = 0; alex<5; alex++){
+            for(int i = 0; i<13; i++){
+                dropDownStudySpotsArray.get(alex).get(i).getItems().clear();
+                dropDownStudySpotsArray.get(alex).get(i).getItems().add(null);
+                for(int j = 0; j<studySpotList.getStudySpotList().size(); j++){
+                    dropDownStudySpotsArray.get(alex).get(i).getItems().addAll(studySpotList.getStudySpotList().get(j));
+                }
+            }
+            for(int i = 0; i<13; i++){
+                currentSpot = inputSchedule.getClass(alex+1, i+8);
+                dropDownStudySpotsArray.get(alex).get(i).getItems().add(currentSpot);
+                dropDownStudySpotsArray.get(alex).get(i).setValue(currentSpot);
+                //System.out.println(currentSpot);
+            
             }
         }
-        for(int i = 0; i<13; i++){
-            currentSpot = inputSchedule.getClass(i+8);
-            
-            dropDownStudySpotsArray.get(i).getItems().add(currentSpot);
-            dropDownStudySpotsArray.get(i).setValue(currentSpot);
-            System.out.println(currentSpot);
-        }
+        
     }
 
     public void saveSchedule(){
-        for(int k = 0; k<13; k++){
-            inputSchedule.setClass(k+8, dropDownStudySpotsArray.get(k).getValue());
+        for(int m = 0; m<5; m++){
+            for(int k = 0; k<13; k++){
+                inputSchedule.setClass(m+1, k+8, dropDownStudySpotsArray.get(m).get(k).getValue());
+            }
+            userAccountList.setUserSchedule(username, password, inputSchedule);
         }
-        userAccountList.setUserSchedule(username, password, inputSchedule);
+        
     }
     
     /**
@@ -538,23 +543,32 @@ public class Gui extends Application {
 
         //Schedule Interface
         scheduleImageView.setImage(scheduleImage);
-        for(int i = 0; i<13; i++){
-            dropDownStudySpots = new ChoiceBox<>();
-            dropDownStudySpots.getItems().add(null);
-            for(int j = 0; j<studySpotList.getStudySpotList().size(); j++){
-                dropDownStudySpots.getItems().addAll(studySpotList.getStudySpotList().get(j));
-            }
-            dropDownStudySpots.setMaxWidth(230);
-            dropDownStudySpots.setMinWidth(230);
-            dropDownStudySpots.setLayoutX(143);
-            dropDownStudySpots.setLayoutY(60+(30*i));
-            dropDownStudySpotsArray.add(dropDownStudySpots);
-        }
         scheduleTime.getChildren().add(scheduleImageView);
-        for(int i = 0; i<13; i++){
-            scheduleTime.getChildren().add(dropDownStudySpotsArray.get(i));
+        for(int g=0; g<5; g++){
+            dropDownStudySpotsArray.add(new ArrayList<ChoiceBox<StudySpot>>());
+        }
+        for(int sohaib = 0; sohaib<5; sohaib++){
+            for(int i = 0; i<13; i++){
+                dropDownStudySpots = new ChoiceBox<>();
+                dropDownStudySpots.getItems().add(null);
+                for(int j = 0; j<studySpotList.getStudySpotList().size(); j++){
+                    dropDownStudySpots.getItems().addAll(studySpotList.getStudySpotList().get(j));
+                }
+                dropDownStudySpots.setMaxWidth(230);
+                dropDownStudySpots.setMinWidth(230);
+                dropDownStudySpots.setLayoutX(143+(232*sohaib));
+                dropDownStudySpots.setLayoutY(60+(30*i));
+                dropDownStudySpotsArray.get(sohaib).add(dropDownStudySpots);
+            }
 
         }
+        
+        for(int bajwa = 0; bajwa<5; bajwa++){
+            for(int i = 0; i<13; i++){
+                scheduleTime.getChildren().add(dropDownStudySpotsArray.get(bajwa).get(i));
+            }
+        }
+        
         scheduleButtons.getChildren().addAll(bestStudyspotsAtSchedule, doSurveyAtSchedule, toMainMenuFromSchedule, signoutFromSchedule);
         //moreScheduleButtons.getChildren().addAll();
         scheduleMenuGui.setStyle("-fx-background-color: #ffe699;");
