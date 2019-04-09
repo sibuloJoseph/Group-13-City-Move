@@ -395,7 +395,6 @@ public class Gui extends Application {
      */
     public void getToScheduleMenu () {
         // Drop downs all need to be empty
-        
         primaryStage.hide();
         primaryStage.setScene(sceneForScheduleMenu);
         primaryStage.setTitle("Create Schedule - City Move");
