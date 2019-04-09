@@ -1,3 +1,11 @@
+    import java.time.*;
+    import java.util.Calendar;
+    import java.text.DateFormat;
+    import java.text.SimpleDateFormat;
+    import javafx.animation.Animation;
+    import javafx.animation.AnimationTimer;
+    import javafx.animation.KeyFrame;
+    import javafx.animation.Timeline;
     import javafx.application.Application;
     import javafx.scene.Scene;
     import javafx.stage.Stage;
@@ -37,6 +45,8 @@
      */
 
     public class Gui extends Application {
+        Label currentTime = new Label();
+        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
         private UserAccountList userAccountList = new UserAccountList();
         private String username, password;
         private IdealStudySpot userData = new IdealStudySpot();
@@ -231,6 +241,8 @@
          */
         public void toMainMenu(){
             primaryStage.hide();
+            Calendar cal = Calendar.getInstance();
+            currentTime.setText(dateFormat.format(cal.getTime()));
             primaryStage.setScene(sceneForMainMenu);
             primaryStage.setTitle("Main Menu - City Move");
             primaryStage.show();
@@ -401,8 +413,13 @@
             mainMenuButtons.setSpacing(100);
             mainMenuButtons.setAlignment(Pos.CENTER);
             mainMenuButtons.getChildren().addAll(myScheduleButton,surveyButton, pastButton, signoutFromMainMenu);
+            Calendar cal = Calendar.getInstance();
+            currentTime.setText(dateFormat.format(cal.getTime()));
+            currentTime.setFont(Font.font("Verdana", 30));
+            currentTime.setTextFill(Color.ANTIQUEWHITE);
 
-            mainMenuGUI.getChildren().addAll(mainMenuButtons, studySpotIndicator, logoImageInMainMenu);
+
+            mainMenuGUI.getChildren().addAll(mainMenuButtons, studySpotIndicator, currentTime, logoImageInMainMenu );
             sceneForMainMenu = new Scene(mainMenuGUI);
 
 
