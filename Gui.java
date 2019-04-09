@@ -65,19 +65,20 @@ public class Gui extends Application {
     private Label indicatorArrow = new Label();
     private Pane studySpotIndicator = new Pane();
     private final ImageView mapImage = new ImageView();
-    private Button scheduleButton = new Button("My Schedule");
+    private Button myScheduleButton = new Button("My Schedule");
 
     //Variables of the Survey Interface
     private Button finishSurveyButton = new Button ("Submit Survey");
-    private Button goBackToMainMenuButtonFromSurvey = new Button ("Go back to Main Menu");
+    private Button goBackToMainMenuButtonFromSurvey = new Button ("Main Menu");
     private Button signoutFromSurvey = new Button("Sign Out");
 
-    // Array Lists for the Survey Interface
+    //Array Lists for the Survey Interface
     private ArrayList<Label> surveyQuestions = new ArrayList<Label>();
     private ArrayList<Label> outputForInvalidQsValues = new ArrayList<Label>();
     private ArrayList<TextField> questionsText = new ArrayList<TextField>();
     private ArrayList<Boolean> questionsValueIsValid = new ArrayList<Boolean>();
     private ArrayList<Double> questionsValue = new ArrayList<Double>();
+    private Button scheduleFromSurvey = new Button("My Schedule");
 
     //Variables of the Results Menu Interface
     private HBox displayForFirstSpot = new HBox(5);
@@ -89,33 +90,42 @@ public class Gui extends Application {
     private Label first = new Label ("");
     private Label second = new Label ("");
     private Label third = new Label ("");
-    private Button goBackToMainMenuButtonFromResults = new Button ("Go back to Main Menu");
+    private Button goBackToMainMenuButtonFromResults = new Button ("Main Menu");
     private Button signoutFromResults = new Button("Sign Out");
+    private HBox surveyResultButtons = new HBox();
+    private Button toMyScheduleFromSurveyResults = new Button("My Schedule");
 
-    //Variables of the Schedule Interface **NEW**
+    
+    //Variables of the Schedule Interface 
     private Label scheduleDescription = new Label("Enter the locations of your classes at the appropiate time \nby choosing them from the Drop-down feature below");
     private final ImageView scheduleImageView = new ImageView();
     private Pane scheduleTime = new Pane();
-    private Button createSchedule = new Button("Make Schedule");
+    private Button generateSchedule = new Button("Save Schedule");
     private Button doSurveyAtSchedule = new Button("Do Survey");
     private Button toMainMenuFromSchedule = new Button("Main Menu");
-    private Button signoutFromSchedule = new Button("Signout");
+    private Button signoutFromSchedule = new Button("Sign Out");
     private HBox scheduleButtons = new HBox();
-    
+    private HBox moreScheduleButtons = new HBox();
+    private ArrayList<ChoiceBox<StudySpot>> dropDownStudySpotsArray = new ArrayList<ChoiceBox<StudySpot>>();
+    private Image scheduleImage = new Image(Gui.class.getResourceAsStream("schedule.png"));  
+    private ChoiceBox<StudySpot> dropDownStudySpots;
+    private Button bestStudyspotsAtSchedule = new Button("Best Study Spots");
+
     //Screen Interfaces
     private VBox loginInterface = new VBox();
     private VBox mainMenuGUI = new VBox();
     private VBox surveyQuestionsMenu = new VBox ();
     private VBox resultsMenu = new VBox();
     private VBox scheduleMenuGui = new VBox();
+    private VBox scheduleResultsGui = new VBox();
      
-
     //Scenes
     private Scene sceneForLogin;
     private Scene sceneForMainMenu;
     private Scene sceneForSurveyMenu;
     private Scene sceneForResultsMenu;
     private Scene sceneForScheduleMenu;
+    private Scene sceneForScheduleResult;
 
     /**
      * Method that checks the conditions when logging in.
@@ -188,11 +198,12 @@ public class Gui extends Application {
     public void checkPreviousStudySpots(){
         userData = userAccountList.getUserData(username, password);
         studySpotList.setUserIdeal(userData);
-        ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
+        ArrayList<StudySpot> bestSpotList = inputSchedule.getBestSpotsWithSchedule(studySpotList);        
 
         first.setText(bestSpotList.get(0).getName());
         second.setText(bestSpotList.get(1).getName());
         third.setText(bestSpotList.get(2).getName());
+        
         primaryStage.hide();
         primaryStage.setScene(sceneForResultsMenu);
         primaryStage.setTitle("Survey Results - City Move");
@@ -369,9 +380,40 @@ public class Gui extends Application {
      */
     public void getToScheduleMenu () {
         // Drop downs all need to be empty
+        primaryStage.hide();
         primaryStage.setScene(sceneForScheduleMenu);
-        primaryStage.setTitle("My Schedule - City Move");
+        primaryStage.setTitle("Create Schedule - City Move");
         primaryStage.show();
+    }
+
+    /**
+     * Method that creates the schedule of the user
+     */
+    public void generateSchedule(){
+        inputSchedule = userAccountList.getUserSchedule(username, password);
+        StudySpot currentSpot;
+
+        for(int i = 0; i<13; i++){
+            dropDownStudySpotsArray.get(i).getItems().clear();
+            dropDownStudySpotsArray.get(i).getItems().add(null);
+            for(int j = 0; j<studySpotList.getStudySpotList().size(); j++){
+                dropDownStudySpotsArray.get(i).getItems().addAll(studySpotList.getStudySpotList().get(j));
+            }
+        }
+        for(int i = 0; i<13; i++){
+            currentSpot = inputSchedule.getClass(i+8);
+            
+            dropDownStudySpotsArray.get(i).getItems().add(currentSpot);
+            dropDownStudySpotsArray.get(i).setValue(currentSpot);
+            System.out.println(currentSpot);
+        }
+    }
+
+    public void saveSchedule(){
+        for(int k = 0; k<13; k++){
+            inputSchedule.setClass(k+8, dropDownStudySpotsArray.get(k).getValue());
+        }
+        userAccountList.setUserSchedule(username, password, inputSchedule);
     }
     
     /**
@@ -386,7 +428,6 @@ public class Gui extends Application {
         
         //UofC Logo 
 		selectedImage.setImage(image1);
-
     	txtUsername.setMaxWidth(200);
         txtPassword.setMaxWidth(200);
         
@@ -431,7 +472,7 @@ public class Gui extends Application {
         HBox mainMenuButtons = new HBox();
         mainMenuButtons.setSpacing(100);
         mainMenuButtons.setAlignment(Pos.CENTER);
-        mainMenuButtons.getChildren().addAll(scheduleButton,surveyButton, pastButton, signoutFromMainMenu);
+        mainMenuButtons.getChildren().addAll(myScheduleButton,surveyButton, pastButton, signoutFromMainMenu);
 
         mainMenuGUI.getChildren().addAll(mainMenuButtons, studySpotIndicator, logoImageInMainMenu);
         sceneForMainMenu = new Scene(mainMenuGUI);
@@ -439,7 +480,7 @@ public class Gui extends Application {
 
         //Survey Interface
         HBox submitOrGoBack = new HBox ();
-        submitOrGoBack.getChildren().addAll(finishSurveyButton,goBackToMainMenuButtonFromSurvey, signoutFromSurvey);
+        submitOrGoBack.getChildren().addAll(finishSurveyButton, scheduleFromSurvey ,goBackToMainMenuButtonFromSurvey, signoutFromSurvey);
 
         for (int i = 0; i < 5; i++) {
             surveyQuestions.add(new Label());
@@ -485,60 +526,65 @@ public class Gui extends Application {
         secondStudySpot.setTextFill(Color.WHITE);
         thirdStudySpot.setTextFill(Color.WHITE);
 
-        HBox surveyResultButtons = new HBox();
-        surveyResultButtons.getChildren().addAll(goBackToMainMenuButtonFromResults, signoutFromResults);
-
-        resultsMenu.setSpacing(50);
-        resultsMenu.getChildren().addAll(displayForFirstSpot,displayForSecondSpot,displayForThirdSpot, surveyResultButtons);
-        resultsMenu.setStyle("-fx-background-color: #980E0E;");
-        sceneForResultsMenu = new Scene (resultsMenu, 1200, 300);
-
-        // My Schedule Interface
         
-        ArrayList<ChoiceBox<StudySpot>> dropDownStudySpotsArray = new ArrayList<ChoiceBox<StudySpot>>();
-        Image scheduleImage = new Image(Gui.class.getResourceAsStream("schedule1.1.png"));  
+        surveyResultButtons.getChildren().addAll(toMyScheduleFromSurveyResults, goBackToMainMenuButtonFromResults, signoutFromResults);
+        Label surveyResultDescription = new Label("Based on your Schedule and/or the Survey you took, the Best Study Spots for you are:");
+        surveyResultDescription.setTextFill(Color.PALEGOLDENROD);
+        surveyResultDescription.setFont(Font.font("Verdana", 25));
+        resultsMenu.setSpacing(50);
+        resultsMenu.getChildren().addAll(surveyResultDescription, displayForFirstSpot,displayForSecondSpot,displayForThirdSpot, surveyResultButtons);
+        resultsMenu.setStyle("-fx-background-color: #980E0E;");
+        sceneForResultsMenu = new Scene (resultsMenu);
+
+        //Schedule Interface
         scheduleImageView.setImage(scheduleImage);
-        ChoiceBox<StudySpot> dropDownStudySpots;
         for(int i = 0; i<13; i++){
             dropDownStudySpots = new ChoiceBox<>();
             dropDownStudySpots.getItems().add(null);
             for(int j = 0; j<studySpotList.getStudySpotList().size(); j++){
                 dropDownStudySpots.getItems().addAll(studySpotList.getStudySpotList().get(j));
             }
-            dropDownStudySpots.setMaxWidth(231);
-            dropDownStudySpots.setLayoutX(142);
-            dropDownStudySpots.setLayoutY(90+(30*i));
+            dropDownStudySpots.setMaxWidth(230);
+            dropDownStudySpots.setMinWidth(230);
+            dropDownStudySpots.setLayoutX(143);
+            dropDownStudySpots.setLayoutY(60+(30*i));
             dropDownStudySpotsArray.add(dropDownStudySpots);
         }
         scheduleTime.getChildren().add(scheduleImageView);
-
         for(int i = 0; i<13; i++){
             scheduleTime.getChildren().add(dropDownStudySpotsArray.get(i));
+
         }
-
-        //scheduleButtons.setSpacing(100);
-        //scheduleButtons.setAlignment(Pos.CENTER);
-        scheduleButtons.getChildren().addAll(createSchedule, doSurveyAtSchedule, toMainMenuFromSchedule, signoutFromSchedule);
-
+        scheduleButtons.getChildren().addAll(bestStudyspotsAtSchedule, doSurveyAtSchedule, toMainMenuFromSchedule, signoutFromSchedule);
+        //moreScheduleButtons.getChildren().addAll();
         scheduleMenuGui.setStyle("-fx-background-color: #ffe699;");
         scheduleMenuGui.setSpacing(15);
-        scheduleMenuGui.getChildren().addAll(scheduleTime, scheduleButtons);
+        scheduleMenuGui.getChildren().addAll(scheduleTime, scheduleButtons, moreScheduleButtons);
         sceneForScheduleMenu = new Scene (scheduleMenuGui);
 
-        //Temporary** To get the x and y values of the grid.
-        scheduleImageView.setOnMouseClicked  (s -> {
+         //Temporary** To get the x and y values of the grid.
+         scheduleImageView.setOnMouseClicked  (s -> {
             System.out.println("["+s.getX()+", "+s.getY()+"]");
         }); 
 
-        //Event handler to schedule
-        createSchedule.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(ActionEvent event){
-                for(int k = 0; k<13; k++){
-                    inputSchedule.setClass(k+8, dropDownStudySpotsArray.get(k).getValue());
-                }
-                toMainMenu();
+
+        // Event Handler to go to the schedule menu from main menu
+        myScheduleButton.setOnAction(new EventHandler<ActionEvent> () {
+            public void handle (ActionEvent event) {
+                generateSchedule();
+                getToScheduleMenu();                
             }
         });
+
+        //Event Handler that will take the user to the list of best study spots from the Schedule Result Screen
+        bestStudyspotsAtSchedule.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event){
+                saveSchedule();
+                generateSchedule();
+                checkPreviousStudySpots();
+            }
+        });
+
 
         // Event Handler to Login
     	enterToAccount.setOnAction(new EventHandler<ActionEvent>() {
@@ -648,11 +694,56 @@ public class Gui extends Application {
                 signOut();
             }
         });*/
+
+        //Event Handler to go to the schedule window from the survey results window
+        toMyScheduleFromSurveyResults.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event){
+                saveSchedule();
+                getToScheduleMenu();
+               
+            }
+        });
         
         //Event Handler to go back to the Main Menu Screen from the Results Menu screen.
         goBackToMainMenuButtonFromResults.setOnAction (new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
                 toMainMenu();
+            }
+        });
+
+        //Event Handler to access Schedule Menu from Survey
+        scheduleFromSurvey.setOnAction(new EventHandler<ActionEvent> () {
+            public void handle (ActionEvent event) {
+                saveSchedule();
+                getToScheduleMenu();
+                
+            }
+        });
+
+        //Event Handler to go back to the Main Menu Screen from the Schedule Screen.
+        toMainMenuFromSchedule.setOnAction (new EventHandler<ActionEvent> () {
+            public void handle (ActionEvent event) {
+                generateSchedule();
+                saveSchedule();
+                toMainMenu();
+            }
+        });
+
+        //Event Handler to go to the Survey Menu Screen from Schedule Screen.
+        doSurveyAtSchedule.setOnAction(new EventHandler<ActionEvent> () {
+            public void handle (ActionEvent event) {
+                saveSchedule();
+                generateSchedule();
+                getToSurveyMenu();
+            }
+        });
+
+        //Event Handler to go signout from the application from Schedule Screen.
+        signoutFromSchedule.setOnAction(new EventHandler<ActionEvent> () {
+            public void handle (ActionEvent event) {
+                saveSchedule();
+                generateSchedule();
+                signOut();
             }
         });
 
@@ -691,11 +782,5 @@ public class Gui extends Application {
                 }
             }
         }); 
-
-        scheduleButton.setOnAction(new EventHandler<ActionEvent> () {
-            public void handle (ActionEvent event) {
-                getToScheduleMenu();
-            }
-        });
     }
 }
