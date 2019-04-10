@@ -17,7 +17,7 @@ Info:
 - To run the Gui class, type in ---> java Gui
 - When running the Gui class for the first time, enter a username and password you will use for each time you rerun the program.
 - In order to do this, ---> Enter your username and password in the textfields, and click "Signup"
-- If account creation is succesful, it will prompt you to click "Login" (or hit the enter key) and will direct you to the main menu.
+- If account creation is successful, it will prompt you to click "Login" (or hit the enter key) and will direct you to the main menu.
 - If you have already ran the Gui class once and have created a username and password, enter your username and password and click "Login" (or hit the enter key), which will direct you to the main menu.
 - To run the survey in the Gui, click on "Do Survey" in the main menu.
 --------------------------------
