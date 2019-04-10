@@ -106,10 +106,10 @@ public class Gui extends Application {
     private Button signoutFromResults = new Button("Sign Out");
     private HBox surveyResultButtons = new HBox();
     private Button toMyScheduleFromSurveyResults = new Button("My Schedule");
-    private ArrayList<StudySpot> bestSpotListFromSchedule = inputSchedule.getBestSpotsWithSchedule(studySpotList);
-    private ArrayList<StudySpot> bestSpotListFromSurvey = studySpotList.getBestStudySpots();
+    private ArrayList<StudySpot> bestSpotListBasedOnSchedule = inputSchedule.getBestSpotsWithSchedule(studySpotList);
+    private ArrayList<StudySpot> bestSpotListBasedOnSurvey = studySpotList.getBestStudySpots();
 
-
+    
     
     //Variables of the Schedule Interface 
     private Label scheduleDescription = new Label("Enter the locations of your classes at the appropiate time \nby choosing them from the Drop-down feature below");
@@ -211,9 +211,9 @@ public class Gui extends Application {
         userData = userAccountList.getUserData(username, password);
         studySpotList.setUserIdeal(userData);        
 
-        first.setText(bestSpotListFromSchedule.get(0).getName());
-        second.setText(bestSpotListFromSchedule.get(1).getName());
-        third.setText(bestSpotListFromSchedule.get(2).getName());
+        first.setText(bestSpotListBasedOnSchedule.get(0).getName());
+        second.setText(bestSpotListBasedOnSchedule.get(1).getName());
+        third.setText(bestSpotListBasedOnSchedule.get(2).getName());
         
         primaryStage.hide();
         primaryStage.setScene(sceneForResultsMenu);
@@ -298,9 +298,9 @@ public class Gui extends Application {
             userAccountList.setUserData(username, password, userData);
             studySpotList.setUserIdeal(userData);
 
-            first.setText(bestSpotListFromSurvey.get(0).getName());
-            second.setText(bestSpotListFromSurvey.get(1).getName());
-            third.setText(bestSpotListFromSurvey.get(2).getName());
+            first.setText(bestSpotListBasedOnSurvey.get(0).getName());
+            second.setText(bestSpotListBasedOnSurvey.get(1).getName());
+            third.setText(bestSpotListBasedOnSurvey.get(2).getName());
             primaryStage.hide();
             primaryStage.setScene(sceneForResultsMenu);
             primaryStage.setTitle("Survey Results - City Move");
