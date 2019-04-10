@@ -5,12 +5,13 @@ import logic.StudySpot;
 import logic.IdealStudySpot;
 import logic.StudySpotList;
 import account.UserAccountList;
+import logic.Schedule;
 
 /**
  * This class gets the input of the user of their most preferred criteria for study spots at the University of Calgary
  * based on a survey of 5 questions.
  *
- * Last modified: March 25, 2019
+ * Last modified: April 10th, 2019
  */
 
 public class Survey {
@@ -19,8 +20,8 @@ public class Survey {
      * Displays the best study spots based on the given list to the console
      * @param studySpotList: the StudySpotList object to base the results on
      */
-    public void displayResults(StudySpotList studySpotList) {
-        ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
+    public void displayResults(StudySpotList studySpotList, Schedule aSchedule) {
+        ArrayList<StudySpot> bestSpotList = aSchedule.getBestSpotsWithSchedule(studySpotList);
         System.out.println("Here are the top three study spots recommended for you:");
         System.out.println(bestSpotList.get(0).getName());
         System.out.println(bestSpotList.get(1).getName());
@@ -70,6 +71,9 @@ public class Survey {
         String username = "", password = "";
         Scanner keyboard = new Scanner(System.in);
         String action = "";
+        Schedule userScheduleData = new Schedule();
+        int actionInt;
+        int day = 0;
 
         boolean validLogin = false;
 
@@ -80,8 +84,8 @@ public class Survey {
             username = keyboard.nextLine();
             System.out.println("Please enter a password.");
             password = keyboard.nextLine();
-            while(!(password.matches(".{7,}"))) {
-                System.out.println("Password must be at least 7 characters long.");
+            while(!(password.matches(".{4,}"))) {
+                System.out.println("Password must be at least 4 characters long.");
                 System.out.println("Please try again.");
                 password = keyboard.nextLine();
             }
@@ -124,9 +128,9 @@ public class Survey {
 
         // Main menu loop for the program
         while(true) {
-            System.out.println("Please enter S to take the study spot survey, P to see your previous results, or Q to quit.");
+            System.out.println("Please enter S to take the study spot survey, C to create your schedule, P to see your previous results or Q to quit.");
             action = keyboard.nextLine();
-            while(!action.equalsIgnoreCase("S") && !action.equalsIgnoreCase("P") && !action.equalsIgnoreCase("Q")) {
+            while(!action.equalsIgnoreCase("S") && !action.equalsIgnoreCase("P") && !action.equalsIgnoreCase("Q") && !action.equalsIgnoreCase("C")) {
                 System.out.println("Please enter a valid command.");
                 action = keyboard.nextLine();
             }
@@ -141,8 +145,9 @@ public class Survey {
                 userData.setOutlets(aSurvey.askSurveyQuestions("how important is the availability of power outlets at your ideal study spot? (1: not important to me, 10: Extremely important to me.)"));
 
                 userAccountList.setUserData(username, password, userData);
+                userScheduleData = userAccountList.getUserSchedule(username, password);
                 ssl.setUserIdeal(userData);
-                aSurvey.displayResults(ssl);
+                aSurvey.displayResults(ssl, userScheduleData);
 
             }
 
@@ -150,18 +155,127 @@ public class Survey {
             else if(action.equalsIgnoreCase("P")) {
 
                 userData = userAccountList.getUserData(username, password);
+                userScheduleData = userAccountList.getUserSchedule(username, password);
                 ssl.setUserIdeal(userData);
-                aSurvey.displayResults(ssl);
+                aSurvey.displayResults(ssl, userScheduleData);
 
             }
+          
+          	// Presents User with options to input schedule.
+          	else if (action.equalsIgnoreCase("C")) {
+                while (true) {
+                    System.out.println("Please enter what day you would like to create your schedule in: ");
+                    System.out.println("Put M for Mon, T for Tues, W for Wed, R for Thurs and F for Fri");
+                    action = keyboard.nextLine();
+                
+                    if (action.equalsIgnoreCase("M") || action.equalsIgnoreCase("T") || action.equalsIgnoreCase("W") || action.equalsIgnoreCase("R") || action.equalsIgnoreCase("F")) {
+                        if (action.equalsIgnoreCase("M")) {
+                            day = 1;
+                        }
+                        else if (action.equalsIgnoreCase("T")) {
+                            day = 2;
+                        }
+                        else if (action.equalsIgnoreCase("W")) {
+                            day = 3;
+                        }
+                        else if (action.equalsIgnoreCase("R")) {
+                            day = 4;
+                        }
+                        else if (action.equalsIgnoreCase("F")) {
+                            day = 5;
+                        }
+                    
+                        // Tracks the 12 hours in day
+                    for (int j = 8; j < 21; j++) {
+                        System.out.println("Please enter Y if you have a class in this hour or N if you don't have a class at this time: " + j + ":00");
+                        action = keyboard.nextLine();
+                        
+                        while (true) {
+                            if (action.equalsIgnoreCase("Y")) {
+                
+                                System.out.println("Please enter the location of your study spot:");  
+                                for (int k = 0; k < 12; k++) {
+                                    System.out.println(k+1 + ": " + ssl.getStudySpotList().get(k).getName());
+                                }
+                                
+                                
 
-            // Ends the program
-            else if(action.equalsIgnoreCase("Q")) {
-                break;
-            }
+                                // setClass(int day, int timeIn24Hour, StudySpot studySpotToAdd)
+                                boolean studySpotValid = false;
+                                actionInt = 0;
+                                while (!studySpotValid) {
+                                try {
+                                    action = keyboard.nextLine();
+                                    actionInt = Integer.parseInt(action);
+                                    if (actionInt >= 1 && actionInt <= ssl.getStudySpotList().size()) {
+                                        studySpotValid = true;
+                                        }
+                                    else {
+                                        System.out.println("Invalid Input: Please enter a value from 1 to 12");
+                                        System.out.println("Please enter the location of your study spot:");  
+                                        for (int k = 0; k < 12; k++) {
+                                            System.out.println(k+1 + ": " + ssl.getStudySpotList().get(k).getName());
+                                        }
+                                    }
+                                }
+                                catch (NumberFormatException nfe) {
+                                    action = keyboard.nextLine();
+                                    System.out.println("Invalid Input: Please enter a value from 1 to 12");          
+                                    }
+                                }
+                                userScheduleData.setClass(day, j, ssl.getStudySpotList().get(actionInt-1));
+                                break;
+                            
+                            }
+                            else if (action.equalsIgnoreCase("N")) {
+                                userScheduleData.setClass(day, j, null);
+                                break;
+                            }
+                            else {
+                                System.out.println("Invalid Input: Please enter Y or N");
+                                action = keyboard.nextLine();
+                                }
+
+                        }
+                        
+                    }  
+                    System.out.println("Do you want to fill in another day? Y for yes, N for no");
+                    action = keyboard.nextLine();
+                    while (true) {
+                        if (action.equalsIgnoreCase("y")) {
+                            System.out.println("good");
+                            break;
+                        }
+                        else if (action.equalsIgnoreCase("n")) {
+                            break;
+                        }
+                        else {
+                            System.out.println("Inavlid input: Do you want to fill in another day? Y for yes, N for no"); 
+                            action = keyboard.nextLine(); 
+                        }
+                    }
+                    if (action.equalsIgnoreCase("n")) {
+                        break;
+                    }
+                    
+                    }
+                    else {
+                        System.out.println("Invalid Input: Put M for Mon, T for Tues, W for Wed, R for Thurs and F for Fri");
+                        action = keyboard.nextLine();
+
+                    }
+        }
+        userAccountList.setUserSchedule(username, password, userScheduleData);
+        aSurvey.displayResults(ssl, userScheduleData);
+    }
+
+        // Ends the program
+        else if (action.equalsIgnoreCase("Q")) {
+            break;
         }
 
         System.out.println("Thank you for using our study spot recommendation app.");
     }
-    
 }
+}
+    
