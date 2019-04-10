@@ -77,6 +77,9 @@ public class Gui extends Application {
     private final ImageView mapImage = new ImageView();
     private Button myScheduleButton = new Button("My Schedule");
     private Image arrow = new Image(Gui.class.getResourceAsStream("YellowArrow.png"));
+    private Label bestStudySpotIndicator1 = new Label();
+    private Label bestStudySpotIndicator2 = new Label();
+    private Label bestStudySpotIndicator3 = new Label();
 
 
     //Variables of the Survey Interface
@@ -106,11 +109,8 @@ public class Gui extends Application {
     private Button signoutFromResults = new Button("Sign Out");
     private HBox surveyResultButtons = new HBox();
     private Button toMyScheduleFromSurveyResults = new Button("My Schedule");
-    private ArrayList<StudySpot> bestSpotListBasedOnSchedule = inputSchedule.getBestSpotsWithSchedule(studySpotList);
-    private ArrayList<StudySpot> bestSpotListBasedOnSurvey = studySpotList.getBestStudySpots();
+    
 
-    
-    
     //Variables of the Schedule Interface 
     private Label scheduleDescription = new Label("Enter the locations of your classes at the appropiate time \nby choosing them from the Drop-down feature below");
     private final ImageView scheduleImageView = new ImageView();
@@ -210,10 +210,12 @@ public class Gui extends Application {
     public void checkPreviousStudySpots(){
         userData = userAccountList.getUserData(username, password);
         studySpotList.setUserIdeal(userData);        
+        
+        ArrayList<StudySpot> bestSpotList = inputSchedule.getBestSpotsWithSchedule(studySpotList);
 
-        first.setText(bestSpotListBasedOnSchedule.get(0).getName());
-        second.setText(bestSpotListBasedOnSchedule.get(1).getName());
-        third.setText(bestSpotListBasedOnSchedule.get(2).getName());
+        first.setText(bestSpotList.get(0).getName());
+        second.setText(bestSpotList.get(1).getName());
+        third.setText(bestSpotList.get(2).getName());
         
         primaryStage.hide();
         primaryStage.setScene(sceneForResultsMenu);
@@ -298,9 +300,10 @@ public class Gui extends Application {
             userAccountList.setUserData(username, password, userData);
             studySpotList.setUserIdeal(userData);
 
-            first.setText(bestSpotListBasedOnSurvey.get(0).getName());
-            second.setText(bestSpotListBasedOnSurvey.get(1).getName());
-            third.setText(bestSpotListBasedOnSurvey.get(2).getName());
+            ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
+            first.setText(bestSpotList.get(0).getName());
+            second.setText(bestSpotList.get(1).getName());
+            third.setText(bestSpotList.get(2).getName());
             primaryStage.hide();
             primaryStage.setScene(sceneForResultsMenu);
             primaryStage.setTitle("Survey Results - City Move");
@@ -337,7 +340,7 @@ public class Gui extends Application {
                 currentSpot = inputSchedule.getClass(alex+1, i+8);
                 dropDownStudySpotsArray.get(alex).get(i).getItems().add(currentSpot);
                 dropDownStudySpotsArray.get(alex).get(i).setValue(currentSpot);
-                //System.out.println(currentSpot);
+                System.out.println(currentSpot);
             }
         } 
     }
@@ -396,7 +399,20 @@ public class Gui extends Application {
         Image uofCMap = new Image(Gui.class.getResourceAsStream("UofCMap.png"));
         mapImage.setImage(uofCMap);
 
-        studySpotIndicator.getChildren().add(mapImage);
+       /* Image star = new Image(Gui.class.getResourceAsStream("star.png"));
+        bestStudySpotIndicator1.setGraphic(new ImageView(star));    
+        bestStudySpotIndicator1.setLayoutX(bestSpotList.get(0).averageX());
+        bestStudySpotIndicator1.setLayoutY(bestSpotList.get(0).averageY());
+
+        bestStudySpotIndicator2.setGraphic(new ImageView(star));    
+        bestStudySpotIndicator2.setLayoutX(bestSpotList.get(1).averageX());
+        bestStudySpotIndicator2.setLayoutY(bestSpotList.get(1).averageY());
+
+        bestStudySpotIndicator3.setGraphic(new ImageView(star));    
+        bestStudySpotIndicator3.setLayoutX(bestSpotList.get(2).averageX());
+        bestStudySpotIndicator3.setLayoutY(bestSpotList.get(2).averageY());*/
+
+        studySpotIndicator.getChildren().addAll(mapImage/*, bestStudySpotIndicator1, bestStudySpotIndicator2, bestStudySpotIndicator3*/);
         logoImageInMainMenu.setImage(image1); 
 
         mainMenuGUI.setAlignment(Pos.CENTER);
@@ -411,6 +427,7 @@ public class Gui extends Application {
         mainMenuButtons.setSpacing(100);
         mainMenuButtons.setAlignment(Pos.CENTER);
         mainMenuButtons.getChildren().addAll(myScheduleButton,surveyButton, pastButton, signoutFromMainMenu);
+
         //Current Time
         Calendar cal = Calendar.getInstance();
         currentTime.setText(dateFormat.format(cal.getTime()));
@@ -581,6 +598,7 @@ public class Gui extends Application {
         //Event Handler to submit survey responses
         finishSurveyButton.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
+                generateSchedule();
                 doSurvey();
                 outputSurveyResults();
                 
@@ -614,8 +632,8 @@ public class Gui extends Application {
         //Event Handler to access Schedule Menu from Survey
         scheduleFromSurvey.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
-                generateSchedule();
                 saveSchedule();
+                //generateSchedule();
                 getToScheduleMenu();
                 
             }
