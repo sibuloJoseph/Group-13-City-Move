@@ -9,7 +9,7 @@ import logic.IdealStudySpot;
  * This is the unit test for the Schedule class.
  * Manual testing should also be done for this class, as rankings given are partially based on the current time.
  *
- * Last modified: April 9, 2019
+ * Last modified: April 10, 2019
  */
 public class ScheduleTest {
 
@@ -96,6 +96,28 @@ public class ScheduleTest {
         s.setClass(3, 12, null);
 
         assertTrue("Class should be changed to null", s.getClass(3, 12) == null);
+    }
+
+    @Test
+    public void test_setClass_privacy_leaks() {
+        Schedule s = new Schedule();
+
+        StudySpot spot = new StudySpot("spot");
+        s.setClass(3, 12, spot);
+
+        spot.setName("changed");
+
+        assertFalse("Class in schedule should not be changed", "changed".equals(s.getClass(3, 12).getName()));
+    }
+
+    @Test
+    public void test_getClass_privacy_leaks() {
+        Schedule s = new Schedule();
+
+        s.setClass(3, 12, new StudySpot("spot"));
+        s.getClass(3, 12).setName("changed");
+
+        assertFalse("Class in schedule should not be changed", "changed".equals(s.getClass(3, 12).getName()));
     }
 
     // Test getBestSpotsWithSchedule method
