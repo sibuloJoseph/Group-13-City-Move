@@ -67,7 +67,7 @@ public class Gui extends Application {
 
     //Varibles of the Main Menu Interface
     private Button surveyButton = new Button("Do Survey");
-    private Button pastButton = new Button("See Previous Study Spots");
+    private Button pastButton = new Button("Best Study Spots");
     private Button signoutFromMainMenu = new Button("Sign Out");
     private Label spotClickedOn = new Label ("\n\n\n\n\n\n\n");
     private final ImageView logoImageInMainMenu = new ImageView();  
@@ -80,7 +80,6 @@ public class Gui extends Application {
     private Label bestStudySpotIndicator1 = new Label();
     private Label bestStudySpotIndicator2 = new Label();
     private Label bestStudySpotIndicator3 = new Label();
-
 
     //Variables of the Survey Interface
     private Button finishSurveyButton = new Button ("Submit Survey");
@@ -109,6 +108,7 @@ public class Gui extends Application {
     private Button signoutFromResults = new Button("Sign Out");
     private HBox surveyResultButtons = new HBox();
     private Button toMyScheduleFromSurveyResults = new Button("My Schedule");
+    private Button retakeSurveyAtSurveyResults = new Button("Do Survey");
     
 
     //Variables of the Schedule Interface 
@@ -178,7 +178,7 @@ public class Gui extends Application {
                 output.setText("Please Enter Username and/or Password.");
             }
             /*else if(!(password.matches(".{4,}"))){ // Changed password to 4
-                output.setText("Password Must be at Least \n7 Characters Long!");
+                output.setText("Password Must be at Least \n4 Characters Long!");
             }*/
             else {
                 userAccountList.addAccount(username, password);
@@ -204,7 +204,7 @@ public class Gui extends Application {
 
     /**
      * Method that allows the user to see their previous study spots results
-     * when the "See Previous Study Spots" button is pressed
+     * when the "Best Study Spots" button is pressed
      * in the Main Menu Screen. 
      */
     public void checkPreviousStudySpots(){
@@ -212,7 +212,6 @@ public class Gui extends Application {
         studySpotList.setUserIdeal(userData);        
         
         ArrayList<StudySpot> bestSpotList = inputSchedule.getBestSpotsWithSchedule(studySpotList);
-
         first.setText(bestSpotList.get(0).getName());
         second.setText(bestSpotList.get(1).getName());
         third.setText(bestSpotList.get(2).getName());
@@ -241,12 +240,13 @@ public class Gui extends Application {
      * Method that would take the User back to the Main Menu Screen.
      */
     public void toMainMenu(){
-        primaryStage.hide();
+        if(studySpotIndicator.getChildren().contains(bestStudySpotIndicator1) && studySpotIndicator.getChildren().contains(bestStudySpotIndicator2) 
+            && studySpotIndicator.getChildren().contains(bestStudySpotIndicator3)){
+            studySpotIndicator.getChildren().removeAll(bestStudySpotIndicator1, bestStudySpotIndicator2, bestStudySpotIndicator3);
+        }
         Calendar cal = Calendar.getInstance();
         currentTime.setText(dateFormat.format(cal.getTime()));
-        primaryStage.setScene(sceneForMainMenu);
-        primaryStage.setTitle("Main Menu - City Move");
-        primaryStage.show();
+        bestStudySpotsInMap();
         if(mainMenuGUI.getChildren().contains(spotClickedOn)){
             mainMenuGUI.getChildren().remove(spotClickedOn);
             mainMenuGUI.getChildren().add(logoImageInMainMenu);
@@ -254,6 +254,10 @@ public class Gui extends Application {
                 studySpotIndicator.getChildren().remove(indicatorArrow);
             }
         }
+        primaryStage.hide();
+        primaryStage.setScene(sceneForMainMenu);
+        primaryStage.setTitle("Main Menu - City Move");
+        primaryStage.show();
     }
 
     /**
@@ -298,16 +302,7 @@ public class Gui extends Application {
             userData.setOutlets(questionsValue.get(4));
 
             userAccountList.setUserData(username, password, userData);
-            studySpotList.setUserIdeal(userData);
-
-            ArrayList<StudySpot> bestSpotList = studySpotList.getBestStudySpots();
-            first.setText(bestSpotList.get(0).getName());
-            second.setText(bestSpotList.get(1).getName());
-            third.setText(bestSpotList.get(2).getName());
-            primaryStage.hide();
-            primaryStage.setScene(sceneForResultsMenu);
-            primaryStage.setTitle("Survey Results - City Move");
-            primaryStage.show();
+            checkPreviousStudySpots();
         }
     }
 
@@ -356,6 +351,28 @@ public class Gui extends Application {
             userAccountList.setUserSchedule(username, password, inputSchedule);
         }
     }
+
+    public void bestStudySpotsInMap(){
+        userData = userAccountList.getUserData(username, password);
+        studySpotList.setUserIdeal(userData);        
+        inputSchedule = userAccountList.getUserSchedule(username, password);        
+        ArrayList<StudySpot> bestSpotList = inputSchedule.getBestSpotsWithSchedule(studySpotList);
+        
+        Image star = new Image(Gui.class.getResourceAsStream("star.png"));
+        bestStudySpotIndicator1.setGraphic(new ImageView(star));    
+        bestStudySpotIndicator1.setLayoutX(bestSpotList.get(0).averageX());
+        bestStudySpotIndicator1.setLayoutY(bestSpotList.get(0).averageY());
+
+        bestStudySpotIndicator2.setGraphic(new ImageView(star));    
+        bestStudySpotIndicator2.setLayoutX(bestSpotList.get(1).averageX());
+        bestStudySpotIndicator2.setLayoutY(bestSpotList.get(1).averageY());
+
+        bestStudySpotIndicator3.setGraphic(new ImageView(star));    
+        bestStudySpotIndicator3.setLayoutX(bestSpotList.get(2).averageX());
+        bestStudySpotIndicator3.setLayoutY(bestSpotList.get(2).averageY());
+
+        studySpotIndicator.getChildren().addAll(bestStudySpotIndicator1, bestStudySpotIndicator2, bestStudySpotIndicator3);
+    }
     
     /**
      * Main method for the Gui
@@ -393,26 +410,12 @@ public class Gui extends Application {
         primaryStage.show();
 
         
-
         //Main Menu Interface
         //UofC Map
         Image uofCMap = new Image(Gui.class.getResourceAsStream("UofCMap.png"));
         mapImage.setImage(uofCMap);
-
-       /* Image star = new Image(Gui.class.getResourceAsStream("star.png"));
-        bestStudySpotIndicator1.setGraphic(new ImageView(star));    
-        bestStudySpotIndicator1.setLayoutX(bestSpotList.get(0).averageX());
-        bestStudySpotIndicator1.setLayoutY(bestSpotList.get(0).averageY());
-
-        bestStudySpotIndicator2.setGraphic(new ImageView(star));    
-        bestStudySpotIndicator2.setLayoutX(bestSpotList.get(1).averageX());
-        bestStudySpotIndicator2.setLayoutY(bestSpotList.get(1).averageY());
-
-        bestStudySpotIndicator3.setGraphic(new ImageView(star));    
-        bestStudySpotIndicator3.setLayoutX(bestSpotList.get(2).averageX());
-        bestStudySpotIndicator3.setLayoutY(bestSpotList.get(2).averageY());*/
-
-        studySpotIndicator.getChildren().addAll(mapImage/*, bestStudySpotIndicator1, bestStudySpotIndicator2, bestStudySpotIndicator3*/);
+    
+        studySpotIndicator.getChildren().add(mapImage);
         logoImageInMainMenu.setImage(image1); 
 
         mainMenuGUI.setAlignment(Pos.CENTER);
@@ -486,7 +489,8 @@ public class Gui extends Application {
         secondStudySpot.setTextFill(Color.WHITE);
         thirdStudySpot.setTextFill(Color.WHITE);
 
-        surveyResultButtons.getChildren().addAll(toMyScheduleFromSurveyResults, goBackToMainMenuButtonFromResults, signoutFromResults);
+        
+        surveyResultButtons.getChildren().addAll(toMyScheduleFromSurveyResults, retakeSurveyAtSurveyResults, goBackToMainMenuButtonFromResults, signoutFromResults);
         Label surveyResultDescription = new Label("Based on your Schedule and/or the Survey you took, the Best Study Spots for you are:");
         surveyResultDescription.setTextFill(Color.PALEGOLDENROD);
         surveyResultDescription.setFont(Font.font("Verdana", 25));
@@ -588,9 +592,10 @@ public class Gui extends Application {
             }
         });
     
-        //Event Handler to get to Previous Study Spots
+        //Event Handler to get to Previous Study Spots from the Main Menu
         pastButton.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
+                generateSchedule();
                 checkPreviousStudySpots();
             }
         });
@@ -615,7 +620,6 @@ public class Gui extends Application {
         //Event Handler to go to the schedule window from the survey results window
         toMyScheduleFromSurveyResults.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event){
-                saveSchedule();
                 generateSchedule();
                 getToScheduleMenu();
             
@@ -629,21 +633,24 @@ public class Gui extends Application {
             }
         });
 
+        retakeSurveyAtSurveyResults.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event){
+                getToSurveyMenu();   
+            }
+        });
+
         //Event Handler to access Schedule Menu from Survey
         scheduleFromSurvey.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
-                saveSchedule();
-                //generateSchedule();
                 getToScheduleMenu();
-                
             }
         });
 
         //Event Handler to go back to the Main Menu Screen from the Schedule Screen.
         toMainMenuFromSchedule.setOnAction (new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
-                generateSchedule();
                 saveSchedule();
+                generateSchedule();
                 toMainMenu();
             }
         });
@@ -651,8 +658,8 @@ public class Gui extends Application {
         //Event Handler to go to the Survey Menu Screen from Schedule Screen.
         doSurveyAtSchedule.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
-                generateSchedule();                
                 saveSchedule();
+                generateSchedule();                
                 getToSurveyMenu();
             }
         });
@@ -660,8 +667,8 @@ public class Gui extends Application {
         //Event Handler to go signout from the application from Schedule Screen.
         signoutFromSchedule.setOnAction(new EventHandler<ActionEvent> () {
             public void handle (ActionEvent event) {
-                generateSchedule();                
                 saveSchedule();
+                generateSchedule();                
                 signOut();
             }
         });
