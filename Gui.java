@@ -45,8 +45,8 @@ import com.sun.glass.events.KeyEvent;
  */
 
 public class Gui extends Application {
-    Label currentTime = new Label();
-    DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+    private Label currentTime = new Label();
+    private DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
     private UserAccountList userAccountList = new UserAccountList();
     private String username, password;
     private IdealStudySpot userData = new IdealStudySpot();
