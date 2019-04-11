@@ -27,8 +27,8 @@ Info:
 - The following files contain JUNIT test files: StudySpotTest.java, StudySpotListTest.java. and ScheduleTest.java . These are located in the folder called "unitTests"
 - First, move the test files to the main directory for the app, along with the junit-4.12.jar and hamcrest-core-1.3.jar files
 - To compile the files use the command: javac -cp .:junit-4.12.jar:hamcrest-core-1.3.jar \*.java logic/\*.java
-(Note use semicolons insteads of colons if using windows machine) 
-- To run the appropiate test file use the command: java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore <test class> ex: StudySpotTest 
+(Note use semicolons instead of colons if using windows machine) 
+- To run the appropriate test file use the command: java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore <test class> ex: StudySpotTest 
 --------------------------------
 - All map assets used in this demo is property of Google Maps.
 - The University of Calgary Logo is property of the University of Calgary.
