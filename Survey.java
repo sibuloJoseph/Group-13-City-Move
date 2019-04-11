@@ -164,6 +164,7 @@ public class Survey {
           	// Presents User with options to input schedule.
           	else if (action.equalsIgnoreCase("C")) {
                 while (true) {
+                    // Prompts the user for the day to fill in
                     System.out.println("Please enter what day you would like to create your schedule in: ");
                     System.out.println("Put M for Mon, T for Tues, W for Wed, R for Thurs and F for Fri");
                     action = keyboard.nextLine();
@@ -185,7 +186,7 @@ public class Survey {
                             day = 5;
                         }
                     
-                        // Tracks the 12 hours in day
+                    // Loops through the 12 hours in day
                     for (int j = 8; j < 21; j++) {
                         System.out.println("Please enter Y if you have a class in this hour or N if you don't have a class at this time: " + j + ":00");
                         action = keyboard.nextLine();
@@ -198,9 +199,7 @@ public class Survey {
                                     System.out.println(k+1 + ": " + ssl.getStudySpotList().get(k).getName());
                                 }
                                 
-                                
-
-                                // setClass(int day, int timeIn24Hour, StudySpot studySpotToAdd)
+                                // Gets valid class information from the user
                                 boolean studySpotValid = false;
                                 actionInt = 0;
                                 while (!studySpotValid) {
@@ -232,18 +231,20 @@ public class Survey {
                                 break;
                             }
                             else {
+                                // Deals with an invalid command for whether the user has a class
                                 System.out.println("Invalid Input: Please enter Y or N");
                                 action = keyboard.nextLine();
-                                }
+                            }
 
                         }
                         
                     }  
+                    // Asks if the user wants to fill in another day
                     System.out.println("Do you want to fill in another day? Y for yes, N for no");
                     action = keyboard.nextLine();
                     while (true) {
                         if (action.equalsIgnoreCase("y")) {
-                            System.out.println("good");
+                            System.out.println("OK");
                             break;
                         }
                         else if (action.equalsIgnoreCase("n")) {
@@ -260,6 +261,7 @@ public class Survey {
                     
                     }
                     else {
+                        // Deals with the user entering an invalid day
                         System.out.println("Invalid Input: Put M for Mon, T for Tues, W for Wed, R for Thurs and F for Fri");
                         action = keyboard.nextLine();
 
