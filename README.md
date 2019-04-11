@@ -10,6 +10,7 @@ Info:
 - If account creation is successful, you will be directed to the main menu.
 - If you have already ran the survey class once and have created a username and password, type in 'L' (to log-in).
 - To run the survey, type in 'S'.
+- To run the schedule, type in 'C'.
 ---------------------------------
 - **To run the GUI based version:**
 - All .java files need to be compiled, followed by running the Gui Class.
@@ -20,6 +21,7 @@ Info:
 - If account creation is successful, it will prompt you to click "Login" (or hit the enter key) and will direct you to the main menu.
 - If you have already ran the Gui class once and have created a username and password, enter your username and password and click "Login" (or hit the enter key), which will direct you to the main menu.
 - To run the survey in the Gui, click on "Do Survey" in the main menu.
+- To run the schedule in the Gui, click on "My Schedule" in the main menu.
 --------------------------------
 - **To run the JUNIT tests:**
 - The following files contain JUNIT test files: StudySpotTest.java, StudySpotListTest.java. and ScheduleTest.java . These are located in the folder called "unitTests"
