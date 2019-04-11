@@ -31,4 +31,4 @@ Info:
 - To run the appropiate test file use the command: java -cp .:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore <test class> ex: StudySpotTest 
 --------------------------------
 - All map assets used in this demo is property of Google Maps.
-- The University of Calgary Logo is property of the University the of Calgary.
+- The University of Calgary Logo is property of the University of Calgary.
