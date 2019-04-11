@@ -85,6 +85,7 @@ public class Gui extends Application {
     private Button finishSurveyButton = new Button ("Submit Survey");
     private Button goBackToMainMenuButtonFromSurvey = new Button ("Main Menu");
     private Button signoutFromSurvey = new Button("Sign Out");
+    private Button scheduleFromSurvey = new Button("My Schedule");
 
     //Array Lists for the Survey Interface
     private ArrayList<Label> surveyQuestions = new ArrayList<Label>();
@@ -92,8 +93,7 @@ public class Gui extends Application {
     private ArrayList<TextField> questionsText = new ArrayList<TextField>();
     private ArrayList<Boolean> questionsValueIsValid = new ArrayList<Boolean>();
     private ArrayList<Double> questionsValue = new ArrayList<Double>();
-    private Button scheduleFromSurvey = new Button("My Schedule");
-
+   
     //Variables of the Results Menu Interface
     private HBox displayForFirstSpot = new HBox(5);
     private HBox displayForSecondSpot = new HBox(5);
@@ -119,7 +119,6 @@ public class Gui extends Application {
     private Button toMainMenuFromSchedule = new Button("Main Menu");
     private Button signoutFromSchedule = new Button("Sign Out");
     private HBox scheduleButtons = new HBox();
-    private HBox moreScheduleButtons = new HBox();
     private ArrayList<ArrayList<ChoiceBox<StudySpot>>> dropDownStudySpotsArray = new ArrayList<ArrayList<ChoiceBox<StudySpot>>>();
     private Image scheduleImage = new Image(Gui.class.getResourceAsStream("schedule.png"));  
     private ChoiceBox<StudySpot> dropDownStudySpots;
