@@ -169,7 +169,8 @@ public class Survey {
                     System.out.println("Put M for Mon, T for Tues, W for Wed, R for Thurs and F for Fri");
                     action = keyboard.nextLine();
                 
-                    if (action.equalsIgnoreCase("M") || action.equalsIgnoreCase("T") || action.equalsIgnoreCase("W") || action.equalsIgnoreCase("R") || action.equalsIgnoreCase("F")) {
+                    if (action.equalsIgnoreCase("M") || action.equalsIgnoreCase("T") || action.equalsIgnoreCase("W") 
+                    || action.equalsIgnoreCase("R") || action.equalsIgnoreCase("F")) {
                         if (action.equalsIgnoreCase("M")) {
                             day = 1;
                         }
@@ -186,79 +187,78 @@ public class Survey {
                             day = 5;
                         }
                     
-                    // Loops through the 12 hours in day
-                    for (int j = 8; j < 21; j++) {
-                        System.out.println("Please enter Y if you have a class in this hour or N if you don't have a class at this time: " + j + ":00");
-                        action = keyboard.nextLine();
-                        
-                        while (true) {
-                            if (action.equalsIgnoreCase("Y")) {
-                
-                                System.out.println("Please enter the location of your study spot:");  
-                                for (int k = 0; k < 12; k++) {
-                                    System.out.println(k+1 + ": " + ssl.getStudySpotList().get(k).getName());
-                                }
-                                
-                                // Gets valid class information from the user
-                                boolean studySpotValid = false;
-                                actionInt = 0;
-                                while (!studySpotValid) {
-                                try {
-                                    action = keyboard.nextLine();
-                                    actionInt = Integer.parseInt(action);
-                                    if (actionInt >= 1 && actionInt <= ssl.getStudySpotList().size()) {
-                                        studySpotValid = true;
-                                        }
-                                    else {
-                                        System.out.println("Invalid Input: Please enter a value from 1 to 12");
-                                        System.out.println("Please enter the location of your study spot:");  
-                                        for (int k = 0; k < 12; k++) {
-                                            System.out.println(k+1 + ": " + ssl.getStudySpotList().get(k).getName());
-                                        }
-                                    }
-                                }
-                                catch (NumberFormatException nfe) {
-                                    action = keyboard.nextLine();
-                                    System.out.println("Invalid Input: Please enter a value from 1 to 12");          
-                                    }
-                                }
-                                userScheduleData.setClass(day, j, ssl.getStudySpotList().get(actionInt-1));
-                                break;
+                        // Loops through the 12 hours in day
+                        for (int j = 8; j < 21; j++) {
+                            System.out.println("Please enter Y if you have a class in this hour or N if you don't have a class at this time: " + j + ":00");
+                            action = keyboard.nextLine();
                             
+                            while (true) {
+                                if (action.equalsIgnoreCase("Y")) {
+                    
+                                    System.out.println("Please enter the location of your study spot:");  
+                                    for (int k = 0; k < 12; k++) {
+                                        System.out.println(k+1 + ": " + ssl.getStudySpotList().get(k).getName());
+                                    }
+                                    
+                                    // Gets valid class information from the user
+                                    boolean studySpotValid = false;
+                                    actionInt = 0;
+                                    while (!studySpotValid) {
+                                    try {
+                                        action = keyboard.nextLine();
+                                        actionInt = Integer.parseInt(action);
+                                        if (actionInt >= 1 && actionInt <= ssl.getStudySpotList().size()) {
+                                            studySpotValid = true;
+                                            }
+                                        else {
+                                            System.out.println("Invalid Input: Please enter a value from 1 to 12");
+                                            System.out.println("Please enter the location of your study spot:");  
+                                            for (int k = 0; k < 12; k++) {
+                                                System.out.println(k+1 + ": " + ssl.getStudySpotList().get(k).getName());
+                                            }
+                                        }
+                                    }
+                                    catch (NumberFormatException nfe) {
+                                        action = keyboard.nextLine();
+                                        System.out.println("Invalid Input: Please enter a value from 1 to 12");          
+                                        }
+                                    }
+                                    userScheduleData.setClass(day, j, ssl.getStudySpotList().get(actionInt-1));
+                                    break;
+                                
+                                }
+                                else if (action.equalsIgnoreCase("N")) {
+                                    userScheduleData.setClass(day, j, null);
+                                    break;
+                                }
+                                else {
+                                    // Deals with an invalid command for whether the user has a class
+                                    System.out.println("Invalid Input: Please enter Y or N");
+                                    action = keyboard.nextLine();
+                                }
+
                             }
-                            else if (action.equalsIgnoreCase("N")) {
-                                userScheduleData.setClass(day, j, null);
+                            
+                        }  
+                        // Asks if the user wants to fill in another day
+                        System.out.println("Do you want to fill in another day? Y for yes, N for no");
+                        action = keyboard.nextLine();
+                        while (true) {
+                            if (action.equalsIgnoreCase("y")) {
+                                System.out.println("OK");
+                                break;
+                            }
+                            else if (action.equalsIgnoreCase("n")) {
                                 break;
                             }
                             else {
-                                // Deals with an invalid command for whether the user has a class
-                                System.out.println("Invalid Input: Please enter Y or N");
-                                action = keyboard.nextLine();
+                                System.out.println("Inavlid input: Do you want to fill in another day? Y for yes, N for no"); 
+                                action = keyboard.nextLine(); 
                             }
-
                         }
-                        
-                    }  
-                    // Asks if the user wants to fill in another day
-                    System.out.println("Do you want to fill in another day? Y for yes, N for no");
-                    action = keyboard.nextLine();
-                    while (true) {
-                        if (action.equalsIgnoreCase("y")) {
-                            System.out.println("OK");
+                        if (action.equalsIgnoreCase("n")) {
                             break;
                         }
-                        else if (action.equalsIgnoreCase("n")) {
-                            break;
-                        }
-                        else {
-                            System.out.println("Inavlid input: Do you want to fill in another day? Y for yes, N for no"); 
-                            action = keyboard.nextLine(); 
-                        }
-                    }
-                    if (action.equalsIgnoreCase("n")) {
-                        break;
-                    }
-                    
                     }
                     else {
                         // Deals with the user entering an invalid day
@@ -266,18 +266,16 @@ public class Survey {
                         action = keyboard.nextLine();
 
                     }
+                }
+                userAccountList.setUserSchedule(username, password, userScheduleData);
+                aSurvey.displayResults(ssl, userScheduleData);
+            }
+            // Ends the program
+            else if (action.equalsIgnoreCase("Q")) {
+                break;
+            }
         }
-        userAccountList.setUserSchedule(username, password, userScheduleData);
-        aSurvey.displayResults(ssl, userScheduleData);
-    }
-
-        // Ends the program
-        else if (action.equalsIgnoreCase("Q")) {
-            break;
-        }
-
         System.out.println("Thank you for using our study spot recommendation app.");
     }
-}
 }
     
