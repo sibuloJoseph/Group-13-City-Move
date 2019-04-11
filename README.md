@@ -1,5 +1,5 @@
 Info:
-- All files for this interactive demo are found in the master branch of this repository (City-Move).
+- All files for this interactive demo/final version are found in the master branch of this repository (City-Move).
 ---------------------------------
 - **To run the text-based version:**
 - All .java files need to be compiled, followed by running the Survey Class.
