@@ -41,7 +41,7 @@ import com.sun.glass.events.KeyEvent;
 /**
  * This class contains the GUI of the app 
  *
- * Last Modified: April 8th, 2019
+ * Last Modified: April 11th, 2019
  */
 
 public class Gui extends Application {
@@ -334,7 +334,6 @@ public class Gui extends Application {
                 currentSpot = inputSchedule.getClass(alex+1, i+8);
                 dropDownStudySpotsArray.get(alex).get(i).getItems().add(currentSpot);
                 dropDownStudySpotsArray.get(alex).get(i).setValue(currentSpot);
-                System.out.println(currentSpot);
             }
         } 
     }
@@ -524,13 +523,8 @@ public class Gui extends Application {
         scheduleButtons.getChildren().addAll(bestStudyspotsAtSchedule, doSurveyAtSchedule, toMainMenuFromSchedule, signoutFromSchedule);
         scheduleMenuGui.setStyle("-fx-background-color: #ffe699;");
         scheduleMenuGui.setSpacing(15);
-        scheduleMenuGui.getChildren().addAll(scheduleTime, scheduleButtons, moreScheduleButtons);
+        scheduleMenuGui.getChildren().addAll(scheduleTime, scheduleButtons);
         sceneForScheduleMenu = new Scene (scheduleMenuGui);
-
-        //Temporary** To get the x and y values of the grid.
-        scheduleImageView.setOnMouseClicked  (s -> {
-            System.out.println("["+s.getX()+", "+s.getY()+"]");
-        }); 
 
         // Event Handler to go to the schedule menu from main menu
         myScheduleButton.setOnAction(new EventHandler<ActionEvent> () {
