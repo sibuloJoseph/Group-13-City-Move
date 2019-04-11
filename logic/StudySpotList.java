@@ -78,8 +78,11 @@ public class StudySpotList{
      * Returns the list of StudySpots after getting the study spots from the StudySpotsList text file.
      */
     public ArrayList<StudySpot> getStudySpotList(){
-        StudySpotList s = new StudySpotList();
-        return s.studySpotList;
+        ArrayList<StudySpot> s = new ArrayList<StudySpot>();
+        for(int i =0; i<studySpotList.size(); i++){
+            s.add(new StudySpot(studySpotList.get(i)));
+        }
+        return s;
     }
 
     /**
@@ -88,29 +91,28 @@ public class StudySpotList{
     public ArrayList<StudySpot> getBestStudySpots(){
         double temp;
         StudySpot tempss;
-        StudySpotList s = new StudySpotList();
-
+        ArrayList<StudySpot> bestStudySpotList = this.getStudySpotList();
         //Create an ArrayList for the comparison values from the compareTo() method in the IdealStudySpot Class
         ArrayList<Double> comparisonValues = new ArrayList<Double>();
-        for(int x=0; x<s.studySpotList.size(); x++){
-            comparisonValues.add(this.getUserIdeal().compareTo(new StudySpot(s.studySpotList.get(x))));
+        for(int x=0; x<bestStudySpotList.size(); x++){
+            comparisonValues.add(this.getUserIdeal().compareTo(new StudySpot(bestStudySpotList.get(x))));
         }
         
         //Sort the comparisonValues array in ascending order and match it with the studySpotList array so that 
         //the studySpotList array will have the best study spot in the first index. 
-        for(int i = 1; i < s.studySpotList.size(); i++) {
+        for(int i = 1; i < bestStudySpotList.size(); i++) {
             for(int j = i - 1; j >= 0; j--) {
                 if(comparisonValues.get(j) > comparisonValues.get(j+1)) {
                     temp = comparisonValues.get(j);
                     comparisonValues.set(j, comparisonValues.get(j+1));
                     comparisonValues.set(j+1, temp);
-                    tempss = s.studySpotList.get(j);
-                    s.studySpotList.set(j, s.studySpotList.get(j+1));
-                    s.studySpotList.set(j+1, tempss);
+                    tempss = bestStudySpotList.get(j);
+                    bestStudySpotList.set(j, bestStudySpotList.get(j+1));
+                    bestStudySpotList.set(j+1, tempss);
                 }
             }
         }
-        return s.studySpotList;
+        return bestStudySpotList;
     }
 
     public StudySpot getLocation(double x, double y){
