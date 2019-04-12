@@ -11,7 +11,7 @@ import logic.Schedule;
  * This class gets the input of the user of their most preferred criteria for study spots at the University of Calgary
  * based on a survey of 5 questions.
  *
- * Last modified: April 10th, 2019
+ * Last modified: April 11th, 2019
  */
 
 public class Survey {
@@ -204,23 +204,22 @@ public class Survey {
                                     boolean studySpotValid = false;
                                     actionInt = 0;
                                     while (!studySpotValid) {
-                                    try {
-                                        action = keyboard.nextLine();
-                                        actionInt = Integer.parseInt(action);
-                                        if (actionInt >= 1 && actionInt <= ssl.getStudySpotList().size()) {
-                                            studySpotValid = true;
+                                        try {
+                                            action = keyboard.nextLine();
+                                            actionInt = Integer.parseInt(action);
+                                            if (actionInt >= 1 && actionInt <= ssl.getStudySpotList().size()) {
+                                                studySpotValid = true;
                                             }
-                                        else {
-                                            System.out.println("Invalid Input: Please enter a value from 1 to 12");
-                                            System.out.println("Please enter the location of your study spot:");  
-                                            for (int k = 0; k < 12; k++) {
-                                                System.out.println(k+1 + ": " + ssl.getStudySpotList().get(k).getName());
+                                            else {
+                                                System.out.println("Invalid Input: Please enter a value from 1 to 12");
+                                                System.out.println("Please enter the location of your study spot:");  
+                                                for (int k = 0; k < 12; k++) {
+                                                    System.out.println(k+1 + ": " + ssl.getStudySpotList().get(k).getName());
+                                                }
                                             }
                                         }
-                                    }
-                                    catch (NumberFormatException nfe) {
-                                        action = keyboard.nextLine();
-                                        System.out.println("Invalid Input: Please enter a value from 1 to 12");          
+                                        catch (NumberFormatException nfe) {
+                                            System.out.println("Invalid Input: Please enter a value from 1 to 12");          
                                         }
                                     }
                                     userScheduleData.setClass(day, j, ssl.getStudySpotList().get(actionInt-1));
